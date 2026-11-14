@@ -1,0 +1,254 @@
+{
+  "id": "research-dd0a56e678e1aef43e3e8ce4ad9b48d0",
+  "stage": "complete",
+  "spec": {
+    "accession": "Q15116",
+    "species": "Homo sapiens",
+    "symbol": "PDCD1",
+    "name": "Programmed cell death protein 1",
+    "domain": "Extracellular domain",
+    "start": 25,
+    "end": 170,
+    "length": 146,
+    "sequence_sha256": "46bcac16aaaa6b413dccd5770407242c5b7c425735eb0524d2d401ca411115db",
+    "count": 10,
+    "binder_length": 80,
+    "modality": "Protein binder",
+    "intent": "Design a miniprotein binder to the extracellular domain for structural binding assessment. Functional blockade remains to be tested.",
+    "source": "https://www.uniprot.org/uniprotkb/Q15116/entry",
+    "limitations": "No epitope, glycosylation, antagonism, off-target binding, toxicity or expression-yield validation is performed. Intended effect is recorded, not inferred from binding."
+  },
+  "target_sequence": "LDSPDRPWNPPTFSPALLVVTEGDNATFTCSFSNTSESFVLNWYRMSPSNQTDKLAAFPEDRSQPGQDCRFRVTQLPNGRDFHMSVVRARRNDSGTYLCGAISLAPKAQIKESLRAELRVTERRAEVPTAHPSPSPRPAGQFQTLV",
+  "candidates": [
+    {
+      "id": "design-1",
+      "design_id": "pres_IyiKYdJbr2oVKV4dCtWU",
+      "sequence": "SPKIEKAKKEVVELALKYGLSDSVIVRIVEAVEKGAKEKNVEKAIEEIKKILEEEAKQLSEEEKEKLLKEIEKILKETFG",
+      "metrics": {
+        "binding_confidence": 0.015723745219136807,
+        "structure_confidence": 0.6677725315093994,
+        "iptm": 0.8691486716270447,
+        "min_interaction_pae": 1.8286556005477905
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_0.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-2",
+      "design_id": "pres_OaPdEwZ56FQwwgMAuXSc",
+      "sequence": "MYKVIVHIEGQEPVVVEVEGEDTLGQVIDKVEAATGIPKEALEAMLKEHGLTLEDTVEQVIEKLNGVLQSGNLKLEFVEL",
+      "metrics": {
+        "binding_confidence": 0.1814391421621465,
+        "structure_confidence": 0.5662698149681091,
+        "iptm": 0.7781623601913452,
+        "min_interaction_pae": 3.236237049102783
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_1.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-3",
+      "design_id": "pres_jsp0f5PwxdruLUIPzRSH",
+      "sequence": "SKEEITIFVVDEDGTVLELTVKKSDTFQEVLERIQEKTGIAPEDQLLQYKGNDLDPSKTLSDYNLEDNAVLHRLLKSKKK",
+      "metrics": {
+        "binding_confidence": 3.1339330598711966e-05,
+        "structure_confidence": 0.5238292217254639,
+        "iptm": 0.7191504240036011,
+        "min_interaction_pae": 3.6700339317321777
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_2.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-4",
+      "design_id": "pres_gopn0tv8ryXBWIvvqpAp",
+      "sequence": "SAAENAQRLVNAVRMAADALGVKEEDKKKLEEAAKEYADKVKGEKALETAIRGAAEAAKLVVETGDVEKAVELLKKAMEK",
+      "metrics": {
+        "binding_confidence": 0.3508771467463003,
+        "structure_confidence": 0.7259346842765808,
+        "iptm": 0.9448551535606384,
+        "min_interaction_pae": 0.7799296975135803
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_3.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-5",
+      "design_id": "pres_tF3kNK0gKpkUGjwWWBGD",
+      "sequence": "MKIFVRFSNGEVLELEVEESDTIKQVKEKIEKITGIPPEKQALIYKGVILQDEKTLKDYGIKENSVLDLVLKLPLSETLD",
+      "metrics": {
+        "binding_confidence": 4.60645725333714e-05,
+        "structure_confidence": 0.2679029703140259,
+        "iptm": 0.493357390165329,
+        "min_interaction_pae": 9.478226661682129
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_4.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-6",
+      "design_id": "pres_9rYfAoKZGTZ5k9YAB5km",
+      "sequence": "VVTEVYENITKTEALKKVEEFLEKNPDAETINITVEYKGKKLSLTGPGHLRDSILDGVEEIFKKLGLGDEDKVTLTITAT",
+      "metrics": {
+        "binding_confidence": 0.6405917654894514,
+        "structure_confidence": 0.7549533247947693,
+        "iptm": 0.9765917062759399,
+        "min_interaction_pae": 0.3908228874206543
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_5.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-7",
+      "design_id": "pres_BgEFoNBfBjntc0G7pprm",
+      "sequence": "PSQPPRLSFPPTDDLSEEQRAYIADAKAYIEENGLKMSVKELHDFMGDVVAGRFPTLEQQATAVAALEPVYKAVVEKLTG",
+      "metrics": {
+        "binding_confidence": 0.027439021285262186,
+        "structure_confidence": 0.7312137484550476,
+        "iptm": 0.9585155248641968,
+        "min_interaction_pae": 0.5375925898551941
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_6.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-8",
+      "design_id": "pres_lpq2yvCai93bSN9TfsyO",
+      "sequence": "MEAGDTEKEVEIDVSDYGVPATVEVAEGRVTLTVTLIDKATGKTQTVTINFEAPAGTLEVLLGEDGKVLVLYKGELVGES",
+      "metrics": {
+        "binding_confidence": 0.028266319632530214,
+        "structure_confidence": 0.6243761777877808,
+        "iptm": 0.8892873525619507,
+        "min_interaction_pae": 2.1294384002685547
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_7.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-9",
+      "design_id": "pres_TRcNKlOoSuEck0bYYip2",
+      "sequence": "SAEAIRRAAVERIVDLLNQALGGSREETIAALEEAREVALQMPEEESAPLLAALEEAIENIRSGKQTPDEAIRQVLATIG",
+      "metrics": {
+        "binding_confidence": 1.6325569959008136e-06,
+        "structure_confidence": 0.6917953491210938,
+        "iptm": 0.8933151960372925,
+        "min_interaction_pae": 1.5160458087921143
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_8.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-10",
+      "design_id": "pres_sMbcc4rTA9PkdMLA0hhX",
+      "sequence": "MEMVKIEIAPGVELYVPKDGKIPVDDIINVVSERLGIPKEEVEKIWKELFPDKSISDSVSVEEAKELAKKIGELVEKRKE",
+      "metrics": {
+        "binding_confidence": 4.094211544725113e-06,
+        "structure_confidence": 0.14522266387939453,
+        "iptm": 0.3006616234779358,
+        "min_interaction_pae": 12.442831039428711
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_9.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    }
+  ],
+  "selected": [],
+  "diagnostic": [
+    "design-6",
+    "design-4",
+    "design-2"
+  ],
+  "events": [
+    "UniProt target sequence and domain verified.",
+    "Validating real Tamarind design settings.",
+    "Real structures verified against target and binder sequences. No candidate passed model gates. Best available predictions shown only for diagnostic inspection.",
+    "Real structures verified against target and binder sequences. No candidate passed model gates. Best available predictions shown only for diagnostic inspection."
+  ],
+  "jobName": "protolab-7a99502f625e4ce090e0c5e96ae12d38",
+  "provider_state": "Complete",
+  "selection_basis": "Sequence/structure QC, then descending model binding confidence; structure confidence breaks ties. Passing requires binding \u22650.70 and structure \u22650.68. Not measured affinity.",
+  "visualization_run": "protolab-7a99502f625e4ce090e0c5e96ae12d38",
+  "rendered": [
+    "target",
+    "design-6",
+    "design-4",
+    "design-2"
+  ],
+  "rendering_candidate": null,
+  "screen_version": 2
+}

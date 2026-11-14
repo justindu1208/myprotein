@@ -1,0 +1,38 @@
+{
+  "run_id": "protolab-9d46438703b940cdafbb761044083892",
+  "candidate_id": "target",
+  "cache_key": "3b8860e8f773995b46fc5dc7b25e825916c475e341f4b381fbdd10b58bdb6967",
+  "input_hashes": {
+    "target": "36a66ab8a460950f3344d68420a9def3c6882247d6916b9e4b57ecc438b90b6d"
+  },
+  "parameters": {
+    "preset": "cartoon",
+    "size": [
+      960,
+      720
+    ],
+    "fps": 30,
+    "script_version": "molecular-evidence-2",
+    "target_chains": [],
+    "binder_chains": [],
+    "interface": []
+  },
+  "chimerax_version": "INFO:\nUCSF ChimeraX version: 1.12 (2026-06-12)\nINFO:\n\u00a9 2016-2026 Regents of the University of California.  All rights reserved.",
+  "transition_label": "Illustrative transition to the predicted complex \u2014 not a molecular-dynamics trajectory.",
+  "media_type": "illustrative_media",
+  "source_job_id": "protolab-9d46438703b940cdafbb761044083892",
+  "script_sha256": "bcbc4a18054b12ee5269ad580551cbd0808fd50c05317f1cd2b41004a26760b1",
+  "state": "ready",
+  "reason": null,
+  "artifacts": {
+    "target.png": "/api/visualizations/protolab-9d46438703b940cdafbb761044083892/target/renders/3b8860e8f773995b46fc5dc7b25e825916c475e341f4b381fbdd10b58bdb6967/target.png",
+    "target.mp4": "/api/visualizations/protolab-9d46438703b940cdafbb761044083892/target/renders/3b8860e8f773995b46fc5dc7b25e825916c475e341f4b381fbdd10b58bdb6967/target.mp4",
+    "render.cxc": "/api/visualizations/protolab-9d46438703b940cdafbb761044083892/target/renders/3b8860e8f773995b46fc5dc7b25e825916c475e341f4b381fbdd10b58bdb6967/render.cxc",
+    "metadata.json": "/api/visualizations/protolab-9d46438703b940cdafbb761044083892/target/renders/3b8860e8f773995b46fc5dc7b25e825916c475e341f4b381fbdd10b58bdb6967/metadata.json"
+  },
+  "checksums": {
+    "target.png": "066ead34a68d848816eab6dc27eaac51e00d18047c64ffe1fd60e83ae1ab5178",
+    "target.mp4": "7772e6b5f2316a55dc8de1ae58a9e523a9c4d8e3ebdbafa333aad1d357890a2a"
+  },
+  "completed_at": 1794688340.463155
+}

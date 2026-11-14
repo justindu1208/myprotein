@@ -6,6 +6,7 @@
   <meta name="description" content="ReceptorFlow — agentic binder screening and evidence-led candidate ranking.">
   <title>ReceptorFlow — molecular decision workbench</title>
   <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/molecular-evidence.css">
 </head>
 <body>
   <div class="noise" aria-hidden="true"></div>
@@ -18,7 +19,7 @@
     </nav>
     <div class="sidebar-foot">
       <span class="status-led"></span>
-      <span>Demo<br>provider</span>
+      <span>Tamarind<br>live</span>
     </div>
   </aside>
 
@@ -27,7 +28,7 @@
       <div class="project-crumb"><span>PROTOLAB</span><i>/</i><strong>RECEPTORFLOW</strong></div>
       <div class="topbar-actions">
         <button class="ghost compact" id="export-json" disabled>Export run</button>
-        <button class="avatar" aria-label="Demo workspace">IC</button>
+        <button class="avatar" aria-label="Live workspace">IC</button>
       </div>
     </header>
 
@@ -41,13 +42,13 @@
         <div class="hero-index" aria-hidden="true">
           <span>RUN</span>
           <strong>01</strong>
-          <small>SIMULATED<br>EVIDENCE</small>
+          <small>REAL MODEL<br>OUTPUTS</small>
         </div>
       </section>
 
       <div class="trust-strip reveal delay-1" role="note">
-        <span>DEMO DATA</span>
-        <p>This workbench demonstrates decision logic. Predictions prioritise experiments; they do not establish biological efficacy or clinical safety.</p>
+        <span>LIVE COMPUTE</span>
+        <p>Each run is tied to the entered target sequence. Tamarind computes real designs and complex predictions; predictions do not establish biological efficacy or clinical safety.</p>
       </div>
 
       <section class="design-grid reveal delay-2" id="design">
@@ -57,10 +58,17 @@
             <span class="panel-meta">Natural language → scientific specification</span>
           </div>
 
+          <div class="quick-intents" aria-label="Three live design briefs">
+            <button type="button" data-brief="il2">1 · IL-2 · P60568</button>
+            <button type="button" data-brief="pdl1">2 · PD-L1 · Q9NZQ7</button>
+            <button type="button" data-brief="pd1">3 · PD-1 · Q15116</button>
+          </div>
+          <p class="brief-preset-note">Switch target-specific briefs. Each computes 10 candidates; only up to 3 candidates receive animations. Switching does not submit another job.</p>
+
           <div class="target-row">
             <label class="field target-field">
               <span>Target receptor or UniProt ID</span>
-              <input id="target" value="EGFR" placeholder="e.g. EGFR, P00533 or Receptor A" autocomplete="off">
+              <input id="target" value="P60568" placeholder="e.g. EGFR or P00533" autocomplete="off">
             </label>
             <label class="field">
               <span>Species</span>
@@ -74,17 +82,17 @@
               <span>Modality</span>
               <select id="modality">
                 <option>Protein binder</option>
-                <option>Antibody</option>
-                <option>Nanobody</option>
-                <option>Peptide</option>
-                <option>Let the agent choose</option>
+                <option disabled>Antibody (not yet supported)</option>
+                <option disabled>Nanobody (not yet supported)</option>
+                <option disabled>Peptide (not yet supported)</option>
+                <option disabled>Let the agent choose (not yet supported)</option>
               </select>
             </label>
           </div>
 
           <label class="field intent-field">
             <span>What should the designed molecule do?</span>
-            <textarea id="intent">Design a protein binder that blocks the natural ligand without activating the receptor.</textarea>
+            <textarea id="intent">Design a miniprotein binder to mature IL-2 for structural binding assessment. Biological effects remain to be tested.</textarea>
             <small>Describe the desired biological effect. Binding alone does not prove that effect.</small>
           </label>
 
@@ -95,11 +103,13 @@
           </div>
 
           <div class="builder-action">
-            <div class="agent-note"><span>Agent</span><p>I will resolve the target, extract mechanism and risks, then expose assumptions for confirmation.</p></div>
+            <div class="agent-note"><span>Resolver</span><p>Resolve the UniProt sequence and region, then run real target-specific design and screening.</p></div>
             <button class="primary" id="build-brief">Build design brief <span>↗</span></button>
           </div>
         </article>
 
+        </section>
+      <section class="resolved-evidence" id="resolved-evidence">
         <aside class="panel parsed-brief" id="parsed-brief" aria-live="polite">
           <div class="panel-heading compact-heading">
             <div><span class="section-no">AI</span><h2>Resolved brief</h2></div>
@@ -116,58 +126,59 @@
               <div><small>RESOLVED TARGET</small><strong id="brief-name">Epidermal growth factor receptor</strong><em id="brief-id">P00533 · Homo sapiens</em></div>
             </div>
             <dl>
-              <div><dt>Target domain</dt><dd>Extracellular domain</dd></div>
+              <div><dt>Target domain</dt><dd id="brief-domain">Awaiting target resolution</dd></div>
               <div><dt>Desired action</dt><dd id="brief-action">Competitive blockade</dd></div>
               <div><dt>Modality</dt><dd id="brief-modality">Protein binder</dd></div>
-              <div><dt>Must avoid</dt><dd>Activation · off-target homologs</dd></div>
+              <div><dt>Not evaluated</dt><dd>Biological effect · off-target binding · safety</dd></div>
             </dl>
-            <div class="limitation"><b>Evidence boundary</b><p>Structural binding predictions cannot establish antagonism. A ligand-competition and receptor-activation assay are still required.</p></div>
+            <div class="limitation"><b>Evidence boundary</b><p>Predicted binding does not establish the requested biological effect. Target-appropriate binding and functional assays remain necessary.</p></div>
             <button class="text-action" id="edit-brief">Edit inputs</button>
           </div>
         </aside>
+        <article class="panel molecular-evidence" id="molecular-evidence" tabindex="-1" aria-label="Molecular Evidence">
+          <div class="panel-heading"><div><span class="section-no">3D</span><h2>Molecular Evidence</h2></div><span id="evidence-badge">Awaiting target</span></div>
+          <div class="evidence-body">
+            <div class="evidence-source">Evidence source: current target’s real Tamarind task</div>
+            <p id="evidence-scope" class="evidence-note">Resolve the design brief to load target evidence.</p>
+            <div id="evidence-candidates" class="evidence-pills" role="group" aria-label="Target and selected candidates"></div>
+            <div class="evidence-tabs" role="group" aria-label="Structure view"><button id="evidence-target" aria-pressed="true">Target</button><button id="evidence-monomer" aria-pressed="false">Selected proteins</button><button id="evidence-complex" aria-pressed="false">Predicted complex</button></div>
+            <div class="evidence-controls"><label>Representation<select id="evidence-representation"><option value="cartoon">Cartoon</option><option value="surface">Molecular surface</option><option value="interface">Cartoon + interface sticks</option><option value="target_only">Target only</option><option value="binder_only">Binder only</option><option value="full_complex">Full complex</option></select></label><button id="evidence-reset">Reset camera</button><button id="evidence-fullscreen">Full screen</button></div>
+            <div id="evidence-stage" class="evidence-stage"><p id="evidence-empty">No target resolved.</p><iframe id="samson-viewer" title="SAMSON molecular evidence" loading="lazy" referrerpolicy="no-referrer" allowfullscreen hidden></iframe><video id="evidence-video" controls muted playsinline loop aria-label="ChimeraX molecular presentation video" hidden></video><img id="evidence-image" alt="ChimeraX molecular structure render" hidden></div>
+            <p id="evidence-status" role="status" aria-live="polite">No target resolved.</p>
+            <button id="evidence-blocked" hidden>Viewer blocked or unavailable? Show fallback</button><button id="evidence-retry" hidden>Retry SAMSON viewer</button>
+            <p id="evidence-animation-label" hidden>Illustrative transition to the predicted complex — not a molecular-dynamics trajectory.</p>
+            <p id="evidence-provenance" class="evidence-note"></p>
+            <div class="evidence-actions"><a id="evidence-download-cif" hidden>Download mmCIF</a><a id="evidence-download-pdb" hidden>Download PDB</a><a id="evidence-open-samson" target="_blank" rel="noreferrer" hidden>Open in SAMSON Connect ↗</a><button id="evidence-render" disabled>Render with ChimeraX</button><a id="evidence-script" hidden>Download render script</a></div>
+            <details><summary>Interface residues & selected contacts</summary><p id="evidence-interface">No interface data available.</p></details>
+          </div>
+        </article>
       </section>
 
       <section class="screen-layout reveal" id="pipeline">
         <article class="panel priorities-panel">
-          <div class="panel-heading">
-            <div><span class="section-no">02</span><h2>Set the decision surface</h2></div>
-            <span class="sum-badge"><b id="weight-total">100</b>% allocated</span>
-          </div>
-          <p class="panel-intro">Preferences change ranking instantly. Hard constraints eliminate candidates before ranking.</p>
-          <div id="weight-controls" class="weight-controls">
-            <label class="weight-row" data-key="affinity"><span><b>Affinity</b><small>Target binding</small></span><input type="range" min="0" max="70" value="40"><output>40%</output></label>
-            <label class="weight-row" data-key="selectivity"><span><b>Selectivity</b><small>Off-target margin</small></span><input type="range" min="0" max="70" value="25"><output>25%</output></label>
-            <label class="weight-row" data-key="safety"><span><b>Computational safety</b><small>Immunogenicity + aggregation</small></span><input type="range" min="0" max="70" value="20"><output>20%</output></label>
-            <label class="weight-row" data-key="stability"><span><b>Stability</b><small>Fold confidence</small></span><input type="range" min="0" max="70" value="10"><output>10%</output></label>
-            <label class="weight-row" data-key="solubility"><span><b>Manufacturability</b><small>Solubility proxy</small></span><input type="range" min="0" max="70" value="5"><output>5%</output></label>
-          </div>
-          <div class="constraint-box">
-            <div class="constraint-title"><span>Hard constraints</span><small>Fail = excluded</small></div>
-            <label><input type="checkbox" id="constraint-structure" checked><span>Structure confidence ≥ 68</span></label>
-            <label><input type="checkbox" id="constraint-aggregation" checked><span>Aggregation risk ≤ 35</span></label>
-            <label><input type="checkbox" id="constraint-immunogenicity" checked><span>Immunogenicity risk ≤ 38</span></label>
-          </div>
+          <div class="panel-heading"><div><span class="section-no">02</span><h2>Real screening criteria</h2></div></div>
+          <div class="evidence-body"><p>Generate 10 miniproteins, validate sequences and structure files, then rank using actual model confidence. Inspect up to 3 candidates.</p><p>Pass gates: binding confidence ≥ 0.70 and structure confidence ≥ 0.68.</p><p>Selectivity, toxicity, immunogenicity, expression yield and binding kinetics: <strong>not evaluated</strong>. No invented scores are assigned.</p><p>If none pass, the strongest available predictions are labelled diagnostic only.</p></div>
         </article>
 
         <article class="panel pipeline-panel">
           <div class="panel-heading">
             <div><span class="section-no">03</span><h2>Rapid screen</h2></div>
-            <span class="runtime" id="runtime">~ 02:40 estimated</span>
+            <span class="runtime" id="runtime">Awaiting real task</span>
           </div>
           <div class="pipeline-map" id="pipeline-map">
             <div class="pipe-step" data-step="0"><i>01</i><div><b>Resolve target</b><span>UniProt / structure lookup</span></div><em>Queued</em></div>
-            <div class="pipe-step" data-step="1"><i>02</i><div><b>Generate candidates</b><span>Demo provider · 30 binders</span></div><em>Queued</em></div>
-            <div class="pipe-step" data-step="2"><i>03</i><div><b>Predict complexes</b><span>Boltz-shaped metric schema</span></div><em>Queued</em></div>
-            <div class="pipe-step" data-step="3"><i>04</i><div><b>Screen liabilities</b><span>Solubility · aggregation · immune risk</span></div><em>Queued</em></div>
+            <div class="pipe-step" data-step="1"><i>02</i><div><b>Generate candidates</b><span>Tamarind BoltzProt · 10 binders</span></div><em>Queued</em></div>
+            <div class="pipe-step" data-step="2"><i>03</i><div><b>Predict complexes</b><span>Real target–binder coordinates</span></div><em>Queued</em></div>
+            <div class="pipe-step" data-step="3"><i>04</i><div><b>Validate candidates</b><span>Sequence and structure identity</span></div><em>Queued</em></div>
             <div class="pipe-step" data-step="4"><i>05</i><div><b>Apply constraints</b><span>Evidence gates</span></div><em>Queued</em></div>
-            <div class="pipe-step" data-step="5"><i>06</i><div><b>Rank trade-offs</b><span>Weighted decision layer</span></div><em>Queued</em></div>
+            <div class="pipe-step" data-step="5"><i>06</i><div><b>Render selected structures</b><span>ChimeraX monomer + complex movies</span></div><em>Queued</em></div>
           </div>
-          <button class="primary run-button" id="run-screen" disabled><span class="run-icon">▶</span> Run simulated rapid screen</button>
-          <div class="provider-note"><span>DEMO PROVIDER</span> Deterministic candidate values · no external jobs or charges</div>
+          <button class="primary run-button" id="run-screen" disabled><span class="run-icon">▶</span> Run real Tamarind screen (10 candidates)</button>
+          <div class="provider-note"><span>TAMARIND LIVE</span> Run submits a real compute job using your account credits. Existing identical jobs are reused.</div>
         </article>
 
         <article class="panel activity-panel">
-          <div class="panel-heading compact-heading"><div><span class="section-no">LOG</span><h2>Agent activity</h2></div><span class="activity-count">0 / 6</span></div>
+          <div class="panel-heading compact-heading"><div><span class="section-no">LOG</span><h2>Task activity</h2></div><span class="activity-count">0 / 6</span></div>
           <div id="activity-log" class="activity-log">
             <div class="log-placeholder">Activity summaries will appear here. No private chain-of-thought is displayed.</div>
           </div>
@@ -176,18 +187,18 @@
 
       <section class="results-section" id="results" hidden>
         <div class="results-heading">
-          <div><span class="kicker">04 / DECISION REPORT</span><h2>Choose the experiment, not just the score.</h2><p>Weights can still be changed above. Ranking and explanations will update without rerunning the screen.</p></div>
+          <div><span class="kicker">04 / DECISION REPORT</span><h2>Choose the experiment, not just the score.</h2><p>Only metrics returned by the real model are shown.</p></div>
           <div class="results-actions"><button class="ghost" id="export-csv">Export CSV</button><button class="primary" id="compare-top">Compare top 3</button></div>
         </div>
 
         <div class="stats-row">
-          <div><span>Screened</span><strong>30</strong><small>simulated binders</small></div>
+          <div><span>Screened</span><strong id="stat-screened">—</strong><small>real model outputs</small></div>
           <div><span>Eligible</span><strong id="stat-eligible">—</strong><small>passed hard gates</small></div>
           <div><span>Excluded</span><strong id="stat-excluded">—</strong><small>retained with reasons</small></div>
-          <div><span>Decision frontier</span><strong id="stat-frontier">—</strong><small>non-dominated</small></div>
+          <div><span>Shown for inspection</span><strong id="stat-frontier">—</strong><small>selected or diagnostic</small></div>
         </div>
 
-        <div class="winner-grid" id="winner-grid"></div>
+        <p id="selection-note" class="limitation"></p><div class="winner-grid" id="winner-grid"></div>
 
         <div class="results-grid">
           <article class="panel candidate-panel">
@@ -197,57 +208,27 @@
             </div>
             <div class="table-wrap">
               <table>
-                <thead><tr><th>Rank</th><th>Candidate</th><th>Score</th><th>Affinity</th><th>Selectivity</th><th>Safety</th><th>Stability</th><th>Uncertainty</th><th></th></tr></thead>
+                <thead><tr><th>Rank</th><th>Candidate</th><th>Binding confidence</th><th>Structure confidence</th><th>ipTM</th><th>Gate outcome</th><th>Reasons</th><th></th></tr></thead>
                 <tbody id="candidate-body"></tbody>
               </table>
             </div>
-            <div class="table-foot"><span><i class="frontier-dot"></i> Decision frontier</span><span>Top 10 shown · all 30 included in export</span></div>
+            <div class="table-foot"><span><i class="frontier-dot"></i> Shown for inspection</span><span>All real candidates included in export</span></div>
           </article>
 
-          <aside class="insight-stack">
-            <article class="panel chart-panel">
-              <div class="panel-heading compact-heading"><div><span class="section-no">MAP</span><h2>Affinity × safety</h2></div><span class="chart-key">● eligible&nbsp;&nbsp; × excluded</span></div>
-              <canvas id="scatter" aria-label="Affinity versus computational safety scatter plot"></canvas>
-            </article>
-            <article class="panel next-panel">
-              <span class="section-no">NEXT</span>
-              <h3>Deep validation is selective by design.</h3>
-              <p>Only the final three candidates advance to multi-seed structure prediction, wider off-target screening and energetic analysis.</p>
-              <div><span>01</span> Cross-model agreement</div>
-              <div><span>02</span> Expanded off-target panel</div>
-              <div><span>03</span> Assay-ready hypotheses</div>
-            </article>
-          </aside>
+
         </div>
       </section>
 
       <footer>
         <span>RECEPTORFLOW / PROTOLAB</span>
         <p>Evidence before explanation.</p>
-        <span>SIMULATED DECISION SUPPORT · 2026</span>
+        <span>MODEL-BASED RESEARCH SUPPORT · 2026</span>
       </footer>
     </main>
   </div>
 
-  <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
-  <aside class="candidate-drawer" id="candidate-drawer" aria-label="Candidate detail" aria-hidden="true">
-    <button class="drawer-close" id="drawer-close" aria-label="Close candidate detail">×</button>
-    <div class="drawer-topline"><span id="drawer-rank">RANK 01</span><span class="demo-chip">SIMULATED</span></div>
-    <div class="drawer-title"><div><small>CANDIDATE</small><h2 id="drawer-name">RF–014</h2></div><strong id="drawer-score">84.2</strong></div>
-    <div class="molecule-view"><canvas id="molecule" aria-label="Interactive illustrative receptor and binder structure"></canvas><div class="molecule-labels"><span><i class="target-color"></i>Receptor</span><span><i class="binder-color"></i>Binder</span><em>Drag to rotate · wheel to zoom</em></div></div>
-    <div class="drawer-grid">
-      <div class="radar-wrap"><canvas id="radar" aria-label="Candidate metric radar chart"></canvas></div>
-      <div class="score-list" id="score-list"></div>
-    </div>
-    <div class="evidence-copy">
-      <div><span>Why selected</span><p id="drawer-why"></p></div>
-      <div><span>Main concern</span><p id="drawer-concern"></p></div>
-      <div><span>Recommended next experiment</span><p id="drawer-next"></p></div>
-    </div>
-    <div class="provenance"><b>Provenance</b><span>DemoProvider / deterministic-v1</span><span>Not a physical prediction</span></div>
-  </aside>
-
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="/molecular-evidence.js"></script>
   <script src="/app.js"></script>
 </body>
 </html>

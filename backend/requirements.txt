@@ -2,3 +2,6 @@
 # plain Python. These are for the live-model path and tests.
 adaption>=0.4 ; python_version >= "3.9"   # Adaption Python SDK (inference stacks)
 pytest>=8.0
+httpx>=0.28,<1
+gemmi>=0.7,<0.8
+filelock>=3.12,<4

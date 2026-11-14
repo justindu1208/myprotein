@@ -1,0 +1,14 @@
+set bgColor white
+lighting soft
+graphics silhouettes true
+windowsize 960 720
+open target.cif id 1
+hide #1 atoms
+cartoon #1
+color #1 teal
+view #1 pad 0.25 clip false
+save target.png width 960 height 720 supersample 2
+movie record size 960,720 supersample 2
+turn y 2 180 models #1
+wait 180
+movie encode target.mp4 framerate 30

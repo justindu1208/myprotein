@@ -6,17 +6,76 @@ from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[2] / 'frontend'
 ASSETS = {'/': ('index.html', 'text/html'), '/app.js': ('app.js', 'text/javascript'), '/style.css': ('style.css', 'text/css')}
+ASSETS['/molecular-evidence.js'] = ('molecular-evidence.js', 'text/javascript')
+ASSETS['/molecular-evidence.css'] = ('molecular-evidence.css', 'text/css')
 
 class Handler(BaseHTTPRequestHandler):
     def respond(self, status, body, content_type='application/json'):
         self.send_response(status)
-        self.send_header('Content-Type', content_type + '; charset=utf-8')
+        self.send_header('Content-Type', content_type + ('; charset=utf-8' if content_type.startswith('text/') or content_type=='application/json' else ''))
         self.send_header('Cache-Control', 'no-store')
         self.send_header('X-Content-Type-Options', 'nosniff')
         self.end_headers()
         self.wfile.write(body)
 
+    def respond_file(self, path, mime):
+        import re
+        size=path.stat().st_size
+        start,end,status=0,size-1,200
+        requested=self.headers.get('Range')
+        if requested:
+            match=re.fullmatch(r'bytes=(\d*)-(\d*)',requested)
+            if not match or not any(match.groups()):
+                self.send_response(416);self.send_header('Content-Range',f'bytes */{size}');self.end_headers();return
+            a,b=match.groups()
+            if a:start=int(a);end=min(int(b),size-1) if b else size-1
+            else:start=max(0,size-int(b))
+            if start>=size or start>end:
+                self.send_response(416);self.send_header('Content-Range',f'bytes */{size}');self.end_headers();return
+            status=206
+        self.send_response(status)
+        self.send_header('Content-Type',mime)
+        self.send_header('Content-Length',str(end-start+1))
+        self.send_header('Accept-Ranges','bytes')
+        self.send_header('X-Content-Type-Options','nosniff')
+        if status==206:self.send_header('Content-Range',f'bytes {start}-{end}/{size}')
+        self.end_headers()
+        with path.open('rb') as stream:
+            stream.seek(start);remaining=end-start+1
+            while remaining:
+                chunk=stream.read(min(65536,remaining))
+                if not chunk:break
+                try:self.wfile.write(chunk)
+                except (BrokenPipeError,ConnectionResetError):break
+                remaining-=len(chunk)
+
     def do_GET(self):
+        if urlparse(self.path).path=='/api/research/demos':
+            from .research import demos
+            return self.respond(200,json.dumps(demos(),allow_nan=False).encode())
+        if urlparse(self.path).path.startswith('/api/research/'):
+            try:
+                from .research import status
+                return self.respond(200,json.dumps(status(urlparse(self.path).path.split('/')[-1]),allow_nan=False).encode())
+            except Exception as exc:return self.respond(400,json.dumps({'error':str(exc)}).encode())
+        if urlparse(self.path).path.startswith('/api/visualizations'):
+            try:
+                from urllib.parse import parse_qs
+                from . import visualizations as viz
+                from . import visualization_store as store
+                parsed=urlparse(self.path);parts=parsed.path.strip('/').split('/');query=parse_qs(parsed.query)
+                if parts==['api','visualizations']:
+                    result={'runs':store.catalog(),'renderer':viz.renderer.check()}
+                elif len(parts)==4 and parts[-1]=='manifest': result=viz.public_manifest(parts[2])
+                elif len(parts)==5 and parts[-1]=='status': result=viz.renderer.get_status(parts[2],parts[3],query.get('preset',['cartoon'])[0])
+                elif len(parts)==5:
+                    path,mime=viz.serve_asset(parts[2],parts[3],parts[4]);return self.respond_file(path,mime)
+                elif len(parts)==7 and parts[4]=='renders':
+                    path,mime=viz.serve_asset(parts[2],parts[3],parts[6],parts[5]);return self.respond_file(path,mime)
+                else:return self.respond(404,b'{"error":"Unknown visualization endpoint"}')
+                return self.respond(200,json.dumps(result,allow_nan=False).encode())
+            except Exception as exc:
+                return self.respond(400,json.dumps({'error':str(exc)}).encode())
         from .live_eval import public_status, RUN
         if self.path in ('/api/design/results', '/api/design/predictions'):
             try:
@@ -59,6 +118,33 @@ class Handler(BaseHTTPRequestHandler):
         self.respond(200, (ROOT / asset[0]).read_bytes(), asset[1])
 
     def do_POST(self):
+        if self.path.startswith('/api/research/'):
+            if self.headers.get('Origin') != 'http://' + self.headers.get('Host',''):
+                return self.respond(403,b'{"error":"Origin rejected"}')
+            try:
+                from . import research
+                size=int(self.headers.get('Content-Length',0))
+                if not 0<size<=5000:raise ValueError('Invalid request size')
+                data=json.loads(self.rfile.read(size))
+                if self.path=='/api/research/resolve':result=research.resolve(data)
+                elif self.path=='/api/research/start':result=research.start(data.get('id'))
+                else:raise ValueError('Unknown research action')
+                return self.respond(200,json.dumps(result,allow_nan=False).encode())
+            except Exception as exc:return self.respond(400,json.dumps({'error':str(exc)}).encode())
+        if self.path.startswith('/api/visualizations/'):
+            if self.headers.get('Origin') != 'http://' + self.headers.get('Host',''):
+                return self.respond(403,b'{"error":"Origin rejected"}')
+            try:
+                from . import visualizations as viz
+                size=int(self.headers.get('Content-Length',0))
+                if not 0<size<=4000:raise ValueError('Invalid request size')
+                data=json.loads(self.rfile.read(size));parts=self.path.strip('/').split('/')
+                if self.path=='/api/visualizations/resolve':result=viz.resolve_target(data.get('accession'),data.get('species'))
+                elif len(parts)==5 and parts[-1]=='render':result=viz.renderer.submit(parts[2],parts[3],data.get('preset','cartoon'))
+                elif self.path=='/api/visualizations/check':result=viz.renderer.check(refresh=True)
+                else:return self.respond(404,b'{"error":"Unknown visualization action"}')
+                return self.respond(200,json.dumps(result,allow_nan=False).encode())
+            except Exception as exc:return self.respond(400,json.dumps({'error':str(exc)}).encode())
         if self.path not in ('/api/design/estimate', '/api/design/submit', '/api/design/predictions/estimate', '/api/design/predictions/submit'):
             return self.respond(404, b'{}')
         if self.headers.get('Origin') != 'http://' + self.headers.get('Host', ''):
@@ -80,7 +166,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--port', type=int, default=8765)
     args = parser.parse_args()
+    from .research import resume_pending, install_bundled_demos
     server = ThreadingHTTPServer(('127.0.0.1', args.port), Handler)
+    install_bundled_demos()
+    resume_pending()
     print(f'Protolab: http://127.0.0.1:{args.port} (Ctrl+C to stop)', flush=True)
     try:
         server.serve_forever()

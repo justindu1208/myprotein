@@ -1,0 +1,57 @@
+set bgColor white
+lighting soft
+graphics silhouettes true
+windowsize 960 720
+open monomer.cif id 1
+hide #1 atoms
+cartoon #1
+color #1 lime
+view #1 pad 0.25 clip false
+save monomer.png width 960 height 720 supersample 2
+movie record size 960,720 supersample 2
+turn y 2 180 models #1
+wait 180
+movie encode monomer.mp4 framerate 30
+close #1
+open complex.cif id 1
+hide #1 atoms
+cartoon #1
+color #1 teal
+color #1/B lime
+show #1/A:35|#1/A:38|#1/A:41|#1/A:42|#1/A:43|#1/A:45|#1/A:61|#1/A:64|#1/A:65|#1/A:68|#1/A:69|#1/A:71|#1/A:72|#1/A:109|#1/A:110|#1/A:111|#1/B:1|#1/B:3|#1/B:4|#1/B:7|#1/B:8|#1/B:29|#1/B:64|#1/B:68|#1/B:69|#1/B:70|#1/B:72|#1/B:73|#1/B:76|#1/B:77|#1/B:79|#1/B:80 atoms
+style #1/A:35|#1/A:38|#1/A:41|#1/A:42|#1/A:43|#1/A:45|#1/A:61|#1/A:64|#1/A:65|#1/A:68|#1/A:69|#1/A:71|#1/A:72|#1/A:109|#1/A:110|#1/A:111|#1/B:1|#1/B:3|#1/B:4|#1/B:7|#1/B:8|#1/B:29|#1/B:64|#1/B:68|#1/B:69|#1/B:70|#1/B:72|#1/B:73|#1/B:76|#1/B:77|#1/B:79|#1/B:80 stick
+view #1 pad 0.25 clip false
+save complex.png width 960 height 720 supersample 2
+hide #1 models
+open pose-target.cif id 2
+open pose-binder.cif id 3
+hide #2 atoms
+cartoon #2
+color #2 teal
+hide #3 atoms
+cartoon #3
+color #3 lime
+hide #2,3 models
+open monomer.cif id 4
+hide #4 atoms
+cartoon #4
+color #4 lime
+view #4 pad 0.25 clip false
+movie record size 960,720 supersample 2
+turn y 2 180 models #4
+wait 180
+hide #4 models
+show #2,3 models
+move x 35 models #3
+view #2,3 pad 0.25 clip false
+wait 30
+move x -0.5 70 models #3
+wait 70
+hide #2,3 models
+show #1 models
+view #1 pad 0.25 clip false
+wait 20
+turn y 2 180 models #1
+wait 180
+wait 30
+movie encode complex.mp4 framerate 30

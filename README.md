@@ -1,3 +1,13 @@
+## Live protein demos (latest workbench)
+
+Run `sh scripts/start-local.sh` (macOS/Linux) or `scripts/start-local.cmd` (Windows), then open http://127.0.0.1:8877.
+
+The IL-2, PD-L1 and PD-1 buttons load real, precomputed Tamarind results and ChimeraX videos bundled in `demo-data/`. Server startup restores these into ignored `runs/` without overwriting local files. Viewing these demos does not submit compute jobs and needs no API key or ChimeraX installation. New targets require your own `TAMARIND_API_KEY` and ChimeraX; see [live workflow](LIVE_RESEARCH.md) and [renderer setup](MOLECULAR_EVIDENCE.md).
+
+Each demo shows three ranked candidates with separate monomer/complex animations. IL-2 and PD-L1 each have one candidate passing the configured model gates; PD-1 has none. Other displayed candidates are diagnostic predictions. Animations illustrate predicted structures, not experimental binding or molecular dynamics. No credentials, expiring URLs, raw provider responses, or application binaries are bundled.
+
+---
+
 # Protolab
 
 A research workbench that takes a question through one full round of a research

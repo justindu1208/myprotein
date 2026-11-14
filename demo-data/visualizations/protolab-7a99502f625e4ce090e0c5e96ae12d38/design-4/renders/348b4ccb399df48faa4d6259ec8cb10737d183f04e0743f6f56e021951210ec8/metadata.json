@@ -1,0 +1,218 @@
+{
+  "run_id": "protolab-7a99502f625e4ce090e0c5e96ae12d38",
+  "candidate_id": "design-4",
+  "cache_key": "348b4ccb399df48faa4d6259ec8cb10737d183f04e0743f6f56e021951210ec8",
+  "input_hashes": {
+    "monomer": "3ed43504ef97f1be7c4a55ed812a4687280469f5ad04d4ae4e5a51e94d8a1404",
+    "complex": "f4805d5c6693bd38b7fcc4cde4678dde32c8e389395fc4b92cb4b04b4d410ba4"
+  },
+  "parameters": {
+    "preset": "cartoon",
+    "size": [
+      960,
+      720
+    ],
+    "fps": 30,
+    "script_version": "molecular-evidence-2",
+    "target_chains": [
+      "A"
+    ],
+    "binder_chains": [
+      "B"
+    ],
+    "interface": [
+      {
+        "chain": "A",
+        "number": 40,
+        "name": "VAL"
+      },
+      {
+        "chain": "A",
+        "number": 42,
+        "name": "ASN"
+      },
+      {
+        "chain": "A",
+        "number": 44,
+        "name": "TYR"
+      },
+      {
+        "chain": "A",
+        "number": 50,
+        "name": "ASN"
+      },
+      {
+        "chain": "A",
+        "number": 51,
+        "name": "GLN"
+      },
+      {
+        "chain": "A",
+        "number": 52,
+        "name": "THR"
+      },
+      {
+        "chain": "A",
+        "number": 54,
+        "name": "LYS"
+      },
+      {
+        "chain": "A",
+        "number": 61,
+        "name": "ASP"
+      },
+      {
+        "chain": "A",
+        "number": 63,
+        "name": "SER"
+      },
+      {
+        "chain": "A",
+        "number": 64,
+        "name": "GLN"
+      },
+      {
+        "chain": "A",
+        "number": 100,
+        "name": "GLY"
+      },
+      {
+        "chain": "A",
+        "number": 102,
+        "name": "ILE"
+      },
+      {
+        "chain": "A",
+        "number": 104,
+        "name": "LEU"
+      },
+      {
+        "chain": "A",
+        "number": 107,
+        "name": "LYS"
+      },
+      {
+        "chain": "A",
+        "number": 108,
+        "name": "ALA"
+      },
+      {
+        "chain": "A",
+        "number": 110,
+        "name": "ILE"
+      },
+      {
+        "chain": "A",
+        "number": 112,
+        "name": "GLU"
+      },
+      {
+        "chain": "A",
+        "number": 115,
+        "name": "ARG"
+      },
+      {
+        "chain": "B",
+        "number": 7,
+        "name": "GLN"
+      },
+      {
+        "chain": "B",
+        "number": 10,
+        "name": "VAL"
+      },
+      {
+        "chain": "B",
+        "number": 11,
+        "name": "ASN"
+      },
+      {
+        "chain": "B",
+        "number": 12,
+        "name": "ALA"
+      },
+      {
+        "chain": "B",
+        "number": 14,
+        "name": "ARG"
+      },
+      {
+        "chain": "B",
+        "number": 15,
+        "name": "MET"
+      },
+      {
+        "chain": "B",
+        "number": 16,
+        "name": "ALA"
+      },
+      {
+        "chain": "B",
+        "number": 18,
+        "name": "ASP"
+      },
+      {
+        "chain": "B",
+        "number": 19,
+        "name": "ALA"
+      },
+      {
+        "chain": "B",
+        "number": 20,
+        "name": "LEU"
+      },
+      {
+        "chain": "B",
+        "number": 21,
+        "name": "GLY"
+      },
+      {
+        "chain": "B",
+        "number": 51,
+        "name": "ILE"
+      },
+      {
+        "chain": "B",
+        "number": 52,
+        "name": "ARG"
+      },
+      {
+        "chain": "B",
+        "number": 55,
+        "name": "ALA"
+      },
+      {
+        "chain": "B",
+        "number": 56,
+        "name": "GLU"
+      },
+      {
+        "chain": "B",
+        "number": 59,
+        "name": "LYS"
+      }
+    ]
+  },
+  "chimerax_version": "INFO:\nUCSF ChimeraX version: 1.12 (2026-06-12)\nINFO:\n\u00a9 2016-2026 Regents of the University of California.  All rights reserved.",
+  "transition_label": "Illustrative transition to the predicted complex \u2014 not a molecular-dynamics trajectory.",
+  "media_type": "illustrative_media",
+  "source_job_id": "protolab-7a99502f625e4ce090e0c5e96ae12d38",
+  "script_sha256": "8d766d48204b7d180c2579a7fc346ab4c0ebc8783e3b35fdd72333baadf01603",
+  "state": "ready",
+  "reason": null,
+  "artifacts": {
+    "monomer.png": "/api/visualizations/protolab-7a99502f625e4ce090e0c5e96ae12d38/design-4/renders/348b4ccb399df48faa4d6259ec8cb10737d183f04e0743f6f56e021951210ec8/monomer.png",
+    "complex.png": "/api/visualizations/protolab-7a99502f625e4ce090e0c5e96ae12d38/design-4/renders/348b4ccb399df48faa4d6259ec8cb10737d183f04e0743f6f56e021951210ec8/complex.png",
+    "monomer.mp4": "/api/visualizations/protolab-7a99502f625e4ce090e0c5e96ae12d38/design-4/renders/348b4ccb399df48faa4d6259ec8cb10737d183f04e0743f6f56e021951210ec8/monomer.mp4",
+    "complex.mp4": "/api/visualizations/protolab-7a99502f625e4ce090e0c5e96ae12d38/design-4/renders/348b4ccb399df48faa4d6259ec8cb10737d183f04e0743f6f56e021951210ec8/complex.mp4",
+    "render.cxc": "/api/visualizations/protolab-7a99502f625e4ce090e0c5e96ae12d38/design-4/renders/348b4ccb399df48faa4d6259ec8cb10737d183f04e0743f6f56e021951210ec8/render.cxc",
+    "metadata.json": "/api/visualizations/protolab-7a99502f625e4ce090e0c5e96ae12d38/design-4/renders/348b4ccb399df48faa4d6259ec8cb10737d183f04e0743f6f56e021951210ec8/metadata.json"
+  },
+  "checksums": {
+    "monomer.png": "28c0dc9412748b057203940c5760e3a2968076ecc02900e62dd4f09088ba14f0",
+    "complex.png": "6f404468da75e731e5197013a8d0c8f8e51f44c4e100f53982bb9a71ee2fd69c",
+    "monomer.mp4": "f4149018f5f2f08c67fffdddd8a7b47a9df0e9e05b988e8428a4897715a3fb11",
+    "complex.mp4": "25dcc5325d26ee6bc15198a74fe7c51cc5dd6588aae783ce7231480ba80260f4"
+  },
+  "completed_at": 1794688617.332829
+}

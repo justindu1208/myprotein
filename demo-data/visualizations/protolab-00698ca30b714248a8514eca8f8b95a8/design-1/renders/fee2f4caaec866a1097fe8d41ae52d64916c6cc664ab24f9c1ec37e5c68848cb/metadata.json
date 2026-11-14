@@ -1,0 +1,233 @@
+{
+  "run_id": "protolab-00698ca30b714248a8514eca8f8b95a8",
+  "candidate_id": "design-1",
+  "cache_key": "fee2f4caaec866a1097fe8d41ae52d64916c6cc664ab24f9c1ec37e5c68848cb",
+  "input_hashes": {
+    "monomer": "4ba29dd2adac98ddc2c820f0e1d381c6a0531aee20bc75507336cc36f53b2ebb",
+    "complex": "1d4f22941f2918cebeba4f76993c084ddc7444954aa59b2f24ac829957f0a2ec"
+  },
+  "parameters": {
+    "preset": "cartoon",
+    "size": [
+      960,
+      720
+    ],
+    "fps": 30,
+    "script_version": "molecular-evidence-2",
+    "target_chains": [
+      "A"
+    ],
+    "binder_chains": [
+      "B"
+    ],
+    "interface": [
+      {
+        "chain": "A",
+        "number": 32,
+        "name": "LEU"
+      },
+      {
+        "chain": "A",
+        "number": 33,
+        "name": "ALA"
+      },
+      {
+        "chain": "A",
+        "number": 34,
+        "name": "ALA"
+      },
+      {
+        "chain": "A",
+        "number": 35,
+        "name": "LEU"
+      },
+      {
+        "chain": "A",
+        "number": 36,
+        "name": "ILE"
+      },
+      {
+        "chain": "A",
+        "number": 38,
+        "name": "TYR"
+      },
+      {
+        "chain": "A",
+        "number": 40,
+        "name": "GLU"
+      },
+      {
+        "chain": "A",
+        "number": 43,
+        "name": "ASP"
+      },
+      {
+        "chain": "A",
+        "number": 48,
+        "name": "GLN"
+      },
+      {
+        "chain": "A",
+        "number": 50,
+        "name": "VAL"
+      },
+      {
+        "chain": "A",
+        "number": 51,
+        "name": "HIS"
+      },
+      {
+        "chain": "A",
+        "number": 95,
+        "name": "ARG"
+      },
+      {
+        "chain": "A",
+        "number": 97,
+        "name": "MET"
+      },
+      {
+        "chain": "A",
+        "number": 99,
+        "name": "SER"
+      },
+      {
+        "chain": "A",
+        "number": 100,
+        "name": "TYR"
+      },
+      {
+        "chain": "A",
+        "number": 101,
+        "name": "GLY"
+      },
+      {
+        "chain": "A",
+        "number": 102,
+        "name": "GLY"
+      },
+      {
+        "chain": "A",
+        "number": 103,
+        "name": "ALA"
+      },
+      {
+        "chain": "A",
+        "number": 104,
+        "name": "ASP"
+      },
+      {
+        "chain": "A",
+        "number": 105,
+        "name": "TYR"
+      },
+      {
+        "chain": "A",
+        "number": 106,
+        "name": "LYS"
+      },
+      {
+        "chain": "A",
+        "number": 107,
+        "name": "ARG"
+      },
+      {
+        "chain": "B",
+        "number": 2,
+        "name": "SER"
+      },
+      {
+        "chain": "B",
+        "number": 3,
+        "name": "GLY"
+      },
+      {
+        "chain": "B",
+        "number": 6,
+        "name": "GLY"
+      },
+      {
+        "chain": "B",
+        "number": 7,
+        "name": "ARG"
+      },
+      {
+        "chain": "B",
+        "number": 9,
+        "name": "LEU"
+      },
+      {
+        "chain": "B",
+        "number": 10,
+        "name": "LEU"
+      },
+      {
+        "chain": "B",
+        "number": 13,
+        "name": "VAL"
+      },
+      {
+        "chain": "B",
+        "number": 14,
+        "name": "GLU"
+      },
+      {
+        "chain": "B",
+        "number": 17,
+        "name": "LYS"
+      },
+      {
+        "chain": "B",
+        "number": 18,
+        "name": "GLU"
+      },
+      {
+        "chain": "B",
+        "number": 62,
+        "name": "ASP"
+      },
+      {
+        "chain": "B",
+        "number": 63,
+        "name": "PRO"
+      },
+      {
+        "chain": "B",
+        "number": 64,
+        "name": "VAL"
+      },
+      {
+        "chain": "B",
+        "number": 68,
+        "name": "THR"
+      },
+      {
+        "chain": "B",
+        "number": 71,
+        "name": "GLU"
+      }
+    ]
+  },
+  "chimerax_version": "INFO:\nUCSF ChimeraX version: 1.12 (2026-06-12)\nINFO:\n\u00a9 2016-2026 Regents of the University of California.  All rights reserved.",
+  "transition_label": "Illustrative transition to the predicted complex \u2014 not a molecular-dynamics trajectory.",
+  "media_type": "illustrative_media",
+  "source_job_id": "protolab-00698ca30b714248a8514eca8f8b95a8",
+  "script_sha256": "751fda078611e70c15e32b52e5a14f960e59783a628ee835ecec0a55f1bf235d",
+  "state": "ready",
+  "reason": null,
+  "artifacts": {
+    "monomer.png": "/api/visualizations/protolab-00698ca30b714248a8514eca8f8b95a8/design-1/renders/fee2f4caaec866a1097fe8d41ae52d64916c6cc664ab24f9c1ec37e5c68848cb/monomer.png",
+    "complex.png": "/api/visualizations/protolab-00698ca30b714248a8514eca8f8b95a8/design-1/renders/fee2f4caaec866a1097fe8d41ae52d64916c6cc664ab24f9c1ec37e5c68848cb/complex.png",
+    "monomer.mp4": "/api/visualizations/protolab-00698ca30b714248a8514eca8f8b95a8/design-1/renders/fee2f4caaec866a1097fe8d41ae52d64916c6cc664ab24f9c1ec37e5c68848cb/monomer.mp4",
+    "complex.mp4": "/api/visualizations/protolab-00698ca30b714248a8514eca8f8b95a8/design-1/renders/fee2f4caaec866a1097fe8d41ae52d64916c6cc664ab24f9c1ec37e5c68848cb/complex.mp4",
+    "render.cxc": "/api/visualizations/protolab-00698ca30b714248a8514eca8f8b95a8/design-1/renders/fee2f4caaec866a1097fe8d41ae52d64916c6cc664ab24f9c1ec37e5c68848cb/render.cxc",
+    "metadata.json": "/api/visualizations/protolab-00698ca30b714248a8514eca8f8b95a8/design-1/renders/fee2f4caaec866a1097fe8d41ae52d64916c6cc664ab24f9c1ec37e5c68848cb/metadata.json"
+  },
+  "checksums": {
+    "monomer.png": "ba6f013dee0fb974a688ca233986e9435a7ba58e40878d5dba9f1ee320762b58",
+    "complex.png": "f3b4c1d3c626ce6f3bd6066b51176ecd28783b75701e93c8ddc9d3b51168de18",
+    "monomer.mp4": "eb00cefa5021a9a2024f4d1b111cc3ae8b3a13346f4ab7a4c39d8caba3935bb0",
+    "complex.mp4": "c50541d8ee5612a1e5855c75837b9c4f69b1de77796db4bd249a2321e5a17a23"
+  },
+  "completed_at": 1794688433.875509
+}
