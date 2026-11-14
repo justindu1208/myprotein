@@ -20,3 +20,7 @@ dist/
 .DS_Store
 .idea/
 .vscode/
+
+# Local prediction artifacts (may contain expiring signed download URLs)
+runs/
+work/

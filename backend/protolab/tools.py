@@ -40,7 +40,8 @@ def _boltz_predict(sequence: str, ligand: str | None = None, **_: object) -> dic
     """TODO: call Boltz with the sequence (and optional ligand) and return the
     predicted structure handle plus a binding score. Placeholder for now."""
     return {
-        "structure": f"[structure for {sequence[:12]}...]",
+        "status": "not_configured",
+        "structure": None,
         "binding_score": None,
         "note": "stub: wire to Boltz on the Predict step",
     }
@@ -71,7 +72,7 @@ def _data_search(query: str, dataset_ids: list[str] | None = None, **_: object) 
 TOOLS: dict[str, Tool] = {
     "boltz_predict": Tool(
         name="boltz_predict",
-        description="Predict the structure of a protein (optionally with a ligand) and estimate how strongly they bind.",
+        description="Predict a complex structure. Not molecular dynamics; protein-protein interface confidence is not affinity. This adapter is not configured yet.",
         parameters={
             "type": "object",
             "properties": {

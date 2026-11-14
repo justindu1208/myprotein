@@ -1,0 +1,19 @@
+{
+  "policy": {
+    "version": "illustrative-demo-not-validated",
+    "min_length": 3,
+    "max_length": 20,
+    "interface_min": 0.7
+  },
+  "request": {
+    "target_sequence": "ACDEFGHIK",
+    "target_confirmed": true,
+    "target_region": [2, 3],
+    "intended_use": "synthetic software demo only",
+    "constraints_confirmed": true
+  },
+  "candidates": [
+    {"id": "DEMO-1", "sequence": "ACDE", "generation_complete": true}
+  ],
+  "evidence": []
+}

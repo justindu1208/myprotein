@@ -1,0 +1,11 @@
+{
+  "id": "binder-screening",
+  "name": "Evidence-gated binder screening",
+  "description": "Four deterministic harness stages. Agents explain stored assessments; they do not classify or invent evidence.",
+  "steps": [
+    {"id": "readiness", "name": "Readiness", "role": "Explain the stored readiness assessment and ask for its missing inputs. Do not change the harness result.", "output": ["assessment"], "reads": [], "tools": []},
+    {"id": "candidate_qc", "name": "Candidate QC", "role": "Explain the stored sequence QC reasons and prediction budget. No pre-prediction binding claims.", "output": ["assessments"], "reads": ["readiness"], "tools": []},
+    {"id": "simulation_outcome", "name": "Prediction / MD outcome", "role": "Explain stored evidence and outcome assessments. Distinguish predicted structures from MD trajectories. Cite evidence IDs and leave missing quantities unknown.", "output": ["assessments"], "reads": ["readiness", "candidate_qc"], "tools": []},
+    {"id": "decision", "name": "Experiment review shortlist", "role": "Explain the authoritative shortlist and its limitations. Never change rankings or claim experimental validation.", "output": ["assessments", "recommendations"], "reads": ["readiness", "candidate_qc", "simulation_outcome"], "tools": []}
+  ]
+}

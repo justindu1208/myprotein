@@ -7,6 +7,23 @@ and writes.
 
 Built for the Imperial AI Hackathon (Nov 2026).
 
+## Binder screening harness
+
+The new deterministic binder path lives in `backend/protolab/harness.py`.
+It provides readiness, sequence QC, typed prediction/MD outcome checks and an
+experimental-review shortlist, with provenance checks and bounded adapter retries.
+See [the harness guide](docs-binder-harness.md) for scope, trust boundaries and
+remaining tool integrations. It is an offline controller; generation and real
+Boltz/Tamarind/MD adapters are not implemented yet.
+
+```bash
+cd backend
+python -m protolab.binder_cli ../examples/binder-input.json
+python -m unittest discover -s tests -p test_harness.py -v
+```
+
+The synthetic example has no evidence and correctly recommends nobody.
+
 ## The idea in one line
 
 It doesn't answer a question. It walks you through a round of research and leaves
@@ -88,3 +105,22 @@ python -m protolab.demo            # one step against the live model
 
 Early scaffold. The protocol engine, record and tool interfaces are in place;
 step roles and the prediction wiring are stubbed and marked `TODO`.
+
+### Fixed pipeline demo (no ReAct)
+
+From `backend/`, run `python3 -m protolab.pipeline --demo` for the hard-coded
+100 → 10 → up to 5 execution path. All demo sequences and measurements are
+synthetic software fixtures, not research results. Real tool adapters remain
+unconfigured and fail closed. See `docs-binder-harness.md` for integration.
+
+### Local visual frontend
+
+```bash
+cd backend
+python3 -m protolab.web
+```
+
+Open http://127.0.0.1:8765. Run the demo, filter candidates, inspect linked
+judgment evidence and export the report. Includes an independent local PDB
+C-alpha backbone inspector. No npm installation or external frontend assets
+are required. This uses the synthetic pipeline, not live Boltz calculations.

@@ -1,18 +1,27 @@
-# Frontend
+# Protolab real-results frontend
 
-The clickable prototype currently lives as a Claude design artifact (platform
-shell + protocol workspace + shared project record + per-step output views).
-It is the reference for what the real UI should render from the protocol config
-and the project record.
+```bash
+cd backend
+python3 -m protolab.web --port 8765
+```
 
-When the hackathon frontend is built here, it should:
+Open http://127.0.0.1:8765. This is a read-only viewer of saved real Boltz
+results in `runs/1brs-live`. There is no synthetic demo endpoint or fallback.
+Missing data stays unavailable. The historical 1BRS A/D complex is a reconstruction
+smoke test, not a held-out test, candidate library or MD simulation.
 
-1. Read a protocol config (`../protocols/*.json`) and render the step bar from it.
-2. Keep the shared project record in view (the side panel), updating as each step
-   writes.
-3. Give each step its own output view (hypothesis card, plan table, 3D structure,
-   ranked results) rather than a bare chat transcript.
-4. Mark downstream steps stale when an upstream entry changes.
+Use the separately installed evaluation dependencies to refresh the existing
+job and compute metrics (this command never submits another paid prediction):
 
-Framework is undecided — pick on the day. The backend exposes the engine; the
-frontend calls it per step.
+```bash
+venv/bin/python -m protolab.live_eval
+```
+
+The live report includes matched-residue complex Cα RMSD, binder Cα RMSD after
+target alignment, and Cα contact precision/recall at 8 Å. No off-target,
+developability, binding-affinity or wet-lab claims are inferred from these metrics.
+
+Predicted samples and the experimental A/D pair can be inspected in the browser.
+The reference pair is renamed A/B for display. Both use actual PDB coordinates;
+the Cα viewer is not an all-atom visualization. Local PDB files stay in-browser.
+API credentials and signed result URLs are never sent to the frontend.
