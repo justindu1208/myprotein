@@ -1,0 +1,4 @@
+# Core has no third-party runtime deps; the protocol engine and record are
+# plain Python. These are for the live-model path and tests.
+adaption>=0.4 ; python_version >= "3.9"   # Adaption Python SDK (inference stacks)
+pytest>=8.0

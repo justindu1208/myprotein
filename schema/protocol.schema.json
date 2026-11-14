@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://protolab.dev/schema/protocol.schema.json",
+  "title": "Protocol",
+  "description": "A research protocol: an ordered list of steps. The app renders the step bar and drives the step agents directly from this file.",
+  "type": "object",
+  "required": ["id", "name", "steps"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "name": { "type": "string" },
+    "description": { "type": "string" },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/step" }
+    }
+  },
+  "$defs": {
+    "step": {
+      "type": "object",
+      "required": ["id", "name", "role", "output", "reads", "tools"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+        "name": { "type": "string" },
+        "role": {
+          "type": "string",
+          "description": "The instructions given to the agent for this step. Becomes the per-request `instructions`, prepended to the shared project record."
+        },
+        "output": {
+          "type": "array",
+          "description": "Field names this step writes into the project record.",
+          "items": { "type": "string" }
+        },
+        "reads": {
+          "type": "array",
+          "description": "Ids of upstream steps whose entries this step reads.",
+          "items": { "type": "string" }
+        },
+        "tools": {
+          "type": "array",
+          "description": "Tool names this step may call. Must match a tool registered in the tool registry.",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

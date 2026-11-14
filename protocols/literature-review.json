@@ -1,0 +1,39 @@
+{
+  "id": "literature-review",
+  "name": "Literature review",
+  "description": "A domain-agnostic protocol: take a question to a synthesised review. Shows that the engine is not tied to biology.",
+  "steps": [
+    {
+      "id": "question",
+      "name": "Question",
+      "role": "TODO: Narrow the topic to one answerable review question and state the scope.",
+      "output": ["question", "scope"],
+      "reads": [],
+      "tools": []
+    },
+    {
+      "id": "search",
+      "name": "Search",
+      "role": "TODO: Find candidate papers for the question and return them with links.",
+      "output": ["candidates"],
+      "reads": ["question"],
+      "tools": ["literature_search"]
+    },
+    {
+      "id": "screen",
+      "name": "Screen",
+      "role": "TODO: Keep the papers that meet the inclusion rules; record why each excluded paper was dropped.",
+      "output": ["included", "excluded"],
+      "reads": ["question", "search"],
+      "tools": []
+    },
+    {
+      "id": "synthesise",
+      "name": "Synthesise",
+      "role": "TODO: Summarise where the included papers agree and disagree, with citations.",
+      "output": ["summary"],
+      "reads": ["screen"],
+      "tools": ["data_search"]
+    }
+  ]
+}

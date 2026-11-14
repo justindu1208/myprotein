@@ -1,0 +1,55 @@
+{
+  "id": "variant-screening",
+  "name": "Variant screening",
+  "description": "Screen a small set of variants against a wild-type control with a structure-prediction model.",
+  "steps": [
+    {
+      "id": "question",
+      "name": "Question",
+      "role": "TODO: Narrow the user's topic to one answerable research question and state its scope. Ask at most one clarifying question before writing the question.",
+      "output": ["question", "scope"],
+      "reads": [],
+      "tools": []
+    },
+    {
+      "id": "literature",
+      "name": "Literature",
+      "role": "TODO: Summarise what is already known, as a list of evidence notes. Every note keeps a source (a paper link or a cited dataset row).",
+      "output": ["evidence_notes"],
+      "reads": ["question"],
+      "tools": ["literature_search", "data_search"]
+    },
+    {
+      "id": "hypothesis",
+      "name": "Hypothesis",
+      "role": "TODO: Propose one testable hypothesis. State explicitly what result would support it and what would refute it.",
+      "output": ["hypothesis", "supports_if", "refutes_if"],
+      "reads": ["question", "literature"],
+      "tools": []
+    },
+    {
+      "id": "design",
+      "name": "Design",
+      "role": "TODO: Turn the hypothesis into a concrete experiment plan: the runs, the control, and the readout. Copy the success rule from the hypothesis step.",
+      "output": ["plan", "success_rule"],
+      "reads": ["question", "hypothesis"],
+      "tools": ["data_search"]
+    },
+    {
+      "id": "predict",
+      "name": "Predict",
+      "role": "TODO: Execute the plan by calling the prediction tool for each run, then rank the results by the agreed score.",
+      "output": ["results", "ranking"],
+      "reads": ["design"],
+      "tools": ["boltz_predict"]
+    },
+    {
+      "id": "analyse",
+      "name": "Analyse",
+      "role": "TODO: Compare the ranking against the success rule from the hypothesis step. State the conclusion, a confidence level, and a next-round hypothesis.",
+      "output": ["conclusion", "confidence", "next_hypothesis"],
+      "reads": ["hypothesis", "predict"],
+      "tools": []
+    }
+  ]
+}
