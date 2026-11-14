@@ -1,10 +1,253 @@
 <!doctype html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Protolab — Live structural evaluation</title><link rel="stylesheet" href="/style.css"></head>
-<body><aside class="rail"><a class="brand" href="/">p<span>·</span></a><div class="rail-active">◈</div><span class="rail-bottom">PL</span></aside><div class="shell"><header><div><strong>PROTOLAB</strong><span class="divider">/</span><span>Live structural evaluation</span></div><span class="tag">REAL DATA ONLY</span></header><main>
-<div class="heading"><div><div class="eyebrow">BOLTZ / EXPERIMENTAL REFERENCE COMPARISON</div><h1>Inspect the prediction. Check the evidence.</h1><p>Barnase–barstar · one known complex · two requested structure samples</p></div><button id="export" class="secondary" disabled>↓ Export evaluation</button></div>
-<div class="notice"><span class="dot"></span><strong>Scope of this run</strong><span>A known-complex reconstruction, not a held-out benchmark. No generated candidate library, MD, off-target or developability assessment.</span></div>
-<section class="card setup"><div class="section-title"><span>LIVE / TARGET-FIRST BINDER DESIGN</span><span class="muted">Generate 100 candidates · real Boltz API</span></div><form id="design-form"><label>Target amino acid sequence<textarea id="design-target" required placeholder="Paste receptor sequence"></textarea></label><label>Target residues (1-based, comma-separated)<input id="design-region" required placeholder="e.g. 12, 15, 30"></label><label>Binder minimum length<input id="min-length" type="number" min="10" max="300" value="60" required></label><label>Binder maximum length<input id="max-length" type="number" min="10" max="300" value="80" required></label><label>Intended use<input id="design-use" required placeholder="Research objective"></label><label class="confirm"><input type="checkbox" id="design-confirm"> I confirm the exact target sequence, target residues and design constraints.</label><button type="submit">Check readiness & estimate</button><button type="button" id="design-submit" disabled>Generate 100 binders</button></form><div id="design-status" class="live-content" aria-live="polite">Enter the receptor and requirements. No binder sequence is required.</div><div id="design-progress" class="live-content"></div><div class="live-content"><button id="load-design" type="button" class="secondary">Load completed candidates & QC</button> <button id="estimate-predictions" type="button" class="secondary" disabled>Estimate prediction cost</button> <button id="start-predictions" type="button" disabled>Submit selected predictions</button><div id="qc-output" class="detail-note"></div><div id="prediction-output" class="detail-note"></div></div><div class="footnote">Sequence QC and ranking use real design outputs. Missing site, replicate, selectivity and developability evidence remain unknown.</div></section>
-<section class="card live-panel"><div class="section-title"><span>01 / LIVE BOLTZ RESULTS</span><button id="live-refresh" class="text-button">Refresh status ↻</button></div><div id="live-status" class="live-content" aria-live="polite">Reading saved real job status…</div><div class="footnote">Source: authenticated Boltz live API · reference: <a href="https://www.rcsb.org/structure/1BRS" target="_blank" rel="noreferrer">RCSB 1BRS, chains A/D</a> · no template supplied to prediction</div></section>
-<div class="bottom-grid"><section class="card structure"><div class="section-title"><span>02 / STRUCTURE INSPECTOR</span><label class="upload">Load local PDB<input type="file" id="pdb" accept=".pdb,.ent" hidden></label></div><div class="structure-controls"><button id="reference" class="secondary">View experimental reference</button><span class="muted">Blue: target · teal: binder</span></div><div class="viewer"><canvas id="canvas" aria-label="Actual PDB alpha-carbon backbone"></canvas><div id="viewer-empty">No predicted structure loaded.<small>Choose a returned sample, or inspect the experimental reference.<br>Only coordinates from actual structure files are shown.</small></div></div><div class="viewer-footer"><span id="pdb-info">Cα backbone · not an atom-level molecular simulation</span><button id="reset" class="text-button">Reset view</button></div></section>
-<section class="card"><div class="section-title"><span>03 / WHAT THIS RUN CAN TELL YOU</span></div><div class="detail-body"><h3>Structure agreement</h3><p class="detail-note">Compare predicted coordinates with the experimental complex. Lower RMSD indicates closer geometric agreement under the stated alignment.</p><h3>Interface reconstruction</h3><p class="detail-note">Cα contact recall measures how many reference residue pairs lie within 8 Å in the prediction. This coarse proxy is not an affinity measurement.</p><h3>Evidence still missing</h3><div class="reason">Selectivity / off-target — NOT EVALUATED</div><div class="reason">Developability — NOT EVALUATED</div><div class="reason">Time stability / MD — NOT EVALUATED</div><div class="reason">New binder discovery — NOT PERFORMED</div><p class="detail-note">This run does not issue a wet-lab shortlist. Independent structure samples are not frames of a binding trajectory.</p></div></section></div>
-<footer>PROTOLAB <span>Evidence before explanation.</span><span>Real inference / limited evaluation scope</span></footer></main></div><script src="/app.js"></script></body></html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ReceptorFlow — agentic binder screening and evidence-led candidate ranking.">
+  <title>ReceptorFlow — molecular decision workbench</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <aside class="sidebar" aria-label="Primary navigation">
+    <a class="wordmark" href="#top" aria-label="ReceptorFlow home"><span>R</span><i>f</i></a>
+    <nav>
+      <a class="nav-item is-active" href="#design"><b>01</b><span>Design</span></a>
+      <a class="nav-item" href="#pipeline"><b>02</b><span>Screen</span></a>
+      <a class="nav-item" href="#results"><b>03</b><span>Decide</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      <span class="status-led"></span>
+      <span>Demo<br>provider</span>
+    </div>
+  </aside>
+
+  <div class="app-shell" id="top">
+    <header class="topbar">
+      <div class="project-crumb"><span>PROTOLAB</span><i>/</i><strong>RECEPTORFLOW</strong></div>
+      <div class="topbar-actions">
+        <button class="ghost compact" id="export-json" disabled>Export run</button>
+        <button class="avatar" aria-label="Demo workspace">IC</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero reveal">
+        <div class="hero-copy">
+          <div class="kicker"><span class="live-pip"></span> Molecular decision workbench / rapid screen</div>
+          <h1>Design for the effect.<br><em>Decide from the evidence.</em></h1>
+          <p>Translate a biological intent into a binder brief, screen trade-offs, and choose what deserves an experiment.</p>
+        </div>
+        <div class="hero-index" aria-hidden="true">
+          <span>RUN</span>
+          <strong>01</strong>
+          <small>SIMULATED<br>EVIDENCE</small>
+        </div>
+      </section>
+
+      <div class="trust-strip reveal delay-1" role="note">
+        <span>DEMO DATA</span>
+        <p>This workbench demonstrates decision logic. Predictions prioritise experiments; they do not establish biological efficacy or clinical safety.</p>
+      </div>
+
+      <section class="design-grid reveal delay-2" id="design">
+        <article class="panel brief-builder">
+          <div class="panel-heading">
+            <div><span class="section-no">01</span><h2>Define the design brief</h2></div>
+            <span class="panel-meta">Natural language → scientific specification</span>
+          </div>
+
+          <div class="target-row">
+            <label class="field target-field">
+              <span>Target receptor or UniProt ID</span>
+              <input id="target" value="EGFR" placeholder="e.g. EGFR, P00533 or Receptor A" autocomplete="off">
+            </label>
+            <label class="field">
+              <span>Species</span>
+              <select id="species">
+                <option>Homo sapiens</option>
+                <option>Mus musculus</option>
+                <option>Other / custom</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Modality</span>
+              <select id="modality">
+                <option>Protein binder</option>
+                <option>Antibody</option>
+                <option>Nanobody</option>
+                <option>Peptide</option>
+                <option>Let the agent choose</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="field intent-field">
+            <span>What should the designed molecule do?</span>
+            <textarea id="intent">Design a protein binder that blocks the natural ligand without activating the receptor.</textarea>
+            <small>Describe the desired biological effect. Binding alone does not prove that effect.</small>
+          </label>
+
+          <div class="quick-intents" aria-label="Example intents">
+            <button data-intent="Block the natural ligand without activating the receptor.">Block ligand</button>
+            <button data-intent="Bind the extracellular domain selectively and prevent receptor dimerisation.">Prevent dimerisation</button>
+            <button data-intent="Bind the mutant receptor while avoiding the wild-type homolog.">Mutant selective</button>
+          </div>
+
+          <div class="builder-action">
+            <div class="agent-note"><span>Agent</span><p>I will resolve the target, extract mechanism and risks, then expose assumptions for confirmation.</p></div>
+            <button class="primary" id="build-brief">Build design brief <span>↗</span></button>
+          </div>
+        </article>
+
+        <aside class="panel parsed-brief" id="parsed-brief" aria-live="polite">
+          <div class="panel-heading compact-heading">
+            <div><span class="section-no">AI</span><h2>Resolved brief</h2></div>
+            <span class="confidence"><i></i> Draft</span>
+          </div>
+          <div class="brief-empty" id="brief-empty">
+            <div class="orbit-mark"><i></i><i></i><i></i></div>
+            <p>Your structured design brief will appear here.</p>
+            <small>Target · mechanism · modality · avoid list · assumptions</small>
+          </div>
+          <div class="brief-content" id="brief-content" hidden>
+            <div class="brief-target">
+              <span id="brief-symbol">EGFR</span>
+              <div><small>RESOLVED TARGET</small><strong id="brief-name">Epidermal growth factor receptor</strong><em id="brief-id">P00533 · Homo sapiens</em></div>
+            </div>
+            <dl>
+              <div><dt>Target domain</dt><dd>Extracellular domain</dd></div>
+              <div><dt>Desired action</dt><dd id="brief-action">Competitive blockade</dd></div>
+              <div><dt>Modality</dt><dd id="brief-modality">Protein binder</dd></div>
+              <div><dt>Must avoid</dt><dd>Activation · off-target homologs</dd></div>
+            </dl>
+            <div class="limitation"><b>Evidence boundary</b><p>Structural binding predictions cannot establish antagonism. A ligand-competition and receptor-activation assay are still required.</p></div>
+            <button class="text-action" id="edit-brief">Edit inputs</button>
+          </div>
+        </aside>
+      </section>
+
+      <section class="screen-layout reveal" id="pipeline">
+        <article class="panel priorities-panel">
+          <div class="panel-heading">
+            <div><span class="section-no">02</span><h2>Set the decision surface</h2></div>
+            <span class="sum-badge"><b id="weight-total">100</b>% allocated</span>
+          </div>
+          <p class="panel-intro">Preferences change ranking instantly. Hard constraints eliminate candidates before ranking.</p>
+          <div id="weight-controls" class="weight-controls">
+            <label class="weight-row" data-key="affinity"><span><b>Affinity</b><small>Target binding</small></span><input type="range" min="0" max="70" value="40"><output>40%</output></label>
+            <label class="weight-row" data-key="selectivity"><span><b>Selectivity</b><small>Off-target margin</small></span><input type="range" min="0" max="70" value="25"><output>25%</output></label>
+            <label class="weight-row" data-key="safety"><span><b>Computational safety</b><small>Immunogenicity + aggregation</small></span><input type="range" min="0" max="70" value="20"><output>20%</output></label>
+            <label class="weight-row" data-key="stability"><span><b>Stability</b><small>Fold confidence</small></span><input type="range" min="0" max="70" value="10"><output>10%</output></label>
+            <label class="weight-row" data-key="solubility"><span><b>Manufacturability</b><small>Solubility proxy</small></span><input type="range" min="0" max="70" value="5"><output>5%</output></label>
+          </div>
+          <div class="constraint-box">
+            <div class="constraint-title"><span>Hard constraints</span><small>Fail = excluded</small></div>
+            <label><input type="checkbox" id="constraint-structure" checked><span>Structure confidence ≥ 68</span></label>
+            <label><input type="checkbox" id="constraint-aggregation" checked><span>Aggregation risk ≤ 35</span></label>
+            <label><input type="checkbox" id="constraint-immunogenicity" checked><span>Immunogenicity risk ≤ 38</span></label>
+          </div>
+        </article>
+
+        <article class="panel pipeline-panel">
+          <div class="panel-heading">
+            <div><span class="section-no">03</span><h2>Rapid screen</h2></div>
+            <span class="runtime" id="runtime">~ 02:40 estimated</span>
+          </div>
+          <div class="pipeline-map" id="pipeline-map">
+            <div class="pipe-step" data-step="0"><i>01</i><div><b>Resolve target</b><span>UniProt / structure lookup</span></div><em>Queued</em></div>
+            <div class="pipe-step" data-step="1"><i>02</i><div><b>Generate candidates</b><span>Demo provider · 30 binders</span></div><em>Queued</em></div>
+            <div class="pipe-step" data-step="2"><i>03</i><div><b>Predict complexes</b><span>Boltz-shaped metric schema</span></div><em>Queued</em></div>
+            <div class="pipe-step" data-step="3"><i>04</i><div><b>Screen liabilities</b><span>Solubility · aggregation · immune risk</span></div><em>Queued</em></div>
+            <div class="pipe-step" data-step="4"><i>05</i><div><b>Apply constraints</b><span>Evidence gates</span></div><em>Queued</em></div>
+            <div class="pipe-step" data-step="5"><i>06</i><div><b>Rank trade-offs</b><span>Weighted decision layer</span></div><em>Queued</em></div>
+          </div>
+          <button class="primary run-button" id="run-screen" disabled><span class="run-icon">▶</span> Run simulated rapid screen</button>
+          <div class="provider-note"><span>DEMO PROVIDER</span> Deterministic candidate values · no external jobs or charges</div>
+        </article>
+
+        <article class="panel activity-panel">
+          <div class="panel-heading compact-heading"><div><span class="section-no">LOG</span><h2>Agent activity</h2></div><span class="activity-count">0 / 6</span></div>
+          <div id="activity-log" class="activity-log">
+            <div class="log-placeholder">Activity summaries will appear here. No private chain-of-thought is displayed.</div>
+          </div>
+        </article>
+      </section>
+
+      <section class="results-section" id="results" hidden>
+        <div class="results-heading">
+          <div><span class="kicker">04 / DECISION REPORT</span><h2>Choose the experiment, not just the score.</h2><p>Weights can still be changed above. Ranking and explanations will update without rerunning the screen.</p></div>
+          <div class="results-actions"><button class="ghost" id="export-csv">Export CSV</button><button class="primary" id="compare-top">Compare top 3</button></div>
+        </div>
+
+        <div class="stats-row">
+          <div><span>Screened</span><strong>30</strong><small>simulated binders</small></div>
+          <div><span>Eligible</span><strong id="stat-eligible">—</strong><small>passed hard gates</small></div>
+          <div><span>Excluded</span><strong id="stat-excluded">—</strong><small>retained with reasons</small></div>
+          <div><span>Decision frontier</span><strong id="stat-frontier">—</strong><small>non-dominated</small></div>
+        </div>
+
+        <div class="winner-grid" id="winner-grid"></div>
+
+        <div class="results-grid">
+          <article class="panel candidate-panel">
+            <div class="panel-heading">
+              <div><span class="section-no">RANK</span><h2>Candidate evidence table</h2></div>
+              <label class="table-search"><span>⌕</span><input id="candidate-search" placeholder="Find candidate"></label>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Rank</th><th>Candidate</th><th>Score</th><th>Affinity</th><th>Selectivity</th><th>Safety</th><th>Stability</th><th>Uncertainty</th><th></th></tr></thead>
+                <tbody id="candidate-body"></tbody>
+              </table>
+            </div>
+            <div class="table-foot"><span><i class="frontier-dot"></i> Decision frontier</span><span>Top 10 shown · all 30 included in export</span></div>
+          </article>
+
+          <aside class="insight-stack">
+            <article class="panel chart-panel">
+              <div class="panel-heading compact-heading"><div><span class="section-no">MAP</span><h2>Affinity × safety</h2></div><span class="chart-key">● eligible&nbsp;&nbsp; × excluded</span></div>
+              <canvas id="scatter" aria-label="Affinity versus computational safety scatter plot"></canvas>
+            </article>
+            <article class="panel next-panel">
+              <span class="section-no">NEXT</span>
+              <h3>Deep validation is selective by design.</h3>
+              <p>Only the final three candidates advance to multi-seed structure prediction, wider off-target screening and energetic analysis.</p>
+              <div><span>01</span> Cross-model agreement</div>
+              <div><span>02</span> Expanded off-target panel</div>
+              <div><span>03</span> Assay-ready hypotheses</div>
+            </article>
+          </aside>
+        </div>
+      </section>
+
+      <footer>
+        <span>RECEPTORFLOW / PROTOLAB</span>
+        <p>Evidence before explanation.</p>
+        <span>SIMULATED DECISION SUPPORT · 2026</span>
+      </footer>
+    </main>
+  </div>
+
+  <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
+  <aside class="candidate-drawer" id="candidate-drawer" aria-label="Candidate detail" aria-hidden="true">
+    <button class="drawer-close" id="drawer-close" aria-label="Close candidate detail">×</button>
+    <div class="drawer-topline"><span id="drawer-rank">RANK 01</span><span class="demo-chip">SIMULATED</span></div>
+    <div class="drawer-title"><div><small>CANDIDATE</small><h2 id="drawer-name">RF–014</h2></div><strong id="drawer-score">84.2</strong></div>
+    <div class="molecule-view"><canvas id="molecule" aria-label="Interactive illustrative receptor and binder structure"></canvas><div class="molecule-labels"><span><i class="target-color"></i>Receptor</span><span><i class="binder-color"></i>Binder</span><em>Drag to rotate · wheel to zoom</em></div></div>
+    <div class="drawer-grid">
+      <div class="radar-wrap"><canvas id="radar" aria-label="Candidate metric radar chart"></canvas></div>
+      <div class="score-list" id="score-list"></div>
+    </div>
+    <div class="evidence-copy">
+      <div><span>Why selected</span><p id="drawer-why"></p></div>
+      <div><span>Main concern</span><p id="drawer-concern"></p></div>
+      <div><span>Recommended next experiment</span><p id="drawer-next"></p></div>
+    </div>
+    <div class="provenance"><b>Provenance</b><span>DemoProvider / deterministic-v1</span><span>Not a physical prediction</span></div>
+  </aside>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js"></script>
+</body>
+</html>

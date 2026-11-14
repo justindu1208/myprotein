@@ -24,3 +24,6 @@ dist/
 # Local prediction artifacts (may contain expiring signed download URLs)
 runs/
 work/
+
+# Separate Sites publication checkout
+sites/receptorflow-cloud/
