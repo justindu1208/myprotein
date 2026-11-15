@@ -1,10 +1,10 @@
-## Live protein demos (latest workbench)
+## Protein design workbench
 
-Run `sh scripts/start-local.sh` (macOS/Linux) or `scripts/start-local.cmd` (Windows), then open http://127.0.0.1:8877.
+Start the local app with `sh scripts/start-local.sh` (macOS/Linux) or `scripts/start-local.cmd` (Windows), then open http://127.0.0.1:8877. For real jobs, set your own `TAMARIND_API_KEY` in the ignored `backend/.env` or environment; never commit it. Install ChimeraX separately under its license for new animations.
 
-The IL-2, PD-L1 and PD-1 buttons load real, precomputed Tamarind results and ChimeraX videos bundled in `demo-data/`. Server startup restores these into ignored `runs/` without overwriting local files. Viewing these demos does not submit compute jobs and needs no API key or ChimeraX installation. New targets require your own `TAMARIND_API_KEY` and ChimeraX; see [live workflow](LIVE_RESEARCH.md) and [renderer setup](MOLECULAR_EVIDENCE.md).
+Create a named task with a target and candidate count, then open it from **Tasks** to review ranking, follow-up prediction and structure views. The task stores its data locally. The priority sliders are saved but are not applied to model inputs or ranking. Generation and the three follow-up predictions use Tamarind credits. See [live workflow](LIVE_RESEARCH.md) and [renderer setup](MOLECULAR_EVIDENCE.md).
 
-Each demo shows three ranked candidates with separate monomer/complex animations. IL-2 and PD-L1 each have one candidate passing the configured model gates; PD-1 has none. Other displayed candidates are diagnostic predictions. Animations illustrate predicted structures, not experimental binding or molecular dynamics. No credentials, expiring URLs, raw provider responses, or application binaries are bundled.
+Model confidence and rendered structures are predictions, not proof of biological function, wet-lab validation or molecular dynamics. Previously generated demo assets are retained in `demo-data/` but are not automatically substituted for a new task.
 
 ---
 

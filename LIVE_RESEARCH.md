@@ -1,45 +1,25 @@
-# Target-specific live workflow
+# Target-specific protein workbench
 
-The main page now uses real Tamarind BoltzProt jobs only. No RF demo scores, unrelated archive selector or seeded candidate generator is used.
+The app creates named local tasks and runs real Tamarind jobs. It never substitutes an unrelated demo for a task.
 
-1. Enter a supported UniProt accession or exact reviewed gene symbol and select human/mouse. Build design brief resolves the sequence from UniProt. A uniquely annotated extracellular region is used when present, otherwise a uniquely annotated mature chain following a signal peptide, or the full sequence; its exact bounds appear in the brief. Unsupported/ambiguous inputs are rejected.
-2. Run real Tamarind screen submits 10 miniproteins (80 aa) with this target sequence using the account's credits. Merely loading the page or resolving a different target does not submit a new compute job.
-3. The provider returns generated designs and predicted complex structures. Validate sequence identity, duplicates, binder/target chain mapping, and real numeric metrics. Rank by binding confidence, then structure confidence. These are model confidence scores, not measured affinity.
-4. Gates: binding confidence >= 0.70 and structure confidence >= 0.68. Up to 3 passing candidates are shortlisted. If fewer than 3 pass, remaining display slots are filled by the highest-ranked QC-valid predictions, clearly labelled diagnostic only. Each card retains its gate outcome; the pass count is never inflated.
-5. Render the exact target and shortlisted/diagnostic structures in ChimeraX. Individual proteins are extracted bound conformations, not independent unbound simulations. Assembly transitions are illustrative, not molecular dynamics.
-6. Changing target inputs immediately clears the previous task's evidence. Only manifests with the matching research ID and target sequence hash are accepted. Refreshing the page with the same inputs reuses the existing task; it never automatically resubmits a paid job.
+1. **New task:** enter a task name, a human/mouse UniProt accession or exact gene symbol, and 10–100 candidates. The task is saved locally before UniProt lookup. The selected region is the unique extracellular annotation, otherwise a single mature chain after a signal peptide, otherwise the full sequence. No custom residue range is supported.
+2. **Tasks / ranking:** a real BoltzProt miniprotein design job (80 aa binders) is submitted when the user starts the task. Rank returned candidates by binding confidence, then structure confidence. Sequence and chain identity are checked. Configured gates are binding confidence ≥ 0.70 and structure confidence ≥ 0.68. Up to three passing candidates are displayed; when fewer pass, remaining slots contain explicitly labelled diagnostic predictions, not successful binders. Explanations describe score thresholds; they are not causal mechanisms.
+3. **Experiment:** the user can start three independent Tamarind Boltz-2 complex predictions on the target and selected candidates. This consumes additional credits and may take several minutes. A restart resumes submitted jobs. Ambiguous submissions are not automatically repeated; retry of an HTTP 400 rejection requires explicit user action and verifies that the job does not already exist. The implementation has automated tests and API parameter validation; a complete live follow-up run has not yet been verified.
+4. **Visualization:** ChimeraX renders predicted structures and illustrative animations. Candidate monomers are extracted bound conformations, not independently predicted unbound proteins. Complex animations are not molecular dynamics. User task and render data is stored under ignored `runs/`; copy those directories to transfer completed tasks, taking care with private data.
 
-## Scope
+Priority sliders are recorded with the task but are **not** passed to Tamarind or used for ranking. Off-target selectivity, toxicity, immunogenicity, expression, yield, kinetics, biological effect and wet-lab success are not determined. Model scores are not measured affinity. Interface contacts are geometric proximity, not proof of hydrogen bonds.
 
-Currently supported: canonical protein sequences of 10–2000 residues, human/mouse UniProt records, miniprotein binders. The original EGFR P00533 25–645 job was explicitly stopped by the user. The three active demos are human PD-L1 Q9NZQ7 19–238 (220 aa), PD-1 Q15116 25–170 (146 aa), and mature IL-2 P60568 21–153 (133 aa). Each designs 10 candidates and renders up to 3 candidate pairs; no historical substitute is shown. Target type, species, region, sequence hash and provider job are stored with every run.
+## Setup
 
-Not implemented: site-specific antagonism design, mutant-sequence specification, glycans, off-target selectivity, toxicity/immunogenicity evaluation, expression/yield prediction, kinetics, independent replicate confirmation or wet-lab efficacy. The intended effect is recorded as a research objective, not passed as an unsupported constraint or inferred to be achieved. Unknown metrics have no fabricated scores or weights.
+From the repository root run `sh scripts/start-local.sh` (Windows: `scripts/start-local.cmd`). Open http://127.0.0.1:8877. Put `TAMARIND_API_KEY=...` in `backend/.env` or your environment; do not commit credentials. Install ChimeraX under its license; macOS auto-detects `/Applications/ChimeraX.app`. Configure other installations with `CHIMERAX_EXECUTABLE`; Linux rendering needs working EGL/OpenGL. Precomputed assets may be viewed without a renderer when their matching task records are available. SAMSON publication is optional and requires an account and separately published matching documents.
 
-## Start
+The server binds to localhost and is not an authenticated multiuser production service. Stopping or restarting it does not cancel a cloud task; persisted jobs resume on restart. Task records and result artifacts remain on that machine and are not committed by Git.
 
-From repository root:
+## API and verification
 
-```sh
-sh scripts/start-local.sh
-```
+- `POST /api/research/create` stores a named draft; `POST /api/research/start` begins or resumes work.
+- `GET /api/research/tasks` lists named tasks; `GET /api/research/<id>` returns status.
+- `POST /api/experiments/start` starts follow-up jobs; `GET /api/experiments/<id>` returns per-candidate status; `POST /api/experiments/retry` explicitly retries eligible rejected jobs.
+- `/api/visualizations/...` serves verified structures and rendered media.
 
-Windows: `scripts/start-local.cmd` with Python 3 installed. Open http://127.0.0.1:8877. Set `TAMARIND_API_KEY` in the ignored `backend/.env` or environment for new jobs. Install official ChimeraX under its license; macOS auto-detects `/Applications/ChimeraX.app`. Other paths use `CHIMERAX_EXECUTABLE`. Linux rendering needs working EGL/OpenGL. There is no publicly exposed ChimeraX service.
-
-SAMSON is optional: published documents for the exact objects may be linked following MOLECULAR_EVIDENCE.md. No account/document is currently configured. Real ChimeraX media plays without SAMSON.
-
-## Persistence and API
-
-`runs/research/<research-id>.json` is keyed by the verified target specification. `runs/tamarind/` holds provider inputs and an exclusive attempt marker; uncertain submissions are never silently repeated. A cross-process file lock prevents duplicate postprocessing. Worker progress is persistent. Server startup automatically resumes already requested nonterminal tasks, even without an open browser; ready, stopped and completed tasks are never auto-submitted. Completed render hashes are reused.
-
-- GET `/api/research/demos`: three configured real demo records; buttons refresh status and open stored results directly without a new UniProt lookup or paid submission
-- POST `/api/research/resolve`: target, species, modality, intent (read-only external lookup)
-- POST `/api/research/start`: id (submits a real job or resumes local rendering)
-- GET `/api/research/<id>`: real status, metrics, shortlist, provenance
-
-States: ready, preparing, submitting, computing, screening, rendering, complete, stopped, failed, submission_uncertain, render_failed. Provider progress is not fabricated; Running can cover generation and complex prediction together.
-
-## Sharing
-
-The local URL is not publicly reachable. To share a runnable local package, export the exact completed visualization run with `scripts/export-viewer.py`. It includes the matching research record, structures and media, excluding API keys and raw API caches. Recipients install Python dependencies; stored demo buttons and movies need no external lookup, ChimeraX or Tamarind key. Resolving a new target requires internet access to UniProt. New computation requires their own key and renderer. Public hosting/authentication is separate deployment work.
-
-Validation covers target/species matching, input-specific identity, duplicate exclusion, missing metrics, honest no-pass outcomes, no repeated completed submissions, media integrity and byte-range playback. Actual end-to-end success is only reported after the provider completes and the returned structures are verified/rendered.
+Run `cd backend && ../.venv/bin/python -m pytest -q`. Tests cover target identity, task persistence, screening, submission idempotency, retry safety, result chain matching and visualization. Validate real provider operations separately; do not infer a completed paid run from a passing mock test.

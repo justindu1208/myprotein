@@ -18,7 +18,14 @@ def api(path, body=None):
             response = client.request('POST' if body is not None else 'GET', BASE + path,
                                       headers={'x-api-key': key}, json=body)
         if not response.is_success:
-            raise ValueError(f'Tamarind HTTP {response.status_code}; inspect account access and settings')
+            try:
+                detail=response.json()
+                message=detail.get('error') or detail.get('message') or '' if isinstance(detail,dict) else ''
+                if not isinstance(message,str):message=''
+                message=re.sub(r'[ACDEFGHIKLMNPQRSTVWY]{20,}','[sequence]',message,flags=re.I)
+                message=message.replace(key,'[redacted]')[:300]
+            except Exception:message=''
+            raise ValueError(f'Tamarind HTTP {response.status_code}'+(': '+message if message else '; inspect account access and settings'))
         if path == 'submit-job':
             return {'accepted': True}
         return response.json()

@@ -50,6 +50,14 @@ class Handler(BaseHTTPRequestHandler):
                 remaining-=len(chunk)
 
     def do_GET(self):
+        if urlparse(self.path).path.startswith('/api/experiments/'):
+            try:
+                from . import experiment
+                return self.respond(200,json.dumps(experiment.status(urlparse(self.path).path.split('/')[-1]),allow_nan=False).encode())
+            except Exception as exc:return self.respond(400,json.dumps({'error':str(exc)}).encode())
+        if urlparse(self.path).path=='/api/research/tasks':
+            from .research import list_tasks
+            return self.respond(200,json.dumps(list_tasks(),allow_nan=False).encode())
         if urlparse(self.path).path=='/api/research/demos':
             from .research import demos
             return self.respond(200,json.dumps(demos(),allow_nan=False).encode())
@@ -118,6 +126,16 @@ class Handler(BaseHTTPRequestHandler):
         self.respond(200, (ROOT / asset[0]).read_bytes(), asset[1])
 
     def do_POST(self):
+        if self.path in ('/api/experiments/start','/api/experiments/retry'):
+            if self.headers.get('Origin') != 'http://' + self.headers.get('Host',''):return self.respond(403,b'{"error":"Origin rejected"}')
+            try:
+                from . import experiment
+                size=int(self.headers.get('Content-Length',0))
+                if not 0<size<=5000:raise ValueError('Invalid request size')
+                data=json.loads(self.rfile.read(size))
+                result=experiment.start(data.get('id')) if self.path.endswith('/start') else experiment.retry_rejected(data.get('id'))
+                return self.respond(200,json.dumps(result,allow_nan=False).encode())
+            except Exception as exc:return self.respond(400,json.dumps({'error':str(exc)}).encode())
         if self.path.startswith('/api/research/'):
             if self.headers.get('Origin') != 'http://' + self.headers.get('Host',''):
                 return self.respond(403,b'{"error":"Origin rejected"}')
@@ -126,7 +144,8 @@ class Handler(BaseHTTPRequestHandler):
                 size=int(self.headers.get('Content-Length',0))
                 if not 0<size<=5000:raise ValueError('Invalid request size')
                 data=json.loads(self.rfile.read(size))
-                if self.path=='/api/research/resolve':result=research.resolve(data)
+                if self.path=='/api/research/create':result=research.create(data)
+                elif self.path=='/api/research/resolve':result=research.resolve(data)
                 elif self.path=='/api/research/start':result=research.start(data.get('id'))
                 else:raise ValueError('Unknown research action')
                 return self.respond(200,json.dumps(result,allow_nan=False).encode())
@@ -170,6 +189,8 @@ def main():
     server = ThreadingHTTPServer(('127.0.0.1', args.port), Handler)
     install_bundled_demos()
     resume_pending()
+    from .experiment import resume_pending as resume_experiments
+    resume_experiments()
     print(f'Protolab: http://127.0.0.1:{args.port} (Ctrl+C to stop)', flush=True)
     try:
         server.serve_forever()

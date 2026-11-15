@@ -109,3 +109,41 @@ def test_bundled_demos_restore_without_overwriting(tmp_path,monkeypatch):
     research.install_bundled_demos();assert (root/'demo.json').read_text()=='bundled'
     (root/'demo.json').write_text('local')
     research.install_bundled_demos();assert (root/'demo.json').read_text()=='local'
+
+def test_named_tasks_are_distinct_and_keep_real_count_and_priorities(isolated,monkeypatch):
+    entry={'primaryAccession':'P60568','organism':{'scientificName':'Homo sapiens'},'sequence':{'value':'A'*100},'features':[],'genes':[{'geneName':{'value':'IL2'}}],'proteinDescription':{'recommendedName':{'fullName':{'value':'Interleukin-2'}}}}
+    response=Mock();response.json=lambda:entry
+    client=Mock();client.get.return_value=response;client.__enter__=Mock(return_value=client);client.__exit__=Mock()
+    monkeypatch.setattr(research.httpx,'Client',Mock(return_value=client))
+    data={'target':'P60568','new_task':True,'task_name':'My study','count':20,'priorities':{'Affinity':75}}
+    first=research.resolve(data);second=research.resolve(data)
+    assert first['id']!=second['id'] and first['spec']['count']==20
+    assert research.read(first['id'])['priorities']=={'Affinity':75}
+    assert {x['id'] for x in research.list_tasks()}=={first['id'],second['id']}
+    assert all('target_sequence' not in x for x in research.list_tasks())
+    for invalid in [9,101,10.5,True]:
+        with pytest.raises(ValueError,match='count'):research.resolve({**data,'count':invalid})
+
+def test_worker_sends_task_count_to_tamarind(isolated,monkeypatch):
+    rid='research-'+'f'*32
+    research.write({'id':rid,'stage':'preparing','spec':{'count':25,'binder_length':80},'target_sequence':'A'*100,'events':[]})
+    prepare=Mock(side_effect=ValueError('test stop'));monkeypatch.setattr(research.tamarind,'prepare',prepare)
+    research.work(rid)
+    assert prepare.call_args.args[0]['count']==25
+    assert research.read(rid)['stage']=='failed'
+
+def test_new_task_is_saved_before_remote_lookup(isolated,monkeypatch):
+    monkeypatch.setattr(research.httpx,'Client',Mock(side_effect=AssertionError('should not contact remote')))
+    data={'task_name':'IL-2 test','target':'IL-2','species':'Homo sapiens','count':10,'priorities':{'Affinity':40}}
+    r=research.create(data)
+    assert r['stage']=='draft' and r['task_name']=='IL-2 test'
+    assert research.list_tasks()[0]['id']==r['id']
+    assert 'target_sequence' not in research.read(r['id'])
+
+def test_resolution_failure_keeps_named_task_and_does_not_submit(isolated,monkeypatch):
+    r=research.create({'task_name':'My test','target':'P60568','species':'Homo sapiens','count':10})
+    resolve=Mock(side_effect=ValueError('UniProt temporarily unavailable'));submit=Mock()
+    monkeypatch.setattr(research,'resolve_spec',resolve);monkeypatch.setattr(research.tamarind,'prepare',submit)
+    research.work(r['id'])
+    saved=research.read(r['id']);assert saved['stage']=='resolution_failed' and 'UniProt temporarily unavailable' in saved['error']
+    assert research.list_tasks()[0]['id']==r['id'];submit.assert_not_called()

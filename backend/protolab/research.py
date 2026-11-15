@@ -4,6 +4,8 @@ import json
 import re
 import threading
 import time
+import uuid
+from datetime import datetime, timezone
 from pathlib import Path
 import httpx
 from . import tamarind, tamarind_results, visualization_store as store
@@ -12,7 +14,7 @@ from .chimerax_renderer import renderer
 ROOT=Path(__file__).resolve().parents[2]/'runs/research'
 LOCK=threading.RLock()
 WORKERS={}
-TERMINAL={'stopped','complete','failed','submission_uncertain','render_failed'}
+TERMINAL={'stopped','complete','failed','submission_uncertain','render_failed','resolution_failed'}
 
 def write(record):
     ROOT.mkdir(parents=True,exist_ok=True)
@@ -27,7 +29,7 @@ def read(rid):
 def public(r):
     return {k:v for k,v in r.items() if k not in ('target_sequence',)}
 
-def resolve(data):
+def resolve_spec(data):
     query=str(data.get('target','')).strip();species=data.get('species','Homo sapiens')
     if species not in ('Homo sapiens','Mus musculus'):raise ValueError('Choose a supported species; custom species need a validated accession')
     if data.get('modality','Protein binder')!='Protein binder':raise ValueError('This live workflow currently supports miniprotein binders only')
@@ -39,7 +41,10 @@ def resolve(data):
             taxon=9606 if species=='Homo sapiens' else 10090
             response=client.get('https://rest.uniprot.org/uniprotkb/search',params={'query':f'gene_exact:{query} AND organism_id:{taxon} AND reviewed:true','format':'json','size':3});response.raise_for_status()
             entries=response.json().get('results',[])
-            if len(entries)!=1:raise ValueError('Target name is missing or ambiguous. Enter its exact UniProt accession.')
+            if not entries and '-' in query:
+                compact=query.replace('-','')
+                response=client.get('https://rest.uniprot.org/uniprotkb/search',params={'query':f'gene_exact:{compact} AND organism_id:{taxon} AND reviewed:true','format':'json','size':3});response.raise_for_status();entries=response.json().get('results',[])
+            if len(entries)!=1:raise ValueError('Target name not found or ambiguous for the chosen species. Try an exact UniProt ID, e.g. P60568 for human IL-2.')
             entry=entries[0]
     if entry['organism']['scientificName']!=species:raise ValueError('Accession and species do not match')
     sequence=entry['sequence']['value']
@@ -54,12 +59,42 @@ def resolve(data):
         else:start,end,domain=1,len(sequence),'Full-length sequence'
     sequence=sequence[start-1:end]
     if not re.fullmatch('[ACDEFGHIKLMNPQRSTVWY]{10,2000}',sequence):raise ValueError('Target sequence exceeds supported length or has noncanonical residues')
-    spec={'accession':entry['primaryAccession'],'species':species,'symbol':entry.get('genes',[{}])[0].get('geneName',{}).get('value',query.upper()),'name':entry['proteinDescription']['recommendedName']['fullName']['value'],'domain':domain,'start':start,'end':end,'length':len(sequence),'sequence_sha256':store.sha(sequence.encode()),'count':10,'binder_length':80,'modality':'Protein binder','intent':str(data.get('intent','')).strip()[:2000],'source':'https://www.uniprot.org/uniprotkb/'+entry['primaryAccession']+'/entry','limitations':'No epitope, glycosylation, antagonism, off-target binding, toxicity or expression-yield validation is performed. Intended effect is recorded, not inferred from binding.'}
-    rid='research-'+store.sha(json.dumps(spec,sort_keys=True).encode())[:32]
+    count=data.get('count',10)
+    if isinstance(count,bool) or not isinstance(count,int) or not 10<=count<=100:raise ValueError('Candidate count must be an integer from 10 to 100')
+    spec={'accession':entry['primaryAccession'],'species':species,'symbol':entry.get('genes',[{}])[0].get('geneName',{}).get('value',query.upper()),'name':entry['proteinDescription']['recommendedName']['fullName']['value'],'domain':domain,'start':start,'end':end,'length':len(sequence),'sequence_sha256':store.sha(sequence.encode()),'count':count,'binder_length':80,'modality':'Protein binder','intent':str(data.get('intent','')).strip()[:2000],'source':'https://www.uniprot.org/uniprotkb/'+entry['primaryAccession']+'/entry','limitations':'No epitope, glycosylation, antagonism, off-target binding, toxicity or expression-yield validation is performed. Intended effect is recorded, not inferred from binding.'}
+    return spec,sequence
+
+def resolve(data):
+    spec,sequence=resolve_spec(data)
+    rid='research-'+(uuid.uuid4().hex if data.get('new_task') is True else store.sha(json.dumps(spec,sort_keys=True).encode())[:32])
     with LOCK:
         if (ROOT/(rid+'.json')).exists():return public(read(rid))
         record={'id':rid,'stage':'ready','spec':spec,'target_sequence':sequence,'candidates':[],'selected':[],'diagnostic':[],'events':['UniProt target sequence and domain verified.']}
+        if data.get('new_task') is True:
+            name=str(data.get('task_name','')).strip()
+            if not name or len(name)>100:raise ValueError('Enter a task name (up to 100 characters)')
+            priorities=data.get('priorities',{})
+            if not isinstance(priorities,dict) or any(k not in ('Affinity','Selectivity','Computational safety','Stability','Manufacturability') or type(v) is not int or not 0<=v<=100 for k,v in priorities.items()):raise ValueError('Invalid priorities')
+            record.update(task_name=name,created_at=datetime.now(timezone.utc).isoformat(),priorities=priorities)
         write(record)
+    return public(record)
+
+def create(data):
+    """Persist a named task before external target lookup or paid submission."""
+    name=str(data.get('task_name','')).strip()
+    target=str(data.get('target','')).strip()
+    species=data.get('species','Homo sapiens')
+    count=data.get('count',10)
+    priorities=data.get('priorities',{})
+    if not name or len(name)>100:raise ValueError('Enter a task name (up to 100 characters)')
+    if not re.fullmatch(r'[A-Za-z0-9_-]{2,30}',target):raise ValueError('Enter a target gene symbol or UniProt ID')
+    if species not in ('Homo sapiens','Mus musculus'):raise ValueError('Choose human or mouse')
+    if isinstance(count,bool) or not isinstance(count,int) or not 10<=count<=100:raise ValueError('Candidate count must be an integer from 10 to 100')
+    if not isinstance(priorities,dict) or any(k not in ('Affinity','Selectivity','Computational safety','Stability','Manufacturability') or type(v) is not int or not 0<=v<=100 for k,v in priorities.items()):raise ValueError('Invalid priorities')
+    rid='research-'+uuid.uuid4().hex
+    spec={'symbol':target,'accession':'Pending','species':species,'count':count,'binder_length':80,'intent':'Design a miniprotein binder for structural binding assessment.'}
+    record={'id':rid,'stage':'draft','task_name':name,'created_at':datetime.now(timezone.utc).isoformat(),'priorities':priorities,'spec':spec,'target_query':target,'candidates':[],'selected':[],'diagnostic':[],'events':['Task saved locally; target has not yet been resolved.']}
+    write(record)
     return public(record)
 
 def screen(data):
@@ -90,15 +125,16 @@ def launch(rid):
 def start(rid):
     with LOCK:
         record=read(rid)
-        if record['stage']=='ready':
-            record['stage']='preparing';record['events'].append('Validating real Tamarind design settings.');write(record)
+        if record['stage'] in ('ready','draft'):
+            record['stage']='resolving' if record['stage']=='draft' else 'preparing';record['events'].append('Validating real Tamarind design settings.');write(record)
+        elif record['stage']=='resolution_failed':record['stage']='resolving';record.pop('error',None);write(record)
         elif record['stage'] in TERMINAL and record['stage']!='render_failed':return public(record)
         launch(rid)
         return public(record)
 
 def status(rid):
     r=read(rid)
-    if r['stage'] not in TERMINAL|{'ready'}:launch(rid)
+    if r['stage'] not in TERMINAL|{'ready','draft'}:launch(rid)
     return public(r)
 
 def work(rid):
@@ -111,6 +147,13 @@ def work(rid):
 def _work(rid):
     r=read(rid)
     try:
+        if not r.get('target_sequence'):
+            r['stage']='resolving';write(r)
+            try:
+                spec,sequence=resolve_spec({'target':r['target_query'],'species':r['spec']['species'],'count':r['spec']['count'],'intent':r['spec'].get('intent','')})
+            except Exception as exc:
+                r.update(stage='resolution_failed',error='Could not resolve target: '+str(exc));write(r);return
+            r.update(spec=spec,target_sequence=sequence,stage='preparing');r.pop('error',None);r['events'].append('UniProt target sequence and domain verified.');write(r)
         if not r.get('jobName'):
             prepared=tamarind.prepare({'sequence':r['target_sequence'],'count':r['spec']['count'],'length':r['spec']['binder_length']})
             r.update(jobName=prepared['jobName'],stage='submitting');write(r)
@@ -184,4 +227,17 @@ def resume_pending():
     for path in ROOT.glob('research-*.json'):
         try:r=read(path.stem)
         except (OSError,ValueError):continue
-        if r['stage'] not in TERMINAL|{'ready'}:launch(r['id'])
+        if r['stage'] not in TERMINAL|{'ready','draft'}:launch(r['id'])
+
+
+def list_tasks():
+    """List explicitly named user tasks, not bundled demos or provider caches."""
+    result=[]
+    for path in ROOT.glob('research-*.json'):
+        try:
+            record=read(path.stem)
+            if not record.get('task_name'):continue
+            spec=record['spec']
+            result.append({'id':record['id'],'task_name':record['task_name'],'created_at':record.get('created_at'),'stage':record['stage'],'provider_state':record.get('provider_state'),'spec':{k:spec.get(k) for k in ('symbol','accession','species','count')},'candidate_count':len(record.get('candidates',[]))})
+        except (OSError,ValueError,KeyError):continue
+    return sorted(result,key=lambda r:r.get('created_at') or '',reverse=True)

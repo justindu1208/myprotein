@@ -41,7 +41,7 @@ def unpack(raw):
         total += size
         if total > 250_000_000 or size > 25_000_000:
             raise ValueError('Archive exceeds local size limit')
-        if p.suffix.lower() in ('.csv', '.cif', '.pdb'):
+        if p.suffix.lower() in ('.csv', '.cif', '.mmcif', '.pdb'):
             if name in files: raise ValueError('Duplicate archive path')
             files[name] = read().decode('utf-8-sig')
     stream = io.BytesIO(raw)

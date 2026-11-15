@@ -13,9 +13,14 @@
   <aside class="sidebar" aria-label="Primary navigation">
     <a class="wordmark" href="#top" aria-label="ReceptorFlow home"><span>R</span><i>f</i></a>
     <nav>
-      <a class="nav-item is-active" href="#design"><b>01</b><span>Design</span></a>
-      <a class="nav-item" href="#pipeline"><b>02</b><span>Screen</span></a>
-      <a class="nav-item" href="#results"><b>03</b><span>Decide</span></a>
+      <a class="nav-item is-active" href="#design" data-page-link="design"><b>01</b><span>New task</span></a>
+      <a class="nav-item" href="#tasks" data-page-link="tasks"><b>02</b><span>Tasks</span></a>
+      <div class="task-subnav" hidden>
+      <div class="sidebar-task-label">IN THIS TASK</div>
+      <a class="nav-item task-nav" href="#ranking" data-page-link="ranking"><b>03</b><span>Ranking</span></a>
+      <a class="nav-item task-nav" href="#experiment" data-page-link="experiment"><b>04</b><span>Experiment</span></a>
+      <a class="nav-item task-nav" href="#visualization" data-page-link="visualization"><b>05</b><span>Visualize</span></a>
+      </div>
     </nav>
     <div class="sidebar-foot">
       <span class="status-led"></span>
@@ -33,24 +38,9 @@
     </header>
 
     <main>
-      <section class="hero reveal">
-        <div class="hero-copy">
-          <div class="kicker"><span class="live-pip"></span> Molecular decision workbench / rapid screen</div>
-          <h1>Design for the effect.<br><em>Decide from the evidence.</em></h1>
-          <p>Translate a biological intent into a binder brief, screen trade-offs, and choose what deserves an experiment.</p>
-        </div>
-        <div class="hero-index" aria-hidden="true">
-          <span>RUN</span>
-          <strong>01</strong>
-          <small>REAL MODEL<br>OUTPUTS</small>
-        </div>
-      </section>
-
-      <div class="trust-strip reveal delay-1" role="note">
-        <span>LIVE COMPUTE</span>
-        <p>Each run is tied to the entered target sequence. Tamarind computes real designs and complex predictions; predictions do not establish biological efficacy or clinical safety.</p>
-      </div>
-
+      <div class="workspace-intro"><div><span class="kicker">PROTOLAB / PROTEIN DESIGN WORKSPACE</span><h1>From target <em>to evidence.</em></h1><p>Design candidates, inspect model confidence, and plan what to test next.</p></div><div class="workspace-index"><span>WORKFLOW</span><strong>04</strong><small>CONNECTED<br>STAGES</small></div></div>
+      <section class="workspace-page" data-page="design">
+        <div class="page-heading"><div><span class="kicker">01 / NEW TASK</span><h2>Define your protein.</h2><p>Start with a target and tell us what matters for your candidates.</p></div><span class="page-counter">01 <small>/ 05</small></span></div>
       <section class="design-grid reveal delay-2" id="design">
         <article class="panel brief-builder">
           <div class="panel-heading">
@@ -58,87 +48,129 @@
             <span class="panel-meta">Natural language → scientific specification</span>
           </div>
 
-          <div class="quick-intents" aria-label="Three live design briefs">
-            <button type="button" data-brief="il2">1 · IL-2 · P60568</button>
-            <button type="button" data-brief="pdl1">2 · PD-L1 · Q9NZQ7</button>
-            <button type="button" data-brief="pd1">3 · PD-1 · Q15116</button>
-          </div>
-          <p class="brief-preset-note">Switch target-specific briefs. Each computes 10 candidates; only up to 3 candidates receive animations. Switching does not submit another job.</p>
-
+          <div class="task-name-row"><label class="field"><span>Task name</span><input id="task-name" placeholder="e.g. IL-2 binder exploration" maxlength="100"></label></div>
           <div class="target-row">
             <label class="field target-field">
               <span>Target receptor or UniProt ID</span>
-              <input id="target" value="P60568" placeholder="e.g. EGFR or P00533" autocomplete="off">
+              <input id="target" value="" placeholder="e.g. EGFR or P00533" autocomplete="off">
             </label>
             <label class="field">
               <span>Species</span>
               <select id="species">
                 <option>Homo sapiens</option>
                 <option>Mus musculus</option>
-                <option>Other / custom</option>
+                <option disabled>Other / custom (not yet supported)</option>
               </select>
             </label>
             <label class="field">
-              <span>Modality</span>
-              <select id="modality">
-                <option>Protein binder</option>
-                <option disabled>Antibody (not yet supported)</option>
-                <option disabled>Nanobody (not yet supported)</option>
-                <option disabled>Peptide (not yet supported)</option>
-                <option disabled>Let the agent choose (not yet supported)</option>
-              </select>
+              <span>Candidate count</span>
+              <input id="candidate-count" type="number" min="10" max="100" value="10" step="1">
+              <small class="field-note">10–100 candidates · real model input</small>
             </label>
+            <input type="hidden" id="modality" value="Protein binder">
           </div>
 
-          <label class="field intent-field">
-            <span>What should the designed molecule do?</span>
-            <textarea id="intent">Design a miniprotein binder to mature IL-2 for structural binding assessment. Biological effects remain to be tested.</textarea>
-            <small>Describe the desired biological effect. Binding alone does not prove that effect.</small>
-          </label>
-
-          <div class="quick-intents" aria-label="Example intents">
-            <button data-intent="Block the natural ligand without activating the receptor.">Block ligand</button>
-            <button data-intent="Bind the extracellular domain selectively and prevent receptor dimerisation.">Prevent dimerisation</button>
-            <button data-intent="Bind the mutant receptor while avoiding the wild-type homolog.">Mutant selective</button>
+          <input type="hidden" id="intent" value="Design a miniprotein binder for structural binding assessment.">
+          <div class="preferences-header"><div><span class="kicker">DESIGN PRIORITIES</span><h3>What matters most?</h3><p>Set each priority independently. They are saved with the task for future model integration.</p></div><span class="preview-badge">SAVED WITH TASK</span></div>
+          <div class="priority-list">
+            <label class="priority-row"><span><strong>Affinity</strong><small>Target binding</small></span><input type="range" min="0" max="100" value="40" data-priority="Affinity"><output>40%</output></label>
+            <label class="priority-row"><span><strong>Selectivity</strong><small>Off-target preference</small></span><input type="range" min="0" max="100" value="25" data-priority="Selectivity"><output>25%</output></label>
+            <label class="priority-row"><span><strong>Computational safety</strong><small>Immunogenicity &amp; aggregation</small></span><input type="range" min="0" max="100" value="20" data-priority="Computational safety"><output>20%</output></label>
+            <label class="priority-row"><span><strong>Stability</strong><small>Structural reliability</small></span><input type="range" min="0" max="100" value="10" data-priority="Stability"><output>10%</output></label>
+            <label class="priority-row"><span><strong>Manufacturability</strong><small>Expression &amp; solubility</small></span><input type="range" min="0" max="100" value="5" data-priority="Manufacturability"><output>5%</output></label>
           </div>
-
+          <p class="parameter-disclaimer">Candidate count is sent to Tamarind. Priority sliders are saved with this task but are not yet sent to the model or used for ranking.</p>
+          <p id="task-error" class="task-error" role="alert" hidden></p>
           <div class="builder-action">
-            <div class="agent-note"><span>Resolver</span><p>Resolve the UniProt sequence and region, then run real target-specific design and screening.</p></div>
-            <button class="primary" id="build-brief">Build design brief <span>↗</span></button>
+            <div class="agent-note"><span>LIVE COMPUTE</span><p>Starting creates a named task and submits a real Tamarind job using account credits.</p></div>
+            <button class="primary" id="build-brief">Start real task <span>↗</span></button>
           </div>
         </article>
 
         </section>
-      <section class="resolved-evidence" id="resolved-evidence">
-        <aside class="panel parsed-brief" id="parsed-brief" aria-live="polite">
-          <div class="panel-heading compact-heading">
-            <div><span class="section-no">AI</span><h2>Resolved brief</h2></div>
-            <span class="confidence"><i></i> Draft</span>
+      </section>
+      <section class="workspace-page" data-page="tasks" hidden>
+        <div class="page-heading"><div><span class="kicker">02 / YOUR PROJECTS</span><h2>Your tasks.</h2><p>Open a task to see its own ranking, simulation and structures.</p></div><span class="page-counter">02 <small>/ 05</small></span></div>
+        <article class="panel task-list-panel"><div class="panel-heading"><div><span class="section-no">ALL</span><h2>Task library</h2></div><button class="ghost" data-go="design">+ New task</button></div><p class="history-copy">Real tasks and their results are stored locally.</p><div id="task-list" class="task-list"><p class="task-empty">No tasks yet. Start one from New task.</p></div></article>
+      </section>
+      <section class="workspace-page" data-page="ranking" hidden>
+        <div class="task-context"><button class="text-action" data-go="tasks">← All tasks</button><span class="current-task-name">No task selected</span><span class="current-task-target"></span></div><div class="example-notice" hidden>EXAMPLE TASK · Uses previously computed IL-2 designs. Starting simulations submits new real jobs.</div>
+        <div class="page-heading"><div><span class="kicker">03 / CANDIDATE SCREEN</span><h2>Confidence, in context.</h2><p>Compare the real model results and inspect the top three candidates.</p></div><span class="page-counter">02 <small>/ 04</small></span></div>
+      <section class="screen-layout reveal" id="pipeline" hidden>
+        <article class="panel priorities-panel" hidden>
+          <div class="panel-heading"><div><span class="section-no">02</span><h2>Real screening criteria</h2></div></div>
+          <div class="evidence-body"><p>Generate 10 miniproteins, validate sequences and structure files, then rank using actual model confidence. Inspect up to 3 candidates.</p><p>Pass gates: binding confidence ≥ 0.70 and structure confidence ≥ 0.68.</p><p>Selectivity, toxicity, immunogenicity, expression yield and binding kinetics: <strong>not evaluated</strong>. No invented scores are assigned.</p><p>If none pass, the strongest available predictions are labelled diagnostic only.</p></div>
+        </article>
+
+        <article class="panel pipeline-panel">
+          <div class="panel-heading">
+            <div><span class="section-no">03</span><h2>Rapid screen</h2></div>
+            <span class="runtime" id="runtime">Awaiting real task</span>
           </div>
-          <div class="brief-empty" id="brief-empty">
-            <div class="orbit-mark"><i></i><i></i><i></i></div>
-            <p>Your structured design brief will appear here.</p>
-            <small>Target · mechanism · modality · avoid list · assumptions</small>
+          <div class="pipeline-map" id="pipeline-map">
+            <div class="pipe-step" data-step="0"><i>01</i><div><b>Resolve target</b><span>UniProt / structure lookup</span></div><em>Queued</em></div>
+            <div class="pipe-step" data-step="1"><i>02</i><div><b>Generate candidates</b><span>Tamarind BoltzProt · requested count</span></div><em>Queued</em></div>
+            <div class="pipe-step" data-step="2"><i>03</i><div><b>Predict complexes</b><span>Real target–binder coordinates</span></div><em>Queued</em></div>
+            <div class="pipe-step" data-step="3"><i>04</i><div><b>Validate candidates</b><span>Sequence and structure identity</span></div><em>Queued</em></div>
+            <div class="pipe-step" data-step="4"><i>05</i><div><b>Apply constraints</b><span>Evidence gates</span></div><em>Queued</em></div>
+            <div class="pipe-step" data-step="5"><i>06</i><div><b>Render selected structures</b><span>ChimeraX monomer + complex movies</span></div><em>Queued</em></div>
           </div>
-          <div class="brief-content" id="brief-content" hidden>
-            <div class="brief-target">
-              <span id="brief-symbol">EGFR</span>
-              <div><small>RESOLVED TARGET</small><strong id="brief-name">Epidermal growth factor receptor</strong><em id="brief-id">P00533 · Homo sapiens</em></div>
+          <button class="primary run-button" id="run-screen" disabled><span class="run-icon">▶</span> Run real Tamarind screen (10 candidates)</button>
+          <div class="provider-note"><span>TAMARIND LIVE</span> Run submits a real compute job using your account credits. Each new named task is a separate submission.</div>
+        </article>
+
+        <article class="panel activity-panel">
+          <div class="panel-heading compact-heading"><div><span class="section-no">LOG</span><h2>Task activity</h2></div><span class="activity-count">0 / 6</span></div>
+          <div id="activity-log" class="activity-log">
+            <div class="log-placeholder">Activity summaries will appear here. No private chain-of-thought is displayed.</div>
+          </div>
+        </article>
+      </section>
+
+      <div class="task-inline-status"><span id="task-status-label">Waiting for results</span><button class="ghost" id="retry-task" hidden>Retry task</button></div>
+      <div id="ranking-empty" class="ranking-empty"><span>✳</span><h3>Waiting for this task’s results</h3><p>Real candidate scores will appear here after the model finishes.</p></div>
+      <section class="results-section" id="results" hidden>
+        <div class="results-heading" hidden>
+          <div><span class="kicker">04 / DECISION REPORT</span><h2>Ranked candidates.</h2><p>For real tasks, only metrics returned by the model are shown.</p></div>
+          <div class="results-actions"><button class="ghost" id="export-csv">Export CSV</button><button class="primary" id="compare-top">View top candidate</button></div>
+        </div>
+
+        <div class="ranking-notice" id="selection-note"></div><div class="stats-row" hidden><strong id="stat-screened"></strong><strong id="stat-eligible"></strong><strong id="stat-excluded"></strong><strong id="stat-frontier"></strong></div><div id="winner-grid" hidden></div>
+        <div class="results-grid">
+          <article class="panel candidate-panel">
+            <div class="panel-heading">
+              <div><span class="section-no">RANK</span><h2>Candidate evidence table</h2></div>
+              <label class="table-search"><span>⌕</span><input id="candidate-search" placeholder="Find candidate"></label>
             </div>
-            <dl>
-              <div><dt>Target domain</dt><dd id="brief-domain">Awaiting target resolution</dd></div>
-              <div><dt>Desired action</dt><dd id="brief-action">Competitive blockade</dd></div>
-              <div><dt>Modality</dt><dd id="brief-modality">Protein binder</dd></div>
-              <div><dt>Not evaluated</dt><dd>Biological effect · off-target binding · safety</dd></div>
-            </dl>
-            <div class="limitation"><b>Evidence boundary</b><p>Predicted binding does not establish the requested biological effect. Target-appropriate binding and functional assays remain necessary.</p></div>
-            <button class="text-action" id="edit-brief">Edit inputs</button>
-          </div>
-        </aside>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Rank</th><th>Candidate</th><th>Binding confidence</th><th>Structure confidence</th><th>ipTM</th><th>Gate outcome</th><th>Evidence-based note</th><th></th></tr></thead>
+                <tbody id="candidate-body"></tbody>
+              </table>
+            </div>
+            <div class="table-foot"><span><i class="frontier-dot"></i> Shown for inspection</span><span>All real candidates included in export</span></div>
+          </article>
+
+
+        </div>
+      </section>
+
+      <div class="page-bottom"><span>See how the shortlisted candidates might be assessed next.</span><button class="primary" data-go="experiment">Continue to experiment <span>↗</span></button></div>
+      </section>
+      <section class="workspace-page" data-page="experiment" hidden>
+        <div class="task-context"><button class="text-action" data-go="tasks">← All tasks</button><span class="current-task-name">No task selected</span><span class="current-task-target"></span></div><div class="example-notice" hidden>EXAMPLE TASK · Uses previously computed IL-2 designs. Starting simulations submits new real jobs.</div>
+        <div class="page-heading"><div><span class="kicker">03 / SIMULATION EXPERIMENT</span><h2>Put the shortlist to the test.</h2><p>Design a follow-up prediction for the three selected candidates.</p></div><span class="page-counter">03 <small>/ 04</small></span></div>
+        <div class="experiment-layout"><article class="panel experiment-main"><div class="panel-heading"><div><span class="section-no">01</span><h2>Predict the complex</h2></div><span class="preview-badge">BOLTZ-2</span></div><div class="experiment-content"><p>Run an independent structure prediction for each of the three shortlisted candidates against this task’s target.</p><div id="experiment-selector" class="experiment-selector"></div><div class="experiment-stage" id="experiment-stage"><div id="experiment-placeholder"><span>◎ + ✳</span><p>Select a candidate to inspect its predicted complex when ready.</p></div><video id="experiment-video" controls muted playsinline loop hidden></video></div><div class="experiment-actions"><button type="button" class="ghost" id="open-simulation-view" hidden>View in structure studio ↗</button><button class="primary" id="start-experiment" disabled>Run 3 predictions <span>↗</span></button><span id="experiment-progress">Waiting for a shortlist</span></div><p class="experiment-note">Three real Tamarind jobs use account credits. Predictions do not establish biological activity or replace wet-lab validation.</p></div></article><aside class="panel experiment-aside"><span class="kicker">CANDIDATE RESULTS / BOLTZ-2</span><h3>Three predictions.</h3><p>Review the status and reported confidence for each candidate.</p><div id="experiment-shortlist" class="shortlist-placeholder">No candidates loaded yet.</div><button class="text-action" data-go="ranking">← Back to ranking</button></aside></div>
+        <div class="page-bottom"><span>View candidate structures and any available predicted complexes.</span><button class="primary" id="open-selected-visualization">Open visualization <span>↗</span></button></div>
+      </section>
+      <section class="workspace-page" data-page="visualization" hidden>
+        <div class="task-context"><button class="text-action" data-go="tasks">← All tasks</button><span class="current-task-name">No task selected</span><span class="current-task-target"></span></div><div class="example-notice" hidden>EXAMPLE TASK · Uses previously computed IL-2 designs. Starting simulations submits new real jobs.</div>
+        <div class="page-heading"><div><span class="kicker">04 / STRUCTURE STUDIO</span><h2>See the science.</h2><p>Explore shortlisted proteins and their predicted complexes with the target.</p></div><span class="page-counter">04 <small>/ 04</small></span></div>
+        <article class="panel evidence-trail" id="candidate-evidence" hidden><div class="panel-heading"><div><span class="section-no">EVIDENCE</span><h2>Candidate evidence</h2></div><span class="panel-meta">MODEL OUTPUT + TRACEABLE SOURCE</span></div><div class="evidence-trail-body"><div><span class="kicker">CANDIDATE</span><h3 id="trail-candidate">—</h3><p id="trail-verdict"></p></div><div class="evidence-metrics"><div><span>Binding confidence</span><strong id="trail-binding">—</strong></div><div><span>Structure confidence</span><strong id="trail-structure">—</strong></div><div><span>Interface ipTM</span><strong id="trail-iptm">—</strong></div></div><div class="trail-sources"><p id="trail-basis"></p><p id="trail-source"></p><p id="trail-contacts"></p><p id="trail-experiment"></p><p>These are predicted model outputs and geometric contacts, not proof of function, causal mechanism or experimental validation.</p></div></div></article>
         <article class="panel molecular-evidence" id="molecular-evidence" tabindex="-1" aria-label="Molecular Evidence">
           <div class="panel-heading"><div><span class="section-no">3D</span><h2>Molecular Evidence</h2></div><span id="evidence-badge">Awaiting target</span></div>
           <div class="evidence-body">
-            <div class="evidence-source">Evidence source: current target’s real Tamarind task</div>
+            <div class="evidence-source">Evidence source: <span id="evidence-source-name">Design prediction</span> <button id="evidence-original" type="button" hidden>Back to design structures</button></div>
             <p id="evidence-scope" class="evidence-note">Resolve the design brief to load target evidence.</p>
             <div id="evidence-candidates" class="evidence-pills" role="group" aria-label="Target and selected candidates"></div>
             <div class="evidence-tabs" role="group" aria-label="Structure view"><button id="evidence-target" aria-pressed="true">Target</button><button id="evidence-monomer" aria-pressed="false">Selected proteins</button><button id="evidence-complex" aria-pressed="false">Predicted complex</button></div>
@@ -152,73 +184,9 @@
             <details><summary>Interface residues & selected contacts</summary><p id="evidence-interface">No interface data available.</p></details>
           </div>
         </article>
+
+
       </section>
-
-      <section class="screen-layout reveal" id="pipeline">
-        <article class="panel priorities-panel">
-          <div class="panel-heading"><div><span class="section-no">02</span><h2>Real screening criteria</h2></div></div>
-          <div class="evidence-body"><p>Generate 10 miniproteins, validate sequences and structure files, then rank using actual model confidence. Inspect up to 3 candidates.</p><p>Pass gates: binding confidence ≥ 0.70 and structure confidence ≥ 0.68.</p><p>Selectivity, toxicity, immunogenicity, expression yield and binding kinetics: <strong>not evaluated</strong>. No invented scores are assigned.</p><p>If none pass, the strongest available predictions are labelled diagnostic only.</p></div>
-        </article>
-
-        <article class="panel pipeline-panel">
-          <div class="panel-heading">
-            <div><span class="section-no">03</span><h2>Rapid screen</h2></div>
-            <span class="runtime" id="runtime">Awaiting real task</span>
-          </div>
-          <div class="pipeline-map" id="pipeline-map">
-            <div class="pipe-step" data-step="0"><i>01</i><div><b>Resolve target</b><span>UniProt / structure lookup</span></div><em>Queued</em></div>
-            <div class="pipe-step" data-step="1"><i>02</i><div><b>Generate candidates</b><span>Tamarind BoltzProt · 10 binders</span></div><em>Queued</em></div>
-            <div class="pipe-step" data-step="2"><i>03</i><div><b>Predict complexes</b><span>Real target–binder coordinates</span></div><em>Queued</em></div>
-            <div class="pipe-step" data-step="3"><i>04</i><div><b>Validate candidates</b><span>Sequence and structure identity</span></div><em>Queued</em></div>
-            <div class="pipe-step" data-step="4"><i>05</i><div><b>Apply constraints</b><span>Evidence gates</span></div><em>Queued</em></div>
-            <div class="pipe-step" data-step="5"><i>06</i><div><b>Render selected structures</b><span>ChimeraX monomer + complex movies</span></div><em>Queued</em></div>
-          </div>
-          <button class="primary run-button" id="run-screen" disabled><span class="run-icon">▶</span> Run real Tamarind screen (10 candidates)</button>
-          <div class="provider-note"><span>TAMARIND LIVE</span> Run submits a real compute job using your account credits. Existing identical jobs are reused.</div>
-        </article>
-
-        <article class="panel activity-panel">
-          <div class="panel-heading compact-heading"><div><span class="section-no">LOG</span><h2>Task activity</h2></div><span class="activity-count">0 / 6</span></div>
-          <div id="activity-log" class="activity-log">
-            <div class="log-placeholder">Activity summaries will appear here. No private chain-of-thought is displayed.</div>
-          </div>
-        </article>
-      </section>
-
-      <section class="results-section" id="results" hidden>
-        <div class="results-heading">
-          <div><span class="kicker">04 / DECISION REPORT</span><h2>Choose the experiment, not just the score.</h2><p>Only metrics returned by the real model are shown.</p></div>
-          <div class="results-actions"><button class="ghost" id="export-csv">Export CSV</button><button class="primary" id="compare-top">Compare top 3</button></div>
-        </div>
-
-        <div class="stats-row">
-          <div><span>Screened</span><strong id="stat-screened">—</strong><small>real model outputs</small></div>
-          <div><span>Eligible</span><strong id="stat-eligible">—</strong><small>passed hard gates</small></div>
-          <div><span>Excluded</span><strong id="stat-excluded">—</strong><small>retained with reasons</small></div>
-          <div><span>Shown for inspection</span><strong id="stat-frontier">—</strong><small>selected or diagnostic</small></div>
-        </div>
-
-        <p id="selection-note" class="limitation"></p><div class="winner-grid" id="winner-grid"></div>
-
-        <div class="results-grid">
-          <article class="panel candidate-panel">
-            <div class="panel-heading">
-              <div><span class="section-no">RANK</span><h2>Candidate evidence table</h2></div>
-              <label class="table-search"><span>⌕</span><input id="candidate-search" placeholder="Find candidate"></label>
-            </div>
-            <div class="table-wrap">
-              <table>
-                <thead><tr><th>Rank</th><th>Candidate</th><th>Binding confidence</th><th>Structure confidence</th><th>ipTM</th><th>Gate outcome</th><th>Reasons</th><th></th></tr></thead>
-                <tbody id="candidate-body"></tbody>
-              </table>
-            </div>
-            <div class="table-foot"><span><i class="frontier-dot"></i> Shown for inspection</span><span>All real candidates included in export</span></div>
-          </article>
-
-
-        </div>
-      </section>
-
       <footer>
         <span>RECEPTORFLOW / PROTOLAB</span>
         <p>Evidence before explanation.</p>
