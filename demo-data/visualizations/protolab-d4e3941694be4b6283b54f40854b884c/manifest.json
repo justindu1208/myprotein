@@ -1,0 +1,1183 @@
+{
+  "schema_version": 1,
+  "run_id": "protolab-d4e3941694be4b6283b54f40854b884c",
+  "label": "Boltz-2 simulation design-23",
+  "target_identity": {
+    "sequence": "APTSSSTKKTQLQLEHLLLDLQMILNGINNYKNPKLTRMLTFKFYMPKKATELKHLQCLEEELKPLEEVLNLAQSKNFHLRPRDLISNINVIVLELKGSETTFMCEYADETATIVEFLNRWITFCQSIISTLT",
+    "scope": "Target chain from predicted complex"
+  },
+  "candidates": {
+    "design-23": {
+      "candidate_id": "design-23",
+      "source_design_id": "design-23",
+      "sequence": "MITKEDLYKLADLIEEKFGYKDAKEILDKILNGEKVSDEKLLKLIELINKITAEELKSKAGLSVGKHGSIQALLLKKIEE",
+      "metrics": {
+        "structure_confidence": 0.9523372054100037
+      },
+      "categories": [],
+      "monomer": {
+        "role": "monomer",
+        "candidate_id": "design-23",
+        "state": "available",
+        "mmcif_url": "/api/visualizations/protolab-d4e3941694be4b6283b54f40854b884c/design-23/monomer.cif",
+        "pdb_url": "/api/visualizations/protolab-d4e3941694be4b6283b54f40854b884c/design-23/monomer.pdb",
+        "sha256": "c121aa820a9343b3cec4c52c1ab8bb650d3d4600a834e835a4d3aa83cdbb6116",
+        "source": "BoltzProt binder chain",
+        "source_job_id": "protolab-d4e3941694be4b6283b54f40854b884c",
+        "predicted": true,
+        "note": "Extracted bound conformation; not an independently predicted monomer",
+        "structure_confidence": 0.9523372054100037,
+        "samson_document_url": null,
+        "samson_views": {},
+        "sequence_length": 80,
+        "chains": [
+          "B"
+        ]
+      },
+      "complex": {
+        "role": "complex",
+        "candidate_id": "design-23",
+        "state": "available",
+        "mmcif_url": "/api/visualizations/protolab-d4e3941694be4b6283b54f40854b884c/design-23/complex.cif",
+        "pdb_url": "/api/visualizations/protolab-d4e3941694be4b6283b54f40854b884c/design-23/complex.pdb",
+        "sha256": "c590d940a6dc385b5f73d8c7b2bd42c9d1d1a1dd5553a8e4f7859e70cc8cc2d9",
+        "source": "BoltzProt predicted complex",
+        "source_job_id": "protolab-d4e3941694be4b6283b54f40854b884c",
+        "predicted": true,
+        "note": "",
+        "structure_confidence": 0.9523372054100037,
+        "samson_document_url": null,
+        "samson_views": {},
+        "sequence_length": 213,
+        "chains": [
+          "A",
+          "B"
+        ]
+      },
+      "target_chains": [
+        "A"
+      ],
+      "binder_chains": [
+        "B"
+      ],
+      "interface": {
+        "method": "Heavy-atom distance <= 4.5 \u00c5; not assigned hydrogen bonds",
+        "residues": [
+          {
+            "chain": "A",
+            "number": 35,
+            "name": "LYS"
+          },
+          {
+            "chain": "A",
+            "number": 38,
+            "name": "ARG"
+          },
+          {
+            "chain": "A",
+            "number": 39,
+            "name": "MET"
+          },
+          {
+            "chain": "A",
+            "number": 41,
+            "name": "THR"
+          },
+          {
+            "chain": "A",
+            "number": 42,
+            "name": "PHE"
+          },
+          {
+            "chain": "A",
+            "number": 43,
+            "name": "LYS"
+          },
+          {
+            "chain": "A",
+            "number": 45,
+            "name": "TYR"
+          },
+          {
+            "chain": "A",
+            "number": 61,
+            "name": "GLU"
+          },
+          {
+            "chain": "A",
+            "number": 62,
+            "name": "GLU"
+          },
+          {
+            "chain": "A",
+            "number": 64,
+            "name": "LYS"
+          },
+          {
+            "chain": "A",
+            "number": 65,
+            "name": "PRO"
+          },
+          {
+            "chain": "A",
+            "number": 68,
+            "name": "GLU"
+          },
+          {
+            "chain": "A",
+            "number": 72,
+            "name": "LEU"
+          },
+          {
+            "chain": "A",
+            "number": 107,
+            "name": "TYR"
+          },
+          {
+            "chain": "A",
+            "number": 109,
+            "name": "ASP"
+          },
+          {
+            "chain": "A",
+            "number": 111,
+            "name": "THR"
+          },
+          {
+            "chain": "B",
+            "number": 1,
+            "name": "MET"
+          },
+          {
+            "chain": "B",
+            "number": 42,
+            "name": "LEU"
+          },
+          {
+            "chain": "B",
+            "number": 45,
+            "name": "ILE"
+          },
+          {
+            "chain": "B",
+            "number": 49,
+            "name": "ASN"
+          },
+          {
+            "chain": "B",
+            "number": 51,
+            "name": "ILE"
+          },
+          {
+            "chain": "B",
+            "number": 52,
+            "name": "THR"
+          },
+          {
+            "chain": "B",
+            "number": 53,
+            "name": "ALA"
+          },
+          {
+            "chain": "B",
+            "number": 56,
+            "name": "LEU"
+          },
+          {
+            "chain": "B",
+            "number": 64,
+            "name": "VAL"
+          },
+          {
+            "chain": "B",
+            "number": 65,
+            "name": "GLY"
+          },
+          {
+            "chain": "B",
+            "number": 67,
+            "name": "HIS"
+          },
+          {
+            "chain": "B",
+            "number": 68,
+            "name": "GLY"
+          },
+          {
+            "chain": "B",
+            "number": 69,
+            "name": "SER"
+          },
+          {
+            "chain": "B",
+            "number": 71,
+            "name": "GLN"
+          },
+          {
+            "chain": "B",
+            "number": 72,
+            "name": "ALA"
+          },
+          {
+            "chain": "B",
+            "number": 75,
+            "name": "LEU"
+          },
+          {
+            "chain": "B",
+            "number": 78,
+            "name": "ILE"
+          },
+          {
+            "chain": "B",
+            "number": 79,
+            "name": "GLU"
+          }
+        ],
+        "contacts": [
+          {
+            "target_chain": "A",
+            "target_residue": 64,
+            "target_atom": "CE",
+            "binder_chain": "B",
+            "binder_residue": 1,
+            "binder_atom": "SD",
+            "distance_angstrom": 3.641
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 64,
+            "target_atom": "NZ",
+            "binder_chain": "B",
+            "binder_residue": 1,
+            "binder_atom": "SD",
+            "distance_angstrom": 3.476
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 64,
+            "target_atom": "CE",
+            "binder_chain": "B",
+            "binder_residue": 1,
+            "binder_atom": "CE",
+            "distance_angstrom": 4.091
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 64,
+            "target_atom": "NZ",
+            "binder_chain": "B",
+            "binder_residue": 1,
+            "binder_atom": "CE",
+            "distance_angstrom": 3.335
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 38,
+            "target_atom": "CZ",
+            "binder_chain": "B",
+            "binder_residue": 42,
+            "binder_atom": "CD1",
+            "distance_angstrom": 4.384
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 38,
+            "target_atom": "NH2",
+            "binder_chain": "B",
+            "binder_residue": 42,
+            "binder_atom": "CD1",
+            "distance_angstrom": 4.139
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 38,
+            "target_atom": "CZ",
+            "binder_chain": "B",
+            "binder_residue": 42,
+            "binder_atom": "CD2",
+            "distance_angstrom": 4.499
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 41,
+            "target_atom": "O",
+            "binder_chain": "B",
+            "binder_residue": 45,
+            "binder_atom": "CG2",
+            "distance_angstrom": 3.975
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 111,
+            "target_atom": "OG1",
+            "binder_chain": "B",
+            "binder_residue": 49,
+            "binder_atom": "O",
+            "distance_angstrom": 3.675
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 111,
+            "target_atom": "CG2",
+            "binder_chain": "B",
+            "binder_residue": 49,
+            "binder_atom": "O",
+            "distance_angstrom": 4.28
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 43,
+            "target_atom": "CB",
+            "binder_chain": "B",
+            "binder_residue": 49,
+            "binder_atom": "CB",
+            "distance_angstrom": 4.318
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 43,
+            "target_atom": "CG",
+            "binder_chain": "B",
+            "binder_residue": 49,
+            "binder_atom": "CB",
+            "distance_angstrom": 3.756
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 43,
+            "target_atom": "CB",
+            "binder_chain": "B",
+            "binder_residue": 49,
+            "binder_atom": "CG",
+            "distance_angstrom": 3.71
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 43,
+            "target_atom": "CG",
+            "binder_chain": "B",
+            "binder_residue": 49,
+            "binder_atom": "CG",
+            "distance_angstrom": 3.185
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 41,
+            "target_atom": "O",
+            "binder_chain": "B",
+            "binder_residue": 49,
+            "binder_atom": "CG",
+            "distance_angstrom": 3.876
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 43,
+            "target_atom": "N",
+            "binder_chain": "B",
+            "binder_residue": 49,
+            "binder_atom": "OD1",
+            "distance_angstrom": 4.101
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 43,
+            "target_atom": "CA",
+            "binder_chain": "B",
+            "binder_residue": 49,
+            "binder_atom": "OD1",
+            "distance_angstrom": 4.381
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 43,
+            "target_atom": "CB",
+            "binder_chain": "B",
+            "binder_residue": 49,
+            "binder_atom": "OD1",
+            "distance_angstrom": 3.447
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 43,
+            "target_atom": "CG",
+            "binder_chain": "B",
+            "binder_residue": 49,
+            "binder_atom": "OD1",
+            "distance_angstrom": 3.421
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 41,
+            "target_atom": "O",
+            "binder_chain": "B",
+            "binder_residue": 49,
+            "binder_atom": "OD1",
+            "distance_angstrom": 4.047
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 41,
+            "target_atom": "C",
+            "binder_chain": "B",
+            "binder_residue": 49,
+            "binder_atom": "ND2",
+            "distance_angstrom": 4.111
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 43,
+            "target_atom": "CE",
+            "binder_chain": "B",
+            "binder_residue": 49,
+            "binder_atom": "ND2",
+            "distance_angstrom": 4.338
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 43,
+            "target_atom": "CB",
+            "binder_chain": "B",
+            "binder_residue": 49,
+            "binder_atom": "ND2",
+            "distance_angstrom": 4.14
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 43,
+            "target_atom": "CG",
+            "binder_chain": "B",
+            "binder_residue": 49,
+            "binder_atom": "ND2",
+            "distance_angstrom": 3.224
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 43,
+            "target_atom": "CD",
+            "binder_chain": "B",
+            "binder_residue": 49,
+            "binder_atom": "ND2",
+            "distance_angstrom": 4.386
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 41,
+            "target_atom": "O",
+            "binder_chain": "B",
+            "binder_residue": 49,
+            "binder_atom": "ND2",
+            "distance_angstrom": 2.914
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "OH",
+            "binder_chain": "B",
+            "binder_residue": 51,
+            "binder_atom": "C",
+            "distance_angstrom": 3.738
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CE1",
+            "binder_chain": "B",
+            "binder_residue": 51,
+            "binder_atom": "O",
+            "distance_angstrom": 3.536
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CZ",
+            "binder_chain": "B",
+            "binder_residue": 51,
+            "binder_atom": "O",
+            "distance_angstrom": 3.584
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "OH",
+            "binder_chain": "B",
+            "binder_residue": 51,
+            "binder_atom": "O",
+            "distance_angstrom": 2.754
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "OH",
+            "binder_chain": "B",
+            "binder_residue": 51,
+            "binder_atom": "CB",
+            "distance_angstrom": 4.49
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "OH",
+            "binder_chain": "B",
+            "binder_residue": 51,
+            "binder_atom": "CG2",
+            "distance_angstrom": 4.495
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "OH",
+            "binder_chain": "B",
+            "binder_residue": 52,
+            "binder_atom": "N",
+            "distance_angstrom": 4.453
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CE1",
+            "binder_chain": "B",
+            "binder_residue": 52,
+            "binder_atom": "CA",
+            "distance_angstrom": 4.171
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 109,
+            "target_atom": "O",
+            "binder_chain": "B",
+            "binder_residue": 52,
+            "binder_atom": "CA",
+            "distance_angstrom": 4.472
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "OH",
+            "binder_chain": "B",
+            "binder_residue": 52,
+            "binder_atom": "CA",
+            "distance_angstrom": 4.37
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CE1",
+            "binder_chain": "B",
+            "binder_residue": 52,
+            "binder_atom": "C",
+            "distance_angstrom": 3.761
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CZ",
+            "binder_chain": "B",
+            "binder_residue": 52,
+            "binder_atom": "C",
+            "distance_angstrom": 4.114
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "OH",
+            "binder_chain": "B",
+            "binder_residue": 52,
+            "binder_atom": "C",
+            "distance_angstrom": 3.78
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CE1",
+            "binder_chain": "B",
+            "binder_residue": 52,
+            "binder_atom": "O",
+            "distance_angstrom": 4.446
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CZ",
+            "binder_chain": "B",
+            "binder_residue": 52,
+            "binder_atom": "O",
+            "distance_angstrom": 4.435
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "OH",
+            "binder_chain": "B",
+            "binder_residue": 52,
+            "binder_atom": "O",
+            "distance_angstrom": 3.816
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 109,
+            "target_atom": "O",
+            "binder_chain": "B",
+            "binder_residue": 52,
+            "binder_atom": "CB",
+            "distance_angstrom": 4.361
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 109,
+            "target_atom": "CA",
+            "binder_chain": "B",
+            "binder_residue": 52,
+            "binder_atom": "CG2",
+            "distance_angstrom": 4.459
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 109,
+            "target_atom": "CB",
+            "binder_chain": "B",
+            "binder_residue": 52,
+            "binder_atom": "CG2",
+            "distance_angstrom": 4.452
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 109,
+            "target_atom": "OD1",
+            "binder_chain": "B",
+            "binder_residue": 52,
+            "binder_atom": "CG2",
+            "distance_angstrom": 4.432
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 109,
+            "target_atom": "O",
+            "binder_chain": "B",
+            "binder_residue": 52,
+            "binder_atom": "CG2",
+            "distance_angstrom": 3.881
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CD1",
+            "binder_chain": "B",
+            "binder_residue": 53,
+            "binder_atom": "N",
+            "distance_angstrom": 3.909
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CE1",
+            "binder_chain": "B",
+            "binder_residue": 53,
+            "binder_atom": "N",
+            "distance_angstrom": 3.238
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CZ",
+            "binder_chain": "B",
+            "binder_residue": 53,
+            "binder_atom": "N",
+            "distance_angstrom": 3.809
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "OH",
+            "binder_chain": "B",
+            "binder_residue": 53,
+            "binder_atom": "N",
+            "distance_angstrom": 3.926
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CD1",
+            "binder_chain": "B",
+            "binder_residue": 53,
+            "binder_atom": "CA",
+            "distance_angstrom": 4.141
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CE1",
+            "binder_chain": "B",
+            "binder_residue": 53,
+            "binder_atom": "CA",
+            "distance_angstrom": 3.675
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CZ",
+            "binder_chain": "B",
+            "binder_residue": 53,
+            "binder_atom": "CA",
+            "distance_angstrom": 3.946
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "OH",
+            "binder_chain": "B",
+            "binder_residue": 53,
+            "binder_atom": "CA",
+            "distance_angstrom": 4.198
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CD1",
+            "binder_chain": "B",
+            "binder_residue": 53,
+            "binder_atom": "CB",
+            "distance_angstrom": 3.725
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CE1",
+            "binder_chain": "B",
+            "binder_residue": 53,
+            "binder_atom": "CB",
+            "distance_angstrom": 3.802
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 107,
+            "target_atom": "CG",
+            "binder_chain": "B",
+            "binder_residue": 53,
+            "binder_atom": "CB",
+            "distance_angstrom": 4.075
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 107,
+            "target_atom": "CB",
+            "binder_chain": "B",
+            "binder_residue": 53,
+            "binder_atom": "CB",
+            "distance_angstrom": 3.763
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CG",
+            "binder_chain": "B",
+            "binder_residue": 53,
+            "binder_atom": "CB",
+            "distance_angstrom": 4.169
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CZ",
+            "binder_chain": "B",
+            "binder_residue": 53,
+            "binder_atom": "CB",
+            "distance_angstrom": 4.291
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 107,
+            "target_atom": "CD2",
+            "binder_chain": "B",
+            "binder_residue": 53,
+            "binder_atom": "CB",
+            "distance_angstrom": 3.962
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "OH",
+            "binder_chain": "B",
+            "binder_residue": 56,
+            "binder_atom": "CB",
+            "distance_angstrom": 4.337
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CE2",
+            "binder_chain": "B",
+            "binder_residue": 56,
+            "binder_atom": "CD2",
+            "distance_angstrom": 4.072
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CZ",
+            "binder_chain": "B",
+            "binder_residue": 56,
+            "binder_atom": "CD2",
+            "distance_angstrom": 4.322
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "OH",
+            "binder_chain": "B",
+            "binder_residue": 56,
+            "binder_atom": "CD2",
+            "distance_angstrom": 3.842
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CD2",
+            "binder_chain": "B",
+            "binder_residue": 64,
+            "binder_atom": "CA",
+            "distance_angstrom": 4.426
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CE2",
+            "binder_chain": "B",
+            "binder_residue": 64,
+            "binder_atom": "CA",
+            "distance_angstrom": 4.396
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 62,
+            "target_atom": "OE2",
+            "binder_chain": "B",
+            "binder_residue": 64,
+            "binder_atom": "O",
+            "distance_angstrom": 4.471
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CD2",
+            "binder_chain": "B",
+            "binder_residue": 64,
+            "binder_atom": "O",
+            "distance_angstrom": 4.429
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CE2",
+            "binder_chain": "B",
+            "binder_residue": 64,
+            "binder_atom": "O",
+            "distance_angstrom": 4.448
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 62,
+            "target_atom": "OE2",
+            "binder_chain": "B",
+            "binder_residue": 64,
+            "binder_atom": "CB",
+            "distance_angstrom": 4.472
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CD2",
+            "binder_chain": "B",
+            "binder_residue": 64,
+            "binder_atom": "CB",
+            "distance_angstrom": 3.684
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CE2",
+            "binder_chain": "B",
+            "binder_residue": 64,
+            "binder_atom": "CB",
+            "distance_angstrom": 4.064
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CG",
+            "binder_chain": "B",
+            "binder_residue": 64,
+            "binder_atom": "CG1",
+            "distance_angstrom": 4.433
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CD2",
+            "binder_chain": "B",
+            "binder_residue": 64,
+            "binder_atom": "CG1",
+            "distance_angstrom": 3.877
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CE2",
+            "binder_chain": "B",
+            "binder_residue": 64,
+            "binder_atom": "CG1",
+            "distance_angstrom": 4.107
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 107,
+            "target_atom": "CE2",
+            "binder_chain": "B",
+            "binder_residue": 64,
+            "binder_atom": "CG1",
+            "distance_angstrom": 4.109
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 107,
+            "target_atom": "CD2",
+            "binder_chain": "B",
+            "binder_residue": 64,
+            "binder_atom": "CG1",
+            "distance_angstrom": 4.385
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 62,
+            "target_atom": "OE2",
+            "binder_chain": "B",
+            "binder_residue": 64,
+            "binder_atom": "CG2",
+            "distance_angstrom": 4.463
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 107,
+            "target_atom": "CE2",
+            "binder_chain": "B",
+            "binder_residue": 64,
+            "binder_atom": "CG2",
+            "distance_angstrom": 4.148
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 107,
+            "target_atom": "CZ",
+            "binder_chain": "B",
+            "binder_residue": 64,
+            "binder_atom": "CG2",
+            "distance_angstrom": 4.017
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 107,
+            "target_atom": "OH",
+            "binder_chain": "B",
+            "binder_residue": 64,
+            "binder_atom": "CG2",
+            "distance_angstrom": 3.66
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 61,
+            "target_atom": "OE1",
+            "binder_chain": "B",
+            "binder_residue": 64,
+            "binder_atom": "CG2",
+            "distance_angstrom": 4.081
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 65,
+            "target_atom": "CD",
+            "binder_chain": "B",
+            "binder_residue": 65,
+            "binder_atom": "CA",
+            "distance_angstrom": 4.424
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 65,
+            "target_atom": "CG",
+            "binder_chain": "B",
+            "binder_residue": 65,
+            "binder_atom": "CA",
+            "distance_angstrom": 4.0
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 61,
+            "target_atom": "O",
+            "binder_chain": "B",
+            "binder_residue": 65,
+            "binder_atom": "CA",
+            "distance_angstrom": 4.173
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 65,
+            "target_atom": "CG",
+            "binder_chain": "B",
+            "binder_residue": 65,
+            "binder_atom": "C",
+            "distance_angstrom": 4.304
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 65,
+            "target_atom": "CD",
+            "binder_chain": "B",
+            "binder_residue": 65,
+            "binder_atom": "O",
+            "distance_angstrom": 4.339
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 65,
+            "target_atom": "CG",
+            "binder_chain": "B",
+            "binder_residue": 65,
+            "binder_atom": "O",
+            "distance_angstrom": 3.702
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CE2",
+            "binder_chain": "B",
+            "binder_residue": 67,
+            "binder_atom": "CB",
+            "distance_angstrom": 3.826
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CD2",
+            "binder_chain": "B",
+            "binder_residue": 67,
+            "binder_atom": "CG",
+            "distance_angstrom": 4.389
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CE2",
+            "binder_chain": "B",
+            "binder_residue": 67,
+            "binder_atom": "CG",
+            "distance_angstrom": 3.459
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CZ",
+            "binder_chain": "B",
+            "binder_residue": 67,
+            "binder_atom": "CG",
+            "distance_angstrom": 4.07
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "OH",
+            "binder_chain": "B",
+            "binder_residue": 67,
+            "binder_atom": "CG",
+            "distance_angstrom": 3.881
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CE2",
+            "binder_chain": "B",
+            "binder_residue": 67,
+            "binder_atom": "ND1",
+            "distance_angstrom": 3.696
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CZ",
+            "binder_chain": "B",
+            "binder_residue": 67,
+            "binder_atom": "ND1",
+            "distance_angstrom": 3.826
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "OH",
+            "binder_chain": "B",
+            "binder_residue": 67,
+            "binder_atom": "ND1",
+            "distance_angstrom": 3.222
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 43,
+            "target_atom": "O",
+            "binder_chain": "B",
+            "binder_residue": 67,
+            "binder_atom": "CD2",
+            "distance_angstrom": 3.693
+          },
+          {
+            "target_chain": "A",
+            "target_residue": 45,
+            "target_atom": "CD2",
+            "binder_chain": "B",
+            "binder_residue": 67,
+            "binder_atom": "CD2",
+            "distance_angstrom": 4.285
+          }
+        ],
+        "contacts_display_limit": 100
+      }
+    }
+  },
+  "target": {
+    "role": "target",
+    "candidate_id": "target",
+    "state": "available",
+    "mmcif_url": "/api/visualizations/protolab-d4e3941694be4b6283b54f40854b884c/target/target.cif",
+    "pdb_url": "/api/visualizations/protolab-d4e3941694be4b6283b54f40854b884c/target/target.pdb",
+    "sha256": "c66cd30817fd822048077dec95d008ae99bb3d7e0d77f9670dcb1f4f18e28ed2",
+    "source": "BoltzProt target chain from predicted complex",
+    "source_job_id": "protolab-d4e3941694be4b6283b54f40854b884c",
+    "predicted": true,
+    "note": "Bound target conformation, not an experimental reference",
+    "structure_confidence": null,
+    "samson_document_url": null,
+    "samson_views": {},
+    "sequence_length": 133,
+    "chains": [
+      "A"
+    ]
+  },
+  "experimental_reference": null,
+  "true_trajectory": null,
+  "transition_label": "Illustrative transition to the predicted complex \u2014 not a molecular-dynamics trajectory.",
+  "research_id": "research-8fe78ab37b014bc3b530ecff11bb573c",
+  "target_spec": {
+    "accession": "P60568",
+    "species": "Homo sapiens",
+    "symbol": "IL2",
+    "name": "Interleukin-2",
+    "domain": "Mature chain (signal peptide excluded)",
+    "start": 21,
+    "end": 153,
+    "length": 133,
+    "sequence_sha256": "207863eba346047cfe2c3543d542c265104b939e52fed99db4630951a2741362",
+    "count": 50,
+    "binder_length": 80,
+    "modality": "Protein binder",
+    "intent": "Design a miniprotein binder to mature IL-2 for structural binding assessment. Biological effects remain to be tested.",
+    "source": "https://www.uniprot.org/uniprotkb/P60568/entry",
+    "limitations": "No epitope, glycosylation, antagonism, off-target binding, toxicity or expression-yield validation is performed. Intended effect is recorded, not inferred from binding."
+  }
+}

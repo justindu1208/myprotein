@@ -4,6 +4,8 @@ Start the local app with `sh scripts/start-local.sh` (macOS/Linux) or `scripts/s
 
 Create a named task with a target and candidate count, then open it from **Tasks** to review ranking, follow-up prediction and structure views. The task stores its data locally. The priority sliders are saved but are not applied to model inputs or ranking. Generation and the three follow-up predictions use Tamarind credits. See [live workflow](LIVE_RESEARCH.md) and [renderer setup](MOLECULAR_EVIDENCE.md).
 
+For the hackathon demo, **Tasks → Real IL-2 demo · 50 candidates** opens a bundled, previously computed Tamarind BoltzProt run with three completed independent Boltz-2 follow-up predictions and ChimeraX-rendered media. Viewing these saved results does not submit a job or require an API key or ChimeraX. The results are model predictions, not experimental measurements. Starting additional predictions or new designs does use Tamarind credits.
+
 Model confidence and rendered structures are predictions, not proof of biological function, wet-lab validation or molecular dynamics. Previously generated demo assets are retained in `demo-data/` but are not automatically substituted for a new task.
 
 ---

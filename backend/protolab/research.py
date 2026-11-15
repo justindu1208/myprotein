@@ -212,7 +212,7 @@ def install_bundled_demos():
     import shutil
     bundled=ROOT.parents[1]/'demo-data'
     if not bundled.is_dir():return
-    for folder in ('visualizations','research'):
+    for folder in ('visualizations','research','experiments'):
         source=bundled/folder
         for path in source.rglob('*'):
             if not path.is_file() or path.is_symlink():continue
@@ -231,13 +231,14 @@ def resume_pending():
 
 
 def list_tasks():
-    """List explicitly named user tasks, not bundled demos or provider caches."""
+    """List named tasks and legacy submitted tasks, excluding bundled demos."""
     result=[]
     for path in ROOT.glob('research-*.json'):
         try:
             record=read(path.stem)
-            if not record.get('task_name'):continue
+            if not record.get('task_name') and (not record.get('jobName') or record['id'] in DEMO_IDS.values()):continue
             spec=record['spec']
-            result.append({'id':record['id'],'task_name':record['task_name'],'created_at':record.get('created_at'),'stage':record['stage'],'provider_state':record.get('provider_state'),'spec':{k:spec.get(k) for k in ('symbol','accession','species','count')},'candidate_count':len(record.get('candidates',[]))})
+            name=record.get('task_name') or f"Previous task · {spec.get('symbol', 'Target')} · {spec.get('count', '?')} candidates · {record['id'][-6:]}"
+            result.append({'id':record['id'],'task_name':name,'created_at':record.get('created_at'),'stage':record['stage'],'provider_state':record.get('provider_state'),'spec':{k:spec.get(k) for k in ('symbol','accession','species','count')},'candidate_count':len(record.get('candidates',[]))})
         except (OSError,ValueError,KeyError):continue
     return sorted(result,key=lambda r:r.get('created_at') or '',reverse=True)

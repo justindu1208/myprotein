@@ -1,0 +1,1071 @@
+{
+  "id": "research-8fe78ab37b014bc3b530ecff11bb573c",
+  "stage": "complete",
+  "spec": {
+    "accession": "P60568",
+    "species": "Homo sapiens",
+    "symbol": "IL2",
+    "name": "Interleukin-2",
+    "domain": "Mature chain (signal peptide excluded)",
+    "start": 21,
+    "end": 153,
+    "length": 133,
+    "sequence_sha256": "207863eba346047cfe2c3543d542c265104b939e52fed99db4630951a2741362",
+    "count": 50,
+    "binder_length": 80,
+    "modality": "Protein binder",
+    "intent": "Design a miniprotein binder to mature IL-2 for structural binding assessment. Biological effects remain to be tested.",
+    "source": "https://www.uniprot.org/uniprotkb/P60568/entry",
+    "limitations": "No epitope, glycosylation, antagonism, off-target binding, toxicity or expression-yield validation is performed. Intended effect is recorded, not inferred from binding."
+  },
+  "target_sequence": "APTSSSTKKTQLQLEHLLLDLQMILNGINNYKNPKLTRMLTFKFYMPKKATELKHLQCLEEELKPLEEVLNLAQSKNFHLRPRDLISNINVIVLELKGSETTFMCEYADETATIVEFLNRWITFCQSIISTLT",
+  "candidates": [
+    {
+      "id": "design-1",
+      "design_id": "pres_zVGpUPkE72Z4W1jfNL0D",
+      "sequence": "SPEEERRRRLEELLKELSEVEVDLSGPPLPQETIDEFVERAKEPSFTEEDREEILEALRTHATGAAKAELMARLEQILEE",
+      "metrics": {
+        "binding_confidence": 3.8207044781302104e-07,
+        "structure_confidence": 0.4975028336048126,
+        "iptm": 0.7190057635307312,
+        "min_interaction_pae": 4.555524826049805
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_0.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-2",
+      "design_id": "pres_SAs6CavOsnOFcnTb74PM",
+      "sequence": "HTGASAYVIKISSEELKELIEEVGIDGLAEGIKKKYGIKLEGLTKDNVRILTPEGEEISLEEIPELLEKEKELYVALNAE",
+      "metrics": {
+        "binding_confidence": 1.4120672858553009e-06,
+        "structure_confidence": 0.5013201832771301,
+        "iptm": 0.7292366623878479,
+        "min_interaction_pae": 4.038265228271484
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_1.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-3",
+      "design_id": "pres_xOYXax6mazdeohPlz3FB",
+      "sequence": "SEEAEKLRELLEEELKKTKDPKVLLEKLKEFLDELVKKGLISEKDAKDILSNFETLLNLGAFDEAIEFSVELLKIALKKS",
+      "metrics": {
+        "binding_confidence": 1.5522361506107489e-06,
+        "structure_confidence": 0.3174611032009125,
+        "iptm": 0.5149001479148865,
+        "min_interaction_pae": 8.492656707763672
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_2.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-4",
+      "design_id": "pres_DFW54BHmgOvDrtMiL4vZ",
+      "sequence": "MKLEDTSASDSDAAIAARANAALTLAGLDVEATPEQVAKMSDEEKAELGKLANEVINAAEEGKPDKEKAKKIVEILKKNI",
+      "metrics": {
+        "binding_confidence": 1.7395872735511957e-05,
+        "structure_confidence": 0.6317108273506165,
+        "iptm": 0.8425053358078003,
+        "min_interaction_pae": 2.679131031036377
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_3.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-5",
+      "design_id": "pres_F0HMogURUcU4r88ssdZG",
+      "sequence": "MDLEKLKAAIENAKAFAEELGVKDLVEELEEALAEDDVEKMLEKVAEILEKYGKVEKVDLSKLSPSGIAALLMLAAEKIA",
+      "metrics": {
+        "binding_confidence": 0.005622850754341919,
+        "structure_confidence": 0.6701444983482361,
+        "iptm": 0.8802734017372131,
+        "min_interaction_pae": 1.8709535598754883
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_4.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-6",
+      "design_id": "pres_bKcZYJu4thZXeubTS6vS",
+      "sequence": "KEKIIELLEKAVELLKEEKFEEVEKIREEIKKIVEELKKKQENGGLANTAEIAVTLIEEGKEDKEFAIEHLERIIKSLKE",
+      "metrics": {
+        "binding_confidence": 0.08943140524455405,
+        "structure_confidence": 0.6014665365219116,
+        "iptm": 0.8094061613082886,
+        "min_interaction_pae": 3.0122649669647217
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_5.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-7",
+      "design_id": "pres_EKfC6Kw1ETwYgRJnOCC6",
+      "sequence": "SREELEEEVEAIERIRKLIGEKDPSLKEKLEEIDKLIEEIRKTEDLEEARKKLEKVKEILGEMSKEMKKKGIGGVAYPEP",
+      "metrics": {
+        "binding_confidence": 0.3232856997604982,
+        "structure_confidence": 0.6705440878868103,
+        "iptm": 0.8865574598312378,
+        "min_interaction_pae": 1.52446711063385
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_6.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-8",
+      "design_id": "pres_7lwvK9JUuGRb2pSQgNbS",
+      "sequence": "MDAVIEEVIEELEEYIETRDLDPEIKELLEDTLRIMKASERGIRHVIAQLRSLKEKAEEAGDKELAELLDELIKRLEAAA",
+      "metrics": {
+        "binding_confidence": 0.6473545687206528,
+        "structure_confidence": 0.7047487497329712,
+        "iptm": 0.9375022649765015,
+        "min_interaction_pae": 1.0653796195983887
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_7.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-9",
+      "design_id": "pres_6gMEQBFiQuJEnIBraDmn",
+      "sequence": "SVDEKIEETVKLLEEYAKAVMAGEDPSPILAELEEFIRSNFPPEVQEKLLEQLEKLKKAKTPAEIQLATVQMVKAILDSE",
+      "metrics": {
+        "binding_confidence": 0.6066331028290823,
+        "structure_confidence": 0.6837739944458008,
+        "iptm": 0.9084991216659546,
+        "min_interaction_pae": 1.3908147811889648
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_8.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-10",
+      "design_id": "pres_QUtP4ByTMloBJRyyZZhK",
+      "sequence": "SEELVEKLRELKEKALETLRSLGLSEEFLKEVEEILDKMIENAAKSKDEEKMEELKDFLEKLSKEVPSLGYLKKFLEKYT",
+      "metrics": {
+        "binding_confidence": 7.387023208531185e-05,
+        "structure_confidence": 0.6615404486656189,
+        "iptm": 0.8769788146018982,
+        "min_interaction_pae": 1.6388901472091675
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_9.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-11",
+      "design_id": "pres_p7hsGkKqNXFzz1iS5ME3",
+      "sequence": "VEELLEELKKALKEKDYEKALELILEIVETSDDEEVYFEILELLESLPLEVRNKILKEVVEKLPKEDKLKLTIFSSSLVL",
+      "metrics": {
+        "binding_confidence": 7.527665275119944e-07,
+        "structure_confidence": 0.27943775057792664,
+        "iptm": 0.4722912013530731,
+        "min_interaction_pae": 9.249784469604492
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_10.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-12",
+      "design_id": "pres_Z3RLpyKXFmz5AMAmWozF",
+      "sequence": "GSEKAKEILKSYGVKEELIEKGEVKLSTIIEAVSKKEKVSKSKVEEILLSLNPSLKPDDKLSINFAAMLIEAVTEELKKA",
+      "metrics": {
+        "binding_confidence": 0.5959133377277757,
+        "structure_confidence": 0.68168044090271,
+        "iptm": 0.9024640321731567,
+        "min_interaction_pae": 1.4391634464263916
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_11.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-13",
+      "design_id": "pres_wqsyxIhozcFlLS5WLpDZ",
+      "sequence": "MEEEEEKKKEELLKKTRELLLKYVSEEIAEEIIEKIKEKEMEDIPQAVYEELLKYKDVVSPSQIAEIVAQIGLELDKLLE",
+      "metrics": {
+        "binding_confidence": 0.019766381382942202,
+        "structure_confidence": 0.6670412421226501,
+        "iptm": 0.8769004940986633,
+        "min_interaction_pae": 2.0280165672302246
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_12.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-14",
+      "design_id": "pres_fQ54D33OXBYgJ7OgCzWU",
+      "sequence": "MFSDLSKEELVQLGYGALKRFKETAPELVPEEEIKEFEKLLEEEKKKLKVKPLKEPAGMSADPEAMKDYMLAMLETLKTL",
+      "metrics": {
+        "binding_confidence": 1.2182157661300154e-06,
+        "structure_confidence": 0.18575695157051086,
+        "iptm": 0.3345375955104828,
+        "min_interaction_pae": 9.328868865966797
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_13.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-15",
+      "design_id": "pres_ICKQYR5veXtVJHq71Jpf",
+      "sequence": "MSLEEILEKLSKLVDADEETRLVILGLIALGAPESKLAEFIEKVLNDKERLEEIFNLALTLDEEEKEYLIKIAKERGESL",
+      "metrics": {
+        "binding_confidence": 2.4753130674071143e-07,
+        "structure_confidence": 0.05855388939380646,
+        "iptm": 0.22268132865428925,
+        "min_interaction_pae": 17.72218132019043
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_14.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-16",
+      "design_id": "pres_OeEnrXPLpwn7JNVCaz4z",
+      "sequence": "DLEEKIERIVEGLLEKFGDEKVDLDEALAVARELLLEEGFSEEQVEAAIEAVRESLSGEVTGEEFATALRVALLSPKVQK",
+      "metrics": {
+        "binding_confidence": 0.3891156862195113,
+        "structure_confidence": 0.6306536793708801,
+        "iptm": 0.837222158908844,
+        "min_interaction_pae": 2.368253231048584
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_15.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-17",
+      "design_id": "pres_vQUeliBE2Am3zyDSF2c6",
+      "sequence": "NKIEILAPYAEEEEIEELKKVFGTKKSKEAGEEFQKWAKETFNGKFHVSTDAEVDKEKILPLLEEMMEKGVYAIVVEVVP",
+      "metrics": {
+        "binding_confidence": 2.5326621653221084e-07,
+        "structure_confidence": 0.6539990901947021,
+        "iptm": 0.8800667524337769,
+        "min_interaction_pae": 1.8710546493530273
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_16.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-18",
+      "design_id": "pres_ebJV8Q2crDkJvzslh4cA",
+      "sequence": "PTEDDLEIIDIALKGILSEPEIAKEVLELLLEEKYEEAIKLIKEKAPELGGPFNALIELMKNPEVREVALEKIKEELAKL",
+      "metrics": {
+        "binding_confidence": 9.869004755064718e-05,
+        "structure_confidence": 0.5104089975357056,
+        "iptm": 0.7183030843734741,
+        "min_interaction_pae": 4.629791736602783
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_17.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-19",
+      "design_id": "pres_t2bj7qOFHmYE1AfZDigZ",
+      "sequence": "AEAILAAGKAADIEEMARLLSERLGVPYEEAYEALVKASQLPEEEKEAFAEEFVEKYNVPEEWREAIKEAIKSLPTNAAK",
+      "metrics": {
+        "binding_confidence": 3.516959850458079e-07,
+        "structure_confidence": 0.21429096162319183,
+        "iptm": 0.44637632369995117,
+        "min_interaction_pae": 10.855188369750977
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_18.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-20",
+      "design_id": "pres_VE1M5hkEB9KBgurvuuW9",
+      "sequence": "SPFSEEEIEIAKKLLEIIEESKDPNKTGGEVIKEAEEKYGISRSKIRKVLVKSGVSESKIDSLTAEELKEKLKLGLELSE",
+      "metrics": {
+        "binding_confidence": 4.138852091273293e-07,
+        "structure_confidence": 0.13317595422267914,
+        "iptm": 0.3170965015888214,
+        "min_interaction_pae": 15.167381286621094
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_19.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-21",
+      "design_id": "pres_hko4Vh39xzw8uGJgB44S",
+      "sequence": "AKSIEENSIKLVNEIVESFNSKSDIYDIDELIEEIKRRRPKGVASVTYGILEEIKKKEKKKYLTKEEIKEKIKELVKELS",
+      "metrics": {
+        "binding_confidence": 0.375428782775137,
+        "structure_confidence": 0.6419466137886047,
+        "iptm": 0.8747363686561584,
+        "min_interaction_pae": 1.857663869857788
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_20.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-22",
+      "design_id": "pres_C6xuOIR22Gys1T4BYNhr",
+      "sequence": "MDKVKEKVVEHTIELVKENKVSLEEVEKIILELAKENNIEVKKKINSIEDLEELLKELSKKLSVSELKLLSARILQKASG",
+      "metrics": {
+        "binding_confidence": 0.674447377917319,
+        "structure_confidence": 0.6811805963516235,
+        "iptm": 0.8890625834465027,
+        "min_interaction_pae": 1.4984875917434692
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_21.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-23",
+      "design_id": "pres_8ShL82Y7qJRbCq0tCQ8n",
+      "sequence": "MITKEDLYKLADLIEEKFGYKDAKEILDKILNGEKVSDEKLLKLIELINKITAEELKSKAGLSVGKHGSIQALLLKKIEE",
+      "metrics": {
+        "binding_confidence": 0.8138734102684972,
+        "structure_confidence": 0.7411213517189026,
+        "iptm": 0.966599702835083,
+        "min_interaction_pae": 0.4762222170829773
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_22.cif",
+      "qc_pass": true,
+      "reasons": [],
+      "passed": true
+    },
+    {
+      "id": "design-24",
+      "design_id": "pres_eBcIWh6kuVDCJpuozpGd",
+      "sequence": "SAEVEKLVEKLIKALDEEISFEELVKIVEELLKKGAITRTGNLEQAIKRYEKGEISTKDFIAQLATSLIPELTEKIAEAL",
+      "metrics": {
+        "binding_confidence": 1.1337730652523029e-05,
+        "structure_confidence": 0.4250892698764801,
+        "iptm": 0.6903311014175415,
+        "min_interaction_pae": 6.042654991149902
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_23.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-25",
+      "design_id": "pres_8Zs1RxHwi20wbytoQGKo",
+      "sequence": "SLEEKAIELIKKKLEELLNDESLYELPDEEIVEYIENSVKEFLKELEKENPEIDSKELYKKIAPYIQEAIAKIILEKEQQ",
+      "metrics": {
+        "binding_confidence": 3.610433467068794e-05,
+        "structure_confidence": 0.6890424489974976,
+        "iptm": 0.9192858934402466,
+        "min_interaction_pae": 1.3861284255981445
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_24.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-26",
+      "design_id": "pres_ctoACYCEikGhnGnbyvqh",
+      "sequence": "MEELEKLKKELLEKVEKKGELSIEEASEFAKKVKELHPELKPSYLNELLAEEVLKGNGKLKVEELKKFFEKILEEAKKLK",
+      "metrics": {
+        "binding_confidence": 2.7429092143356863e-05,
+        "structure_confidence": 0.28639310598373413,
+        "iptm": 0.624792754650116,
+        "min_interaction_pae": 6.63723087310791
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_25.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-27",
+      "design_id": "pres_8yspfbNgS8r4aLTnV094",
+      "sequence": "MPYTAEELLERLQTSNEEEKRKAVEELLKKIFSEELLNSISEEDLEKIKESVLEFIEKNPNATIGEVKAKIIEEYNKIIS",
+      "metrics": {
+        "binding_confidence": 0.7647313817091455,
+        "structure_confidence": 0.7306312918663025,
+        "iptm": 0.958740234375,
+        "min_interaction_pae": 0.6672863960266113
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_26.cif",
+      "qc_pass": true,
+      "reasons": [],
+      "passed": true
+    },
+    {
+      "id": "design-28",
+      "design_id": "pres_6NE3wy1RPjenbzp8XwJa",
+      "sequence": "SKELEEAIKNAVEGKVTEEDKEIIKKELNLSDEELEELIEAIKNKDLKKVQELLEKAVKEGKISPAKGQEALALILKALE",
+      "metrics": {
+        "binding_confidence": 0.00018346787302519135,
+        "structure_confidence": 0.5959380269050598,
+        "iptm": 0.8068833947181702,
+        "min_interaction_pae": 3.5603561401367188
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_27.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-29",
+      "design_id": "pres_42Wc6sRoFSmqMqIu3juL",
+      "sequence": "GLKEKIVEILEKYPELRELIAEELGLPTTDPEEIAEELLKLSPGELATLEVRISKKVDDEEIREAAREIVELAGKIRLEE",
+      "metrics": {
+        "binding_confidence": 4.343698635737859e-07,
+        "structure_confidence": 0.6716076731681824,
+        "iptm": 0.8878805041313171,
+        "min_interaction_pae": 1.7511807680130005
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_28.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-30",
+      "design_id": "pres_8WY0DqPgFtVvt9qrGHXs",
+      "sequence": "SVLEELREESEKILEKSNLSEETKEAIREIVEEAYETGDLLAARGKLIPLYLSVPEEEQPTVLEIYEVVLKAIKKKYVVK",
+      "metrics": {
+        "binding_confidence": 0.39995273712021834,
+        "structure_confidence": 0.6647655963897705,
+        "iptm": 0.8684576153755188,
+        "min_interaction_pae": 2.0998899936676025
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_29.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-31",
+      "design_id": "pres_rVKKA3s9EmHcnJ9yeVTw",
+      "sequence": "MSKLKEKALENVEKILTEILDKLKVKEEDKEKVLKEVRERIAKLDENSGLNSSGGLLPIVKEAIKKYLDKEKAEEAIELL",
+      "metrics": {
+        "binding_confidence": 5.502254563834598e-06,
+        "structure_confidence": 0.6085968613624573,
+        "iptm": 0.822336733341217,
+        "min_interaction_pae": 2.517838716506958
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_30.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-32",
+      "design_id": "pres_hWHkAwkDbpyqkcMGYHUX",
+      "sequence": "SKEELEKKVEELVEAMGRLLGTSIGEELLKKLPEEEREAALKIAGSSDLEEQIELVKKIDAEKLIERLRELAKEGEEKMK",
+      "metrics": {
+        "binding_confidence": 9.292614413425328e-06,
+        "structure_confidence": 0.6310412287712097,
+        "iptm": 0.8157779574394226,
+        "min_interaction_pae": 2.4252305030822754
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_31.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-33",
+      "design_id": "pres_j3Sm48ZSSPwHpSMbjL3Z",
+      "sequence": "SLQELLEKVQELLASQDYEALKKLIEEIDKDLKTLSKEELEELLNSSAEEAVELMDKKGLKGFPAVKNEKGIKKALEKYG",
+      "metrics": {
+        "binding_confidence": 2.302162647538353e-06,
+        "structure_confidence": 0.18404428660869598,
+        "iptm": 0.3984168469905853,
+        "min_interaction_pae": 10.767229080200195
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_32.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-34",
+      "design_id": "pres_jdhpP5XFU0is5bUI4Sz9",
+      "sequence": "VEKKLKEIIEYMKKEKKDVPLSKLKELLKEAEKSGKDIVELIQKLLNIKEKIPLPLSGSSDLDVKARSLQSFIEFALSLA",
+      "metrics": {
+        "binding_confidence": 0.0016768936413685052,
+        "structure_confidence": 0.7212346196174622,
+        "iptm": 0.9356112480163574,
+        "min_interaction_pae": 0.7365232706069946
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_33.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-35",
+      "design_id": "pres_Fl5XBDWNbHXkBkDXrNpE",
+      "sequence": "MEAQKAAAEYVAKAKEEEIEEAAKKALEAAKKTARSETAAETLEKAVEALLKNRDKISFEELKYMLLVLASATGPVAPMP",
+      "metrics": {
+        "binding_confidence": 6.908355173306808e-06,
+        "structure_confidence": 0.6231847405433655,
+        "iptm": 0.8387814164161682,
+        "min_interaction_pae": 2.5511627197265625
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_34.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-36",
+      "design_id": "pres_qW1adPYSwju1cHCp48Et",
+      "sequence": "SLKEKIEEKLEEFRKALEKEDYEKAKEIVKEIIELLKNDPKLLEEAVKRIIDIATEVGKKLNKPGEANEISAFALKESEK",
+      "metrics": {
+        "binding_confidence": 0.7339495178841505,
+        "structure_confidence": 0.7419455051422119,
+        "iptm": 0.9580870866775513,
+        "min_interaction_pae": 0.7758040428161621
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_35.cif",
+      "qc_pass": true,
+      "reasons": [],
+      "passed": true
+    },
+    {
+      "id": "design-37",
+      "design_id": "pres_UPuxaLT8ujQpeAhqJtSc",
+      "sequence": "MNGKAAAKMTELVARYMLKMDEAADNGASDEELEELRREGLEELRRLAEELKKSEATEEELEKLLRELEEQLKEFTDFLK",
+      "metrics": {
+        "binding_confidence": 0.6151011245048317,
+        "structure_confidence": 0.6435509324073792,
+        "iptm": 0.8786252737045288,
+        "min_interaction_pae": 2.0713558197021484
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_36.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-38",
+      "design_id": "pres_Pah3VQwwEcnDxpIdq2fj",
+      "sequence": "SIEEKLDKILELTTKIAVELGKKNNGKISGEEMAEVLVERIEKELDVPEEVIEELKERLLEYEEMTAAQAQAVVALLSEK",
+      "metrics": {
+        "binding_confidence": 0.7315985563631643,
+        "structure_confidence": 0.7324560284614563,
+        "iptm": 0.9597492814064026,
+        "min_interaction_pae": 0.6664174795150757
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_37.cif",
+      "qc_pass": true,
+      "reasons": [],
+      "passed": true
+    },
+    {
+      "id": "design-39",
+      "design_id": "pres_bulEPP2Zf5u5FvPnlcZ2",
+      "sequence": "SNLKKHLEELLKNLEKLLSDKSLTEEERKLVINYYFEKIKRLLKKLDEETKNEVIKKLEEIAKKFNDKLVEEFVKELKKL",
+      "metrics": {
+        "binding_confidence": 0.20333639101082596,
+        "structure_confidence": 0.6353486180305481,
+        "iptm": 0.8617092370986938,
+        "min_interaction_pae": 2.3919601440429688
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_38.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-40",
+      "design_id": "pres_VLy20vUP4bpA8OJUj7If",
+      "sequence": "SREEKIELAEKIVEHYEKEPVMSGDLSEELIKILIELGESKDTSREGKFNLVLEKLEKLSEEEFEEVKKSLEKMLEKLKK",
+      "metrics": {
+        "binding_confidence": 0.0005665887578171062,
+        "structure_confidence": 0.5659226179122925,
+        "iptm": 0.7680589556694031,
+        "min_interaction_pae": 3.7297816276550293
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_39.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-41",
+      "design_id": "pres_1NVZz6hEbjDCS9Mt4Dlw",
+      "sequence": "MLSDPALGASIQVEIVKEEKVKSLSDLIPMSKVIEIIKKFKKENEELVEKIIKALEEKFGDKKTATLEDVFKIITEVAKS",
+      "metrics": {
+        "binding_confidence": 8.167413775028793e-05,
+        "structure_confidence": 0.7019356489181519,
+        "iptm": 0.9194201231002808,
+        "min_interaction_pae": 1.369442105293274
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_40.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-42",
+      "design_id": "pres_tt2mYOWI2BCIfoatAmOg",
+      "sequence": "FSKKEIAKLRGKAPPILSYEEALEEVEKLPSLSKEEQLLWAIRLVASSKSYSEEQQKEILELMEKNLDKEILEAALKYGG",
+      "metrics": {
+        "binding_confidence": 0.013899122178554536,
+        "structure_confidence": 0.6284964680671692,
+        "iptm": 0.9011653065681458,
+        "min_interaction_pae": 0.9141193628311157
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_41.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-43",
+      "design_id": "pres_TjzHvZBIJ25fMsWdPHp6",
+      "sequence": "MIKEELDKIIELSKSNPLMKEEIEKIKKELLSAPKEELPDLLKELKAVVLSGQKFLSKEQQEEIEEHLKNLEKAVKELQE",
+      "metrics": {
+        "binding_confidence": 0.7227395761834092,
+        "structure_confidence": 0.7197668552398682,
+        "iptm": 0.937900960445404,
+        "min_interaction_pae": 0.9555330872535706
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_42.cif",
+      "qc_pass": true,
+      "reasons": [],
+      "passed": true
+    },
+    {
+      "id": "design-44",
+      "design_id": "pres_HqpGoZtyXDRaSR2vSS4R",
+      "sequence": "NKKPTLSAEELLKKLEEIKKELEGDTPLEELKKKIIELLETSILPEEVKEKFIEKIKAAKTKEELKPILEELIKEVKKLL",
+      "metrics": {
+        "binding_confidence": 5.953263689262171e-05,
+        "structure_confidence": 0.5089107155799866,
+        "iptm": 0.7073058485984802,
+        "min_interaction_pae": 4.736504554748535
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_43.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-45",
+      "design_id": "pres_UHczc4eZ3hNeZjkaL7iN",
+      "sequence": "SDIEKVEKAVEEVKNKLKKIKNEELDEEEVEKMLEELLELFKSLGVSPNISFSRAVLTNKEKLLESLENAKKNAVELLSE",
+      "metrics": {
+        "binding_confidence": 4.106881478540329e-06,
+        "structure_confidence": 0.5605737566947937,
+        "iptm": 0.8017703294754028,
+        "min_interaction_pae": 3.4002060890197754
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_44.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-46",
+      "design_id": "pres_MbEqfUW86R9hTL5Ty2pM",
+      "sequence": "SMKEEIKKELLEYAKKKGKSVTLEETKEFLKKILEKYNIKVSEDGLNFTAITLLKGIKAGKLEEGAEVAVESLFTASELV",
+      "metrics": {
+        "binding_confidence": 0.49611301581157813,
+        "structure_confidence": 0.7094998359680176,
+        "iptm": 0.9270564913749695,
+        "min_interaction_pae": 1.1203241348266602
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_45.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-47",
+      "design_id": "pres_Z5kDRy2tOggOjyefEY2W",
+      "sequence": "MEEELEKLLEYLPAKSRKKIEELIKKAGENPSEEEREELKKILTSVFPELEEELEEALKKGASTKELIKLAVEKLEKIKS",
+      "metrics": {
+        "binding_confidence": 4.2114788552156464e-06,
+        "structure_confidence": 0.43549078702926636,
+        "iptm": 0.679805338382721,
+        "min_interaction_pae": 5.913534641265869
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_46.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-48",
+      "design_id": "pres_l3v5P1uvOniStEMBjkFE",
+      "sequence": "DKEVEETTEKIMELLGELLKLITESKDEEKQKEALARIKELFDGVTMPSRAWLKNFIKEDKERAEKIIEELERLIEELKK",
+      "metrics": {
+        "binding_confidence": 1.1880569344849462e-05,
+        "structure_confidence": 0.6800780892372131,
+        "iptm": 0.8869098424911499,
+        "min_interaction_pae": 1.8071610927581787
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_47.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70"
+      ],
+      "passed": false
+    },
+    {
+      "id": "design-49",
+      "design_id": "pres_HygnyaQubV7EX8qY5LAu",
+      "sequence": "PSKEKIEELLKLVEEIKEVSKDEKLHEALDVIEELIKEETEESLEAAKTQVKMVLSSGYSKKLDEESKELLKKLLELLEK",
+      "metrics": {
+        "binding_confidence": 0.7914630021478944,
+        "structure_confidence": 0.7359331846237183,
+        "iptm": 0.9571672677993774,
+        "min_interaction_pae": 0.6868041157722473
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_48.cif",
+      "qc_pass": true,
+      "reasons": [],
+      "passed": true
+    },
+    {
+      "id": "design-50",
+      "design_id": "pres_T39bsFIUxNhvF668vMGK",
+      "sequence": "MEFSEEEKEILKKLLEKLKEYIKSQPENNIYKHIEENLPIIVAEVLEGVDIDTVVNSQIPGSFEELREYLKKLIKEELEK",
+      "metrics": {
+        "binding_confidence": 3.982939683643808e-06,
+        "structure_confidence": 0.5953866243362427,
+        "iptm": 0.8093978762626648,
+        "min_interaction_pae": 2.9944558143615723
+      },
+      "structure_state": "ready",
+      "reason": "",
+      "binder_chain": "B",
+      "source_file": "structures/result_49.cif",
+      "qc_pass": true,
+      "reasons": [
+        "binding_confidence_below_0.70",
+        "structure_confidence_below_0.68"
+      ],
+      "passed": false
+    }
+  ],
+  "selected": [
+    "design-23",
+    "design-49",
+    "design-27"
+  ],
+  "diagnostic": [],
+  "events": [
+    "New 50-design task requested after credential change; previous task could not be queried with current key.",
+    "Real structures verified against target and binder sequences. Selected candidates passed model gates.",
+    "Real structures verified against target and binder sequences. Selected candidates passed model gates."
+  ],
+  "jobName": "protolab-e05a04d950f7436793eb44d44090a473",
+  "provider_state": "Complete",
+  "screen_version": 2,
+  "selection_basis": "Sequence/structure QC, then descending model binding confidence; structure confidence breaks ties. Passing requires binding \u22650.70 and structure \u22650.68. Not measured affinity.",
+  "visualization_run": "protolab-e05a04d950f7436793eb44d44090a473",
+  "rendered": [
+    "target",
+    "design-23",
+    "design-49",
+    "design-27"
+  ],
+  "rendering_candidate": null,
+  "task_name": "Real IL-2 demo \u00b7 50 candidates"
+}

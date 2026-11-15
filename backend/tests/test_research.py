@@ -109,6 +109,9 @@ def test_bundled_demos_restore_without_overwriting(tmp_path,monkeypatch):
     research.install_bundled_demos();assert (root/'demo.json').read_text()=='bundled'
     (root/'demo.json').write_text('local')
     research.install_bundled_demos();assert (root/'demo.json').read_text()=='local'
+    experiments=tmp_path/'demo-data'/'experiments';experiments.mkdir()
+    (experiments/'demo.json').write_text('follow-up')
+    research.install_bundled_demos();assert (root.parent/'experiments'/'demo.json').read_text()=='follow-up'
 
 def test_named_tasks_are_distinct_and_keep_real_count_and_priorities(isolated,monkeypatch):
     entry={'primaryAccession':'P60568','organism':{'scientificName':'Homo sapiens'},'sequence':{'value':'A'*100},'features':[],'genes':[{'geneName':{'value':'IL2'}}],'proteinDescription':{'recommendedName':{'fullName':{'value':'Interleukin-2'}}}}
@@ -123,6 +126,15 @@ def test_named_tasks_are_distinct_and_keep_real_count_and_priorities(isolated,mo
     assert all('target_sequence' not in x for x in research.list_tasks())
     for invalid in [9,101,10.5,True]:
         with pytest.raises(ValueError,match='count'):research.resolve({**data,'count':invalid})
+
+def test_legacy_submitted_tasks_are_visible_without_exposing_sequences(isolated):
+    rid='research-'+'a'*32
+    research.write({'id':rid,'stage':'render_failed','jobName':'submitted','target_sequence':'PRIVATE',
+                    'spec':{'symbol':'IL2','accession':'P60568','species':'Homo sapiens','count':50},'candidates':[]})
+    items=research.list_tasks()
+    assert len(items)==1 and items[0]['id']==rid
+    assert '50 candidates' in items[0]['task_name']
+    assert 'target_sequence' not in items[0]
 
 def test_worker_sends_task_count_to_tamarind(isolated,monkeypatch):
     rid='research-'+'f'*32
