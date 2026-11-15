@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="ReceptorFlow — agentic binder screening and evidence-led candidate ranking.">
-  <title>ReceptorFlow — molecular decision workbench</title>
+  <meta name="description" content="myprotein — protein design and research workspace.">
+  <title>myprotein — molecular decision workbench</title>
   <link rel="stylesheet" href="/style.css">
   <link rel="stylesheet" href="/molecular-evidence.css">
 </head>
 <body>
   <div class="noise" aria-hidden="true"></div>
   <aside class="sidebar" aria-label="Primary navigation">
-    <a class="wordmark" href="#top" aria-label="ReceptorFlow home"><span>R</span><i>f</i></a>
+    <a class="wordmark" href="#top" aria-label="myprotein home"><span>myprotein</span></a>
     <nav>
       <a class="nav-item is-active" href="#design" data-page-link="design"><b>01</b><span>New task</span></a>
       <a class="nav-item" href="#tasks" data-page-link="tasks"><b>02</b><span>Tasks</span></a>
@@ -30,7 +30,7 @@
 
   <div class="app-shell" id="top">
     <header class="topbar">
-      <div class="project-crumb"><span>PROTOLAB</span><i>/</i><strong>RECEPTORFLOW</strong></div>
+      <div class="project-crumb"><strong>myprotein</strong></div>
       <div class="topbar-actions">
         <button class="ghost compact" id="export-json" disabled>Export run</button>
         <button class="avatar" aria-label="Live workspace">IC</button>
@@ -38,9 +38,9 @@
     </header>
 
     <main>
-      <div class="workspace-intro"><div><span class="kicker">PROTOLAB / PROTEIN DESIGN WORKSPACE</span><h1>From target <em>to evidence.</em></h1><p>Design candidates, inspect model confidence, and plan what to test next.</p></div><div class="workspace-index"><span>WORKFLOW</span><strong>04</strong><small>CONNECTED<br>STAGES</small></div></div>
+      <div class="workspace-intro"><canvas id="protein-visual" aria-hidden="true"></canvas><div class="workspace-intro-copy"><span class="kicker">myprotein / PROTEIN DESIGN WORKSPACE</span><h1>From target <em>to evidence.</em></h1><p>Design candidates, inspect model confidence, and plan what to test next.</p></div><div class="workspace-index"><span>WORKFLOW</span><strong>04</strong><small>CONNECTED<br>STAGES</small></div></div>
       <section class="workspace-page" data-page="design">
-        <div class="page-heading"><div><span class="kicker">01 / NEW TASK</span><h2>Define your protein.</h2><p>Start with a target and tell us what matters for your candidates.</p></div><span class="page-counter">01 <small>/ 05</small></span></div>
+        <div class="page-heading"><div><span class="kicker">01 / NEW TASK</span><h2>Define your protein.</h2></div><span class="page-counter">01 <small>/ 05</small></span></div>
       <section class="design-grid reveal delay-2" id="design">
         <article class="panel brief-builder">
           <div class="panel-heading">
@@ -57,21 +57,22 @@
             <label class="field">
               <span>Species</span>
               <select id="species">
-                <option>Homo sapiens</option>
-                <option>Mus musculus</option>
-                <option disabled>Other / custom (not yet supported)</option>
+                <optgroup label="Supported for calculations"><option value="Homo sapiens">Human · Homo sapiens</option><option value="Mus musculus">Mouse · Mus musculus</option></optgroup>
+                <optgroup label="Not yet supported by the backend"><option disabled>Rat · Rattus norvegicus</option><option disabled>Rhesus macaque · Macaca mulatta</option><option disabled>Zebrafish · Danio rerio</option><option disabled>Fruit fly · Drosophila melanogaster</option><option disabled>Yeast · Saccharomyces cerevisiae</option><option disabled>E. coli · Escherichia coli</option></optgroup>
               </select>
             </label>
             <label class="field">
               <span>Candidate count</span>
               <input id="candidate-count" type="number" min="10" max="100" value="10" step="1">
-              <small class="field-note">10–100 candidates · real model input</small>
+              
             </label>
             <input type="hidden" id="modality" value="Protein binder">
           </div>
 
+          <div class="formula-lookup"><button type="button" class="ghost" id="lookup-formula">Look up UniProt formula</button><div id="formula-result" role="status" aria-live="polite"></div></div>
+
           <input type="hidden" id="intent" value="Design a miniprotein binder for structural binding assessment.">
-          <div class="preferences-header"><div><span class="kicker">DESIGN PRIORITIES</span><h3>What matters most?</h3><p>Set each priority independently. They are saved with the task for future model integration.</p></div><span class="preview-badge">SAVED WITH TASK</span></div>
+          <div class="preferences-header"><div><span class="kicker">DESIGN PRIORITIES</span><h3>What matters most?</h3><small class="priority-status">Saved only · not used by model</small></div><span class="preview-badge">SAVED WITH TASK</span></div>
           <div class="priority-list">
             <label class="priority-row"><span><strong>Affinity</strong><small>Target binding</small></span><input type="range" min="0" max="100" value="40" data-priority="Affinity"><output>40%</output></label>
             <label class="priority-row"><span><strong>Selectivity</strong><small>Off-target preference</small></span><input type="range" min="0" max="100" value="25" data-priority="Selectivity"><output>25%</output></label>
@@ -79,10 +80,10 @@
             <label class="priority-row"><span><strong>Stability</strong><small>Structural reliability</small></span><input type="range" min="0" max="100" value="10" data-priority="Stability"><output>10%</output></label>
             <label class="priority-row"><span><strong>Manufacturability</strong><small>Expression &amp; solubility</small></span><input type="range" min="0" max="100" value="5" data-priority="Manufacturability"><output>5%</output></label>
           </div>
-          <p class="parameter-disclaimer">Candidate count is sent to Tamarind. Priority sliders are saved with this task but are not yet sent to the model or used for ranking.</p>
+          
           <p id="task-error" class="task-error" role="alert" hidden></p>
           <div class="builder-action">
-            <div class="agent-note"><span>LIVE COMPUTE</span><p>Starting creates a named task and submits a real Tamarind job using account credits.</p></div>
+            
             <button class="primary" id="build-brief">Start real task <span>↗</span></button>
           </div>
         </article>
@@ -90,12 +91,12 @@
         </section>
       </section>
       <section class="workspace-page" data-page="tasks" hidden>
-        <div class="page-heading"><div><span class="kicker">02 / YOUR PROJECTS</span><h2>Your tasks.</h2><p>Open a task to see its own ranking, simulation and structures.</p></div><span class="page-counter">02 <small>/ 05</small></span></div>
+        <div class="page-heading"><div><span class="kicker">02 / YOUR PROJECTS</span><h2>Your tasks.</h2></div><span class="page-counter">02 <small>/ 05</small></span></div>
         <article class="panel task-list-panel"><div class="panel-heading"><div><span class="section-no">ALL</span><h2>Task library</h2></div><button class="ghost" data-go="design">+ New task</button></div><p class="history-copy">Real tasks and their results are stored locally.</p><div id="task-list" class="task-list"><p class="task-empty">No tasks yet. Start one from New task.</p></div></article>
       </section>
       <section class="workspace-page" data-page="ranking" hidden>
         <div class="task-context"><button class="text-action" data-go="tasks">← All tasks</button><span class="current-task-name">No task selected</span><span class="current-task-target"></span></div><div class="example-notice" hidden>EXAMPLE TASK · Uses previously computed IL-2 designs. Starting simulations submits new real jobs.</div>
-        <div class="page-heading"><div><span class="kicker">03 / CANDIDATE SCREEN</span><h2>Confidence, in context.</h2><p>Compare the real model results and inspect the top three candidates.</p></div><span class="page-counter">02 <small>/ 04</small></span></div>
+        <div class="page-heading"><div><span class="kicker">03 / CANDIDATE SCREEN</span><h2>Confidence, in context.</h2></div><span class="page-counter">02 <small>/ 04</small></span></div>
       <section class="screen-layout reveal" id="pipeline" hidden>
         <article class="panel priorities-panel" hidden>
           <div class="panel-heading"><div><span class="section-no">02</span><h2>Real screening criteria</h2></div></div>
@@ -135,7 +136,7 @@
           <div class="results-actions"><button class="ghost" id="export-csv">Export CSV</button><button class="primary" id="compare-top">View top candidate</button></div>
         </div>
 
-        <div class="ranking-notice" id="selection-note"></div><div class="stats-row" hidden><strong id="stat-screened"></strong><strong id="stat-eligible"></strong><strong id="stat-excluded"></strong><strong id="stat-frontier"></strong></div><div id="winner-grid" hidden></div>
+        <div class="ranking-notice" id="selection-note" hidden></div><div class="stats-row" hidden><strong id="stat-screened"></strong><strong id="stat-eligible"></strong><strong id="stat-excluded"></strong><strong id="stat-frontier"></strong></div><div id="winner-grid" hidden></div>
         <div class="results-grid">
           <article class="panel candidate-panel">
             <div class="panel-heading">
@@ -155,23 +156,23 @@
         </div>
       </section>
 
-      <div class="page-bottom"><span>See how the shortlisted candidates might be assessed next.</span><button class="primary" data-go="experiment">Continue to experiment <span>↗</span></button></div>
+      <div class="page-bottom"><button class="primary" data-go="experiment">Continue to experiment <span>↗</span></button></div>
       </section>
       <section class="workspace-page" data-page="experiment" hidden>
         <div class="task-context"><button class="text-action" data-go="tasks">← All tasks</button><span class="current-task-name">No task selected</span><span class="current-task-target"></span></div><div class="example-notice" hidden>EXAMPLE TASK · Uses previously computed IL-2 designs. Starting simulations submits new real jobs.</div>
-        <div class="page-heading"><div><span class="kicker">03 / SIMULATION EXPERIMENT</span><h2>Put the shortlist to the test.</h2><p>Design a follow-up prediction for the three selected candidates.</p></div><span class="page-counter">03 <small>/ 04</small></span></div>
-        <div class="experiment-layout"><article class="panel experiment-main"><div class="panel-heading"><div><span class="section-no">01</span><h2>Predict the complex</h2></div><span class="preview-badge">BOLTZ-2</span></div><div class="experiment-content"><p>Run an independent structure prediction for each of the three shortlisted candidates against this task’s target.</p><div id="experiment-selector" class="experiment-selector"></div><div class="experiment-stage" id="experiment-stage"><div id="experiment-placeholder"><span>◎ + ✳</span><p>Select a candidate to inspect its predicted complex when ready.</p></div><video id="experiment-video" controls muted playsinline loop hidden></video></div><div class="experiment-actions"><button type="button" class="ghost" id="open-simulation-view" hidden>View in structure studio ↗</button><button class="primary" id="start-experiment" disabled>Run 3 predictions <span>↗</span></button><span id="experiment-progress">Waiting for a shortlist</span></div><p class="experiment-note">Three real Tamarind jobs use account credits. Predictions do not establish biological activity or replace wet-lab validation.</p></div></article><aside class="panel experiment-aside"><span class="kicker">CANDIDATE RESULTS / BOLTZ-2</span><h3>Three predictions.</h3><p>Review the status and reported confidence for each candidate.</p><div id="experiment-shortlist" class="shortlist-placeholder">No candidates loaded yet.</div><button class="text-action" data-go="ranking">← Back to ranking</button></aside></div>
-        <div class="page-bottom"><span>View candidate structures and any available predicted complexes.</span><button class="primary" id="open-selected-visualization">Open visualization <span>↗</span></button></div>
+        <div class="page-heading"><div><span class="kicker">03 / SIMULATION EXPERIMENT</span><h2>Put the shortlist to the test.</h2></div><span class="page-counter">03 <small>/ 04</small></span></div>
+        <div class="experiment-layout"><article class="panel experiment-main"><div class="panel-heading"><div><span class="section-no">01</span><h2>Predict the complex</h2></div><span class="preview-badge">BOLTZ-2</span></div><div class="experiment-content"><div id="experiment-selector" class="experiment-selector"></div><p id="experiment-selection-count" class="experiment-note" hidden></p><div class="experiment-stage" id="experiment-stage"><div id="experiment-placeholder"><span>◎ + ✳</span><p>Select a candidate to inspect its predicted complex when ready.</p></div><video id="experiment-video" controls muted playsinline loop hidden></video></div><div class="experiment-actions"><button type="button" class="ghost" id="open-simulation-view" hidden>View in structure studio ↗</button><button class="primary" id="start-experiment" disabled>Run selected predictions <span>↗</span></button><button type="button" class="ghost" id="retry-experiment" hidden>Retry rejected predictions ↗</button><span id="experiment-progress" role="status" aria-live="polite">Choose candidates</span></div></div></article><aside class="panel experiment-aside"><span class="kicker">CANDIDATE RESULTS / BOLTZ-2</span><h3>Candidate predictions.</h3><div id="experiment-shortlist" class="shortlist-placeholder"></div><button class="text-action" data-go="ranking">← Back to ranking</button></aside></div>
+        <div class="page-bottom"><button class="primary" id="open-selected-visualization">Open visualization <span>↗</span></button></div>
       </section>
       <section class="workspace-page" data-page="visualization" hidden>
         <div class="task-context"><button class="text-action" data-go="tasks">← All tasks</button><span class="current-task-name">No task selected</span><span class="current-task-target"></span></div><div class="example-notice" hidden>EXAMPLE TASK · Uses previously computed IL-2 designs. Starting simulations submits new real jobs.</div>
-        <div class="page-heading"><div><span class="kicker">04 / STRUCTURE STUDIO</span><h2>See the science.</h2><p>Explore shortlisted proteins and their predicted complexes with the target.</p></div><span class="page-counter">04 <small>/ 04</small></span></div>
-        <article class="panel evidence-trail" id="candidate-evidence" hidden><div class="panel-heading"><div><span class="section-no">EVIDENCE</span><h2>Candidate evidence</h2></div><span class="panel-meta">MODEL OUTPUT + TRACEABLE SOURCE</span></div><div class="evidence-trail-body"><div><span class="kicker">CANDIDATE</span><h3 id="trail-candidate">—</h3><p id="trail-verdict"></p></div><div class="evidence-metrics"><div><span>Binding confidence</span><strong id="trail-binding">—</strong></div><div><span>Structure confidence</span><strong id="trail-structure">—</strong></div><div><span>Interface ipTM</span><strong id="trail-iptm">—</strong></div></div><div class="trail-sources"><p id="trail-basis"></p><p id="trail-source"></p><p id="trail-contacts"></p><p id="trail-experiment"></p><p>These are predicted model outputs and geometric contacts, not proof of function, causal mechanism or experimental validation.</p></div></div></article>
+        <div class="page-heading"><div><span class="kicker">04 / STRUCTURE STUDIO</span><h2>See the science.</h2></div><span class="page-counter">04 <small>/ 04</small></span></div>
+        <article class="panel evidence-trail" id="candidate-evidence" hidden><div class="panel-heading"><div><span class="section-no">EVIDENCE</span><h2>Candidate evidence</h2></div><span class="panel-meta">MODEL OUTPUT + TRACEABLE SOURCE</span></div><div class="evidence-trail-body"><div><span class="kicker">CANDIDATE</span><h3 id="trail-candidate">—</h3><p id="trail-verdict"></p></div><div class="evidence-metrics"><div><span>Binding confidence</span><strong id="trail-binding">—</strong></div><div><span>Structure confidence</span><strong id="trail-structure">—</strong></div><div><span>Interface ipTM</span><strong id="trail-iptm">—</strong></div></div><div class="trail-sources"><p id="trail-basis"></p><p id="trail-source"></p><p id="trail-contacts"></p><p id="trail-experiment"></p></div></div></article>
         <article class="panel molecular-evidence" id="molecular-evidence" tabindex="-1" aria-label="Molecular Evidence">
           <div class="panel-heading"><div><span class="section-no">3D</span><h2>Molecular Evidence</h2></div><span id="evidence-badge">Awaiting target</span></div>
           <div class="evidence-body">
-            <div class="evidence-source">Evidence source: <span id="evidence-source-name">Design prediction</span> <button id="evidence-original" type="button" hidden>Back to design structures</button></div>
-            <p id="evidence-scope" class="evidence-note">Resolve the design brief to load target evidence.</p>
+            <div class="evidence-source">Evidence source: <span id="evidence-source-name">Design prediction</span> <label> <select id="evidence-source-select" aria-label="Choose prediction source"><option value="design">Design prediction</option></select></label> <button id="evidence-original" type="button" hidden>Back to design structures</button></div>
+            <p id="evidence-scope" class="evidence-note" hidden></p>
             <div id="evidence-candidates" class="evidence-pills" role="group" aria-label="Target and selected candidates"></div>
             <div class="evidence-tabs" role="group" aria-label="Structure view"><button id="evidence-target" aria-pressed="true">Target</button><button id="evidence-monomer" aria-pressed="false">Selected proteins</button><button id="evidence-complex" aria-pressed="false">Predicted complex</button></div>
             <div class="evidence-controls"><label>Representation<select id="evidence-representation"><option value="cartoon">Cartoon</option><option value="surface">Molecular surface</option><option value="interface">Cartoon + interface sticks</option><option value="target_only">Target only</option><option value="binder_only">Binder only</option><option value="full_complex">Full complex</option></select></label><button id="evidence-reset">Reset camera</button><button id="evidence-fullscreen">Full screen</button></div>
@@ -188,7 +189,7 @@
 
       </section>
       <footer>
-        <span>RECEPTORFLOW / PROTOLAB</span>
+        <span>myprotein</span>
         <p>Evidence before explanation.</p>
         <span>MODEL-BASED RESEARCH SUPPORT · 2026</span>
       </footer>

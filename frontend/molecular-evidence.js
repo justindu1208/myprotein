@@ -36,6 +36,7 @@ class SamsonViewer {
 const molecularEvidence=(()=>{
   const el=id=>document.getElementById(id);
   let manifest=null,record=null,selected='target',role='target',epoch=0,renderStatus=null,poll=null,blocked=false,loadedKey='',pendingFocus=null;
+  const autoRequested=new Set();
   const samson=new SamsonViewer(el('samson-viewer'),()=>{blocked=true;samson.clear();fallback();},message=>el('evidence-status').textContent=message);
   const request=async(url,body)=>{const r=await fetch(url,body?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)}:{});const d=await r.json();if(!r.ok)throw Error(d.error||'Request failed');return d;};
   function asset(){return role==='target'?manifest?.target:manifest?.candidates?.[selected]?.[role];}
@@ -46,10 +47,10 @@ const molecularEvidence=(()=>{
     const files=renderStatus?.state==='ready'?renderStatus.artifacts:{};const movie=files?.[role+'.mp4'],image=files?.[role+'.png'];
     if(movie){const v=el('evidence-video');if(v.getAttribute('src')!==movie){v.src=movie;v.loop=role!=='complex';v.onloadedmetadata=()=>{if(role==='complex'&&v.duration>=16)v.currentTime=10;v.play().catch(()=>{});};v.onended=()=>{if(role==='complex'&&v.duration>=16){v.currentTime=10;v.play().catch(()=>{});}};}if(image)v.poster=image;v.hidden=false;v.play().catch(()=>{});el('evidence-empty').hidden=true;el('evidence-animation-label').hidden=role!=='complex';}
     else if(image){el('evidence-image').src=image;el('evidence-image').hidden=false;el('evidence-empty').hidden=true;}
-    else el('evidence-empty').textContent=asset()?'Real structure available. Animation is being prepared or has not yet been rendered.':'Waiting for this target’s real structures. No historical result is substituted.';
+    else el('evidence-empty').textContent=asset()?'Real structure available. Animation is being prepared or has not yet been rendered.':'No structure is available for this candidate and view yet. No historical result is substituted.';
     el('evidence-retry').hidden=!blocked;
   }
-  function choices(){return record?[...(record.selected||[]),...(record.diagnostic||[])]:[];}
+  function choices(){return record?(record.visualization_choices||[...(record.candidates||[])].sort((a,b)=>Number(b.qc_pass)-Number(a.qc_pass)||(b.metrics?.binding_confidence??-1)-(a.metrics?.binding_confidence??-1)||(b.metrics?.structure_confidence??-1)-(a.metrics?.structure_confidence??-1)).map(c=>c.id)):[];}
   function tabs(){
     const ids=['target',...choices()];if(selected!=='target'&&!ids.includes(selected))ids.push(selected);
     el('evidence-candidates').replaceChildren(...ids.map(id=>{const b=document.createElement('button');b.textContent=id==='target'?'Target':id;b.type='button';b.setAttribute('aria-pressed',id===selected);b.onclick=()=>{selected=id;role=id==='target'?'target':'monomer';update();};return b;}));
@@ -61,6 +62,13 @@ const molecularEvidence=(()=>{
       link('evidence-script',d.artifacts?.['render.cxc']);el('evidence-render').disabled=['queued','running'].includes(d.state);
       el('evidence-status').textContent=`ChimeraX: ${d.state}${d.reason?' · '+d.reason:''}`;
       if(el('samson-viewer').hidden)fallback();
+      const renderKey=`${manifest.run_id}:${cid()}:${el('evidence-representation').value}`;
+      if(d.state==='not_rendered'&&!autoRequested.has(renderKey)){
+        autoRequested.add(renderKey);el('evidence-status').textContent='Rendering selected structure with ChimeraX…';
+        await request(`/api/visualizations/${manifest.run_id}/${cid()}/render`,{preset:el('evidence-representation').value});
+        if(token===epoch)poll=setTimeout(()=>status(token),1000);
+        return;
+      }
       if(['queued','running'].includes(d.state)||(d.state==='not_rendered'&&record?.stage==='rendering'))poll=setTimeout(()=>status(token),3000);
     }catch(e){if(token===epoch)el('evidence-status').textContent=e.message;}
   }
@@ -87,7 +95,7 @@ const molecularEvidence=(()=>{
     try{const m=await request(`/api/visualizations/${next.visualization_run}/manifest`);
       if(token!==epoch||record?.id!==identity)return;
       if(m.research_id!==next.id||m.target_spec?.sequence_sha256!==next.spec.sequence_sha256)throw Error('Target identity mismatch: refusing unrelated structures');
-      const firstLoad=!manifest;manifest=m;loadedKey=key;if(pendingFocus&&m.candidates?.[pendingFocus]){selected=pendingFocus;role='monomer';pendingFocus=null;}else if(firstLoad&&choices().length){selected=choices()[0];role='monomer';}update();
+      const firstLoad=!manifest;manifest=m;loadedKey=key;if(pendingFocus&&choices().includes(pendingFocus)){selected=pendingFocus;role='monomer';pendingFocus=null;}else if(firstLoad&&choices().length){selected=choices()[0];role='monomer';}update();
     }catch(e){if(token===epoch)el('evidence-status').textContent=e.message;}
   }
   ['target','monomer','complex'].forEach(r=>el('evidence-'+r).onclick=()=>{role=r;update();});
@@ -97,5 +105,5 @@ const molecularEvidence=(()=>{
   el('evidence-blocked').onclick=()=>{blocked=true;samson.clear();fallback();};el('evidence-retry').onclick=update;
   el('evidence-render').onclick=async()=>{if(!asset())return;el('evidence-render').disabled=true;try{await request(`/api/visualizations/${manifest.run_id}/${cid()}/render`,{preset:el('evidence-representation').value});await status(epoch);}catch(e){el('evidence-status').textContent=e.message;el('evidence-render').disabled=false;}};
   clear();
-  return {clear,setResearch,focusCandidate(id){if(!manifest){pendingFocus=id;return;}if(!manifest.candidates?.[id])return;selected=id;role='monomer';update();el('candidate-evidence').scrollIntoView({behavior:'smooth'});}};
+  return {clear,setResearch,focusCandidate(id){if(!manifest){pendingFocus=id;return;}if(!choices().includes(id))return;selected=id;role='monomer';update();el('candidate-evidence').scrollIntoView({behavior:'smooth'});}};
 })();

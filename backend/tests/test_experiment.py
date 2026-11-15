@@ -22,10 +22,21 @@ def test_start_creates_exactly_three_jobs_and_never_resubmits(fixture_task,monke
     assert 'target_sequence' not in first
 
 def test_missing_shortlist_does_not_submit(fixture_task,monkeypatch):
-    r=research.read(fixture_task);r['diagnostic']=[];research.write(r)
     launch=Mock();monkeypatch.setattr(experiment,'launch',launch)
-    with pytest.raises(ValueError,match='Three shortlisted'):experiment.start(fixture_task)
+    with pytest.raises(ValueError,match='at least one'):experiment.start(fixture_task,[])
     launch.assert_not_called()
+
+def test_select_and_append_candidates_without_duplicates(fixture_task,monkeypatch):
+    monkeypatch.setattr(experiment,'launch',Mock())
+    first=experiment.start(fixture_task,['design-2'])
+    assert [j['candidate_id'] for j in first['jobs']]==['design-2']
+    with pytest.raises(ValueError,match='current predictions'):experiment.start(fixture_task,['design-1'])
+    first['state']='finished_with_errors';first['jobs'][0]['state']='failed';experiment.write(first)
+    with pytest.raises(ValueError,match='already has'):experiment.start(fixture_task,['design-2'])
+    with pytest.raises(ValueError,match='Duplicate'):experiment.start(fixture_task,['design-1','design-1'])
+    with pytest.raises(ValueError,match='sequence missing'):experiment.start(fixture_task,['unknown'])
+    result=experiment.start(fixture_task,['design-3','design-1'])
+    assert [j['candidate_id'] for j in result['jobs']]==['design-2','design-3','design-1']
 
 def test_interrupted_submission_not_retried(fixture_task,monkeypatch):
     j={'candidate_id':'design-1','jobName':'protolab-'+'b'*32,'state':'submitting'}

@@ -1,4 +1,4 @@
-"""Independent Boltz-2 predictions for one research task's three candidates."""
+"""Independent Boltz-2 predictions for selected candidates in a research task."""
 import csv, io, json, threading, time, uuid
 from pathlib import Path
 from urllib.parse import urlparse
@@ -34,18 +34,21 @@ def launch(rid):
         if WORKERS.get(rid) and WORKERS[rid].is_alive():return
         t=threading.Thread(target=work,args=(rid,),daemon=True);WORKERS[rid]=t;t.start()
 
-def start(rid):
+def start(rid, candidate_ids=None):
     with LOCK:
         existing=read(rid)
-        if existing['state']!='not_started':
+        if candidate_ids is None and existing['state']!='not_started':
             if existing['state'] not in TERMINAL:launch(rid)
             return public(existing)
-        r=research.read(rid);ids=(r.get('selected') or [])+(r.get('diagnostic') or [])
-        if len(ids)!=3:raise ValueError('Three shortlisted candidates with sequences are required')
+        if existing['state']=='running':raise ValueError('Wait for the current predictions to finish before starting more')
+        r=research.read(rid);ids=candidate_ids if candidate_ids is not None else (r.get('selected') or [])+(r.get('diagnostic') or [])
+        if not isinstance(ids,list) or not ids or any(not isinstance(cid,str) for cid in ids):raise ValueError('Select at least one candidate')
+        if len(ids)!=len(set(ids)):raise ValueError('Duplicate candidates are not allowed')
         rows={c['id']:c for c in r['candidates']}
         if any(cid not in rows or not rows[cid].get('sequence') for cid in ids):raise ValueError('Candidate sequence missing')
+        if any(j['candidate_id'] in ids for j in existing['jobs']):raise ValueError('A selected candidate already has a prediction; review or retry its existing job')
         jobs=[{'candidate_id':cid,'state':'pending','jobName':'protolab-'+uuid.uuid4().hex} for cid in ids]
-        record={'research_id':rid,'state':'running','jobs':jobs,'note':'Independent Boltz-2 complex prediction; not a wet-lab validation or proof of binding.'}
+        record={'research_id':rid,'state':'running','jobs':existing['jobs']+jobs,'note':'Independent Boltz-2 complex prediction; not a wet-lab validation or proof of binding.'}
         write(record);launch(rid);return public(record)
 
 def retry_rejected(rid):

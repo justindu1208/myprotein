@@ -133,7 +133,7 @@ class Handler(BaseHTTPRequestHandler):
                 size=int(self.headers.get('Content-Length',0))
                 if not 0<size<=5000:raise ValueError('Invalid request size')
                 data=json.loads(self.rfile.read(size))
-                result=experiment.start(data.get('id')) if self.path.endswith('/start') else experiment.retry_rejected(data.get('id'))
+                result=experiment.start(data.get('id'),data.get('candidate_ids')) if self.path.endswith('/start') else experiment.retry_rejected(data.get('id'))
                 return self.respond(200,json.dumps(result,allow_nan=False).encode())
             except Exception as exc:return self.respond(400,json.dumps({'error':str(exc)}).encode())
         if self.path.startswith('/api/research/'):
