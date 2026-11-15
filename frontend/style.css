@@ -173,3 +173,20 @@ body{background:var(--paper)}
 .experiment-result.is-new{animation:result-enter .45s cubic-bezier(.2,.75,.25,1) both}@keyframes result-enter{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:translateX(0)}}@media(prefers-reduced-motion:reduce){.experiment-result.is-new{animation:none}}
 
 .wordmark span{font:700 13px/1 var(--body);letter-spacing:-.05em;color:#eef8f7}@media(max-width:620px){.wordmark{width:82px}.wordmark span{font-size:12px}}
+
+/* A compact wordmark for the navigation and header. */
+.wordmark .brand-name,.project-crumb .brand-name{font-family:var(--body);font-weight:400;letter-spacing:-.045em;text-transform:none;white-space:nowrap;color:#e6f2f0}.wordmark .brand-name{font-size:11px}.project-crumb .brand-name{font-size:15px;letter-spacing:-.035em}.wordmark .brand-name b,.project-crumb .brand-name b{font-family:var(--display);font-weight:400;font-size:1.52em;line-height:.8;color:#99ddda}.project-crumb .brand-name b{font-size:1.35em}@media(max-width:620px){.wordmark .brand-name{font-size:10px}.project-crumb .brand-name{font-size:14px}}
+/* Expressive, flowing brand lettering. */
+.wordmark .brand-name,.project-crumb .brand-name{font-family:MessinaLocalSerif,'Iowan Old Style','Palatino Linotype',Palatino,serif;font-style:italic;font-weight:400;letter-spacing:-.065em;color:#e8f3f1;transform:skewX(-5deg)}
+.wordmark .brand-name{font-size:13px}.project-crumb .brand-name{font-size:19px}
+.wordmark .brand-name b,.project-crumb .brand-name b{display:inline-block;font-family:inherit;font-style:italic;font-size:1.55em;font-weight:400;color:#9edfdc;transform:translateY(1px) rotate(-7deg);margin-right:-.025em}
+.wordmark .brand-name b:nth-of-type(2),.project-crumb .brand-name b:nth-of-type(2){transform:translateY(-1px) rotate(6deg);margin-left:-.035em}
+@media(max-width:620px){.wordmark .brand-name{font-size:11px}.project-crumb .brand-name{font-size:17px}}
+/* Upright wordmark with restrained contrast in letter size. */
+.wordmark .brand-name,.project-crumb .brand-name{font-family:MessinaLocalSans,'Avenir Next',Avenir,'Segoe UI',sans-serif;font-style:normal;font-weight:400;letter-spacing:.005em;transform:none;color:#e6f2f0}
+.wordmark .brand-name{font-size:11px}.project-crumb .brand-name{font-size:15px;letter-spacing:.01em}
+.wordmark .brand-name b,.project-crumb .brand-name b,.wordmark .brand-name b:nth-of-type(2),.project-crumb .brand-name b:nth-of-type(2){font-family:inherit;font-style:normal;font-weight:700;font-size:1.2em;line-height:1;color:#a2dfdc;transform:none;margin:0}
+@media(max-width:620px){.wordmark .brand-name{font-size:10px}.project-crumb .brand-name{font-size:14px}}
+/* Keep every letter of the wordmark in one consistent typeface. */
+.wordmark .brand-name,.project-crumb .brand-name,.wordmark .brand-name b,.project-crumb .brand-name b{font-family:'Avenir Next',Avenir,'Segoe UI',sans-serif;font-style:normal;font-weight:500;color:#e6f2f0;letter-spacing:.01em;transform:none}
+.wordmark .brand-name b,.project-crumb .brand-name b{font-size:inherit;line-height:inherit}
